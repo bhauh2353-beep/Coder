@@ -64,7 +64,7 @@ const Hero = () => {
             <Typewriter
               text={heroText}
               speed={50}
-              className="text-3xl md:text-4xl font-headline font-bold text-foreground leading-tight"
+              className="text-2xl md:text-4xl font-headline font-bold text-foreground leading-tight"
             />
           )}
         </div>
