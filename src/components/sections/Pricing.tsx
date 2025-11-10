@@ -73,8 +73,8 @@ const Pricing = () => {
                 className="w-full max-w-6xl mx-auto"
             >
                 <CarouselContent>
-                    {isLoading && Array.from({ length: 3 }).map((_, i) => (
-                         <CarouselItem key={i} className="sm:basis-1/2 md:basis-1/3">
+                    {isLoading && Array.from({ length: 4 }).map((_, i) => (
+                         <CarouselItem key={i} className="basis-1/2 lg:basis-1/4">
                             <div className="p-1">
                                 <Card className="flex flex-col shadow-lg bg-card/80 backdrop-blur-sm p-6 h-full">
                                     <Skeleton className="h-6 w-32" />
@@ -91,7 +91,7 @@ const Pricing = () => {
                         </CarouselItem>
                     ))}
                     {!isLoading && pricingPlans?.map((plan, index) => (
-                        <CarouselItem key={index} className="sm:basis-1/2 md:basis-1/3">
+                        <CarouselItem key={index} className="basis-1/2 lg:basis-1/4">
                             <div className='p-1 h-full'>
                                 <Card className="flex flex-col shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 bg-card/80 backdrop-blur-sm h-full">
                                 <CardHeader>
