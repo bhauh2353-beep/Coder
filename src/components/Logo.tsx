@@ -33,16 +33,16 @@ const Logo = ({ className }: LogoProps) => {
   if (!isMounted || isLoading) {
     return (
       <div className={cn('flex items-center', className)}>
-        <Skeleton className="h-12 w-32 rounded-md" />
+        <Skeleton className="h-12 w-24 rounded-md" />
         <Skeleton className="h-6 w-32" />
       </div>
     );
   }
 
   return (
-    <Link href="/" className={cn('flex items-center', className)}>
+    <Link href="/" className={cn('flex items-center px-0', className)}>
       {logoUrl ? (
-        <div className="relative h-12 w-32">
+        <div className="relative h-12 w-24">
           <Image
             src={logoUrl}
             alt={`${companyName} Logo`}
