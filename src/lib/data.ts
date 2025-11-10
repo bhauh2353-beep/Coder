@@ -161,10 +161,10 @@ export const defaultTestimonials: Omit<Testimonial, 'id'>[] = [
 ];
 
 export const socialLinks: SocialLink[] = [
-    { name: 'Facebook', href: '#', colorClass: 'text-[#1877F2]' },
-    { name: 'Instagram', href: '#', colorClass: 'text-[#E4405F]' },
-    { name: 'LinkedIn', href: '#', colorClass: 'text-[#0A66C2]' },
-    { name: 'WhatsApp', href: '#', colorClass: 'text-[#25D366]' },
+    { name: 'Facebook', href: '#', colorClass: 'text-orange-600' },
+    { name: 'Instagram', href: '#', colorClass: 'text-orange-600' },
+    { name: 'LinkedIn', href: '#', colorClass: 'text-orange-600' },
+    { name: 'WhatsApp', href: '#', colorClass: 'text-orange-600' },
 ];
 
     
