@@ -62,7 +62,7 @@ const Testimonials = () => {
         >
             <CarouselContent className="-ml-1">
                 {isLoading && Array.from({ length: 4 }).map((_, index) => (
-                    <CarouselItem key={index} className="basis-full sm:basis-1/2 md:basis-1/4 pl-1">
+                    <CarouselItem key={index} className="basis-1/2 md:basis-1/4">
                         <div className="h-full">
                             <Card className="h-full shadow-lg bg-card/80 backdrop-blur-sm">
                                 <CardContent className="flex flex-col items-center text-center p-1 md:p-2 gap-1 md:gap-2 h-full">
@@ -81,12 +81,12 @@ const Testimonials = () => {
                     </CarouselItem>
                 ))}
                 {!isLoading && testimonials?.map((testimonial) => (
-                    <CarouselItem key={testimonial.id} className="basis-full sm:basis-1/2 md:basis-1/4 pl-1">
+                    <CarouselItem key={testimonial.id} className="basis-1/2 md:basis-1/4">
                         <div className='h-full'>
                             <Card className="h-full shadow-lg bg-card/80 backdrop-blur-sm">
                                 <CardContent className="flex flex-col items-center text-center p-1 h-full gap-1">
                                 {testimonial.clientPhotoUrl && (
-                                    <div className="w-10 h-10 md:w-16 md:h-16 relative mt-1 md:mt-2">
+                                    <div className="w-10 h-10 md:w-12 md:h-12 relative mt-1 md:mt-2">
                                         <Image
                                         src={testimonial.clientPhotoUrl}
                                         alt={`Photo of ${testimonial.clientName}`}
@@ -96,17 +96,17 @@ const Testimonials = () => {
                                         />
                                     </div>
                                 )}
-                                <p className="text-muted-foreground flex-grow text-[10px] md:text-sm">"{testimonial.message}"</p>
+                                <p className="text-muted-foreground flex-grow text-[10px] md:text-xs">"{testimonial.message}"</p>
                                 <div className="flex flex-col items-center">
                                     <div className="flex items-center gap-0.5">
                                         {Array.from({ length: 5 }).map((_, i) => (
                                         <Star
                                             key={i}
-                                            className={`w-3 h-3 md:w-4 md:h-4 ${i < testimonial.rating ? 'text-yellow-400 fill-yellow-400' : 'text-muted-foreground/50'}`}
+                                            className={`w-3 h-3 md:w-3 md:h-3 ${i < testimonial.rating ? 'text-yellow-400 fill-yellow-400' : 'text-muted-foreground/50'}`}
                                         />
                                         ))}
                                     </div>
-                                    <span className="font-bold font-headline mt-1 md:mt-2 text-xs md:text-base">{testimonial.clientName}</span>
+                                    <span className="font-bold font-headline mt-1 md:mt-2 text-xs md:text-sm">{testimonial.clientName}</span>
                                 </div>
                                 </CardContent>
                             </Card>
