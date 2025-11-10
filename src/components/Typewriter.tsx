@@ -23,18 +23,23 @@ const Typewriter = ({
   const timeoutIds = useRef<NodeJS.Timeout[]>([]);
 
   useEffect(() => {
+    // Stop any ongoing animations when the text prop changes
     timeoutIds.current.forEach(clearTimeout);
     timeoutIds.current = [];
+    
+    // Reset state for the new text
     index.current = 0;
     setDisplayedText('');
     
     const type = () => {
       if (index.current < text.length) {
-        setDisplayedText((prev) => prev + text.charAt(index.current));
+        // Set text one character at a time
+        setDisplayedText(text.substring(0, index.current + 1));
         index.current++;
         const timeoutId = setTimeout(type, speed);
         timeoutIds.current.push(timeoutId);
       } else {
+        // After finishing, wait and then restart the animation
         const timeoutId = setTimeout(() => {
           index.current = 0;
           setDisplayedText('');
@@ -45,9 +50,11 @@ const Typewriter = ({
     };
 
     if (text) {
+        // Start the typing animation
         type();
     }
 
+    // Cleanup function to clear timeouts when the component unmounts or text changes
     return () => {
       timeoutIds.current.forEach(clearTimeout);
     };
