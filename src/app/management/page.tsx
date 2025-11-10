@@ -99,9 +99,9 @@ export default function ManagementPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="flex items-center gap-4 mb-8">
-        <LayoutDashboard className="w-8 h-8" />
-        <h1 className="text-2xl font-bold font-headline">Management Dashboard</h1>
+      <div className="flex items-center gap-2 mb-8">
+        <LayoutDashboard className="w-6 h-6" />
+        <h1 className="text-xl font-bold font-headline">Management Dashboard</h1>
       </div>
       <p className="mb-8 text-muted-foreground text-sm">
         Welcome, {user.displayName || user.email}. Manage your website content from here.
@@ -110,19 +110,19 @@ export default function ManagementPage() {
         {managementSections.map((section) => (
           <Link href={section.href} key={section.title} className="group">
             <Card className="h-full hover:border-primary hover:shadow-lg transition-all">
-              <CardHeader className="flex flex-row items-center gap-2 p-3">
-                <section.icon className="w-6 h-6 text-primary" />
+              <CardHeader className="flex flex-row items-center gap-2 p-2">
+                <section.icon className="w-5 h-5 text-primary" />
                 <div className='flex-grow'>
-                  <CardTitle className="text-sm font-semibold">{section.title}</CardTitle>
-                  <CardDescription className='text-xs'>{section.description}</CardDescription>
+                  <CardTitle className="text-xs font-semibold">{section.title}</CardTitle>
+                  <CardDescription className='text-[10px] leading-tight'>{section.description}</CardDescription>
                 </div>
                 {section.id === 'customer-query' && pendingCount > 0 && (
-                  <Badge className="h-5 w-5 flex items-center justify-center rounded-full p-0 text-xs">
+                  <Badge className="h-4 w-4 flex items-center justify-center rounded-full p-0 text-[10px]">
                     {pendingCount}
                   </Badge>
                 )}
                  {section.id === 'leads' && leadCount > 0 && (
-                  <Badge className="h-5 w-5 flex items-center justify-center rounded-full p-0 text-xs" variant="secondary">
+                  <Badge className="h-4 w-4 flex items-center justify-center rounded-full p-0 text-[10px]" variant="secondary">
                     {leadCount}
                   </Badge>
                 )}
