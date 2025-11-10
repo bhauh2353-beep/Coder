@@ -1,0 +1,59 @@
+"use client";
+
+import { useState } from 'react';
+import { services } from '@/lib/data';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Dialog, DialogTrigger } from '@/components/ui/dialog';
+import { ServiceQuoteModal } from '../ServiceQuoteModal';
+
+const Services = () => {
+    const [modalOpen, setModalOpen] = useState(false);
+    const [selectedService, setSelectedService] = useState('');
+
+    const handleGetQuote = (serviceTitle: string) => {
+        setSelectedService(serviceTitle);
+        setModalOpen(true);
+    };
+
+  return (
+    <section id="services" className="w-full py-20 md:py-32 bg-secondary/50">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-headline font-bold">Our Services</h2>
+          <p className="text-muted-foreground mt-2 max-w-xl mx-auto">
+            We offer a wide range of digital services to help your business succeed online.
+          </p>
+        </div>
+
+        <Dialog open={modalOpen} onOpenChange={setModalOpen}>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {services.map((service, index) => (
+                <Card key={index} className="text-center flex flex-col items-center shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                <CardHeader className="items-center">
+                    <div className="bg-primary/10 p-4 rounded-full">
+                        <service.icon className="w-8 h-8 text-primary" />
+                    </div>
+                    <CardTitle className="pt-4 font-headline">{service.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                    <CardDescription>{service.description}</CardDescription>
+                </CardContent>
+                <CardFooter>
+                    <DialogTrigger asChild>
+                        <Button variant="outline" onClick={() => handleGetQuote(service.title)}>
+                            Get Quote
+                        </Button>
+                    </DialogTrigger>
+                </CardFooter>
+                </Card>
+            ))}
+            </div>
+            {selectedService && <ServiceQuoteModal serviceName={selectedService} setOpen={setModalOpen}/>}
+        </Dialog>
+      </div>
+    </section>
+  );
+};
+
+export default Services;

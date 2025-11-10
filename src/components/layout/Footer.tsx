@@ -1,0 +1,67 @@
+import Logo from '@/components/Logo';
+import { socialLinks } from '@/lib/data';
+import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin } from 'lucide-react';
+import Link from 'next/link';
+
+const iconMap: { [key: string]: React.ElementType } = {
+  Facebook: Facebook,
+  Instagram: Instagram,
+  LinkedIn: Linkedin,
+};
+
+const Footer = () => {
+  return (
+    <footer className="bg-background/80 backdrop-blur-sm border-t">
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid gap-8 md:grid-cols-3">
+          <div className="space-y-4">
+            <Logo />
+            <p className="text-muted-foreground text-sm">
+              Smart, Fast, and Affordable Digital Solutions.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="font-headline text-lg font-medium">Contact Us</h3>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li className="flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-primary" />
+                <span>Shop Location, City, India</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <Phone className="w-4 h-4 text-primary" />
+                <a href="tel:+919000000000" className="hover:text-primary transition-colors">+91 9xxxxxxxxx</a>
+              </li>
+              <li className="flex items-center gap-2">
+                <Mail className="w-4 h-4 text-primary" />
+                <a href="mailto:info@jhsmartsolutions.in" className="hover:text-primary transition-colors">info@jhsmartsolutions.in</a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="font-headline text-lg font-medium">Follow Us</h3>
+            <div className="flex space-x-4">
+              {socialLinks.map((social) => {
+                const Icon = iconMap[social.name];
+                return (
+                  <Link key={social.name} href={social.href} target="_blank" rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-primary transition-colors">
+                    <Icon className="w-6 h-6" />
+                    <span className="sr-only">{social.name}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 border-t pt-6 text-center text-sm text-muted-foreground">
+          <p>&copy; {new Date().getFullYear()} JH Smart Solutions. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
