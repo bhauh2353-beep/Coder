@@ -33,8 +33,8 @@ service cloud.firestore {
      * @allow (read, list, update, delete) - Only authenticated users (admins) can view or manage submissions.
      */
     match /contacts/{contactId} {
-      allow read, list, update, delete: if isSignedIn();
       allow create: if true;
+      allow read, list, update, delete: if isSignedIn();
     }
 
     /**
@@ -44,9 +44,8 @@ service cloud.firestore {
      * @allow (read, list) - Only authenticated users (admins) can view leads.
      */
     match /leads/{leadId} {
-      allow read, list: if isSignedIn();
       allow create: if true;
-      allow update, delete: if isSignedIn();
+      allow read, list, update, delete: if isSignedIn();
     }
 
     /**

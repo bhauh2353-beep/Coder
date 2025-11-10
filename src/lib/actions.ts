@@ -3,7 +3,7 @@
 
 import { z } from "zod";
 import { getApps, initializeApp, getApp } from 'firebase/app';
-import { getFirestore, collection, doc, setDoc, runTransaction, DocumentReference } from 'firebase/firestore';
+import { getFirestore, collection, doc, setDoc, runTransaction } from 'firebase/firestore';
 import { firebaseConfig } from "@/firebase/config";
 
 // Helper function to initialize Firebase on the server
