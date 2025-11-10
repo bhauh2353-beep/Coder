@@ -32,14 +32,14 @@ const Logo = ({ className }: LogoProps) => {
   // The actual content will only render on the client after the component has mounted.
   if (!isMounted || isLoading) {
     return (
-        <div className={cn('font-body font-bold text-2xl tracking-tight flex items-center', className)}>
+        <div className={cn('font-body font-bold text-xl md:text-2xl tracking-tight flex items-center', className)}>
             <Skeleton className="h-8 w-48" />
         </div>
     );
   }
 
   return (
-    <Link href="/" className={cn('font-body font-bold text-2xl tracking-tight flex items-center', className)}>
+    <Link href="/" className={cn('font-body font-bold text-xl md:text-2xl tracking-tight flex items-center', className)}>
         {companyName}
     </Link>
   );
