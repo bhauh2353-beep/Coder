@@ -100,7 +100,7 @@ export default function ManagementPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center gap-2 mb-8">
-        <LayoutDashboard className="w-6 h-6" />
+        <LayoutDashboard className="w-5 h-5" />
         <h1 className="text-xl font-bold font-headline">Management Dashboard</h1>
       </div>
       <p className="mb-8 text-muted-foreground text-sm">
@@ -113,7 +113,7 @@ export default function ManagementPage() {
               <CardHeader className="flex flex-row items-center gap-2 p-2">
                 <section.icon className="w-5 h-5 text-primary" />
                 <div className='flex-grow'>
-                  <CardTitle className="text-xs font-semibold">{section.title}</CardTitle>
+                  <CardTitle className="font-semibold">{section.title}</CardTitle>
                   <CardDescription className='text-[10px] leading-tight'>{section.description}</CardDescription>
                 </div>
                 {section.id === 'customer-query' && pendingCount > 0 && (
