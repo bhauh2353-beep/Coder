@@ -32,8 +32,8 @@ const Logo = ({ className }: LogoProps) => {
 
   if (!isMounted || isLoading) {
     return (
-      <div className={cn('flex items-center gap-2', className)}>
-        <Skeleton className="h-12 w-48 rounded-md" />
+      <div className={cn('flex items-center', className)}>
+        <Skeleton className="h-12 w-32 rounded-md" />
         <Skeleton className="h-6 w-32" />
       </div>
     );
@@ -42,7 +42,7 @@ const Logo = ({ className }: LogoProps) => {
   return (
     <Link href="/" className={cn('flex items-center', className)}>
       {logoUrl ? (
-        <div className="relative h-12 w-48">
+        <div className="relative h-12 w-32">
           <Image
             src={logoUrl}
             alt={`${companyName} Logo`}
