@@ -103,7 +103,7 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 items-start">
+        <div className="grid grid-cols-2 gap-1 items-start">
             <div className="bg-card/80 backdrop-blur-sm p-8 rounded-lg shadow-md h-full">
             <h3 className="text-2xl font-headline font-semibold mb-6">Send us a Message</h3>
             <form action={handleFormAction} className="space-y-4">
