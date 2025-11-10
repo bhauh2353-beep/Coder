@@ -169,7 +169,7 @@ const Header: FC = () => {
                         <SheetTitle className="sr-only">Menu</SheetTitle>
                     </SheetHeader>
                     <div className="py-4 h-full flex flex-col">
-                        <div className="px-6">
+                        <div className="px-6 pt-4">
                             <Logo className='text-base' />
                         </div>
                         <nav className="flex flex-col space-y-4 text-sm mt-10 px-6">
