@@ -113,7 +113,7 @@ export default function ManagementPage() {
               <CardHeader className="flex flex-row items-center gap-2 p-2">
                 <section.icon className="w-5 h-5 text-primary" />
                 <div className='flex-grow'>
-                  <CardTitle className="font-semibold">{section.title}</CardTitle>
+                  <CardTitle className="font-semibold text-sm">{section.title}</CardTitle>
                   <CardDescription className='text-[10px] leading-tight'>{section.description}</CardDescription>
                 </div>
                 {section.id === 'customer-query' && pendingCount > 0 && (
