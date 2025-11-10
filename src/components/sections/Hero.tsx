@@ -6,6 +6,7 @@ import { highlights } from '@/lib/data';
 import { Card } from '../ui/card';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import Typewriter from '../Typewriter';
 
 const Hero = () => {
   const handleScrollLink = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -30,9 +31,12 @@ const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"></div>
       
       <div className="container mx-auto px-4 relative z-10 text-center">
-        <h1 className="text-4xl md:text-6xl font-headline font-bold text-foreground leading-tight">
-          We Build Websites & Apps That Grow Your Business.
-        </h1>
+        <div className="min-h-[140px] md:min-h-[150px]">
+          <Typewriter
+            text="We Build Websites & Apps That Grow Your Business."
+            className="text-4xl md:text-6xl font-headline font-bold text-foreground leading-tight"
+          />
+        </div>
         <p className="mt-4 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
           Smart, Fast, and Affordable Digital Solutions.
         </p>
