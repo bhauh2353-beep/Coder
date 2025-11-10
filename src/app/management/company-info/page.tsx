@@ -22,6 +22,7 @@ const companyInfoSchema = z.object({
   phone: z.string().min(10, "A valid phone number is required."),
   email: z.string().email("A valid email is required."),
   slogan: z.string().min(10, "Slogan must be at least 10 characters long."),
+  heroText: z.string().min(10, "Hero text must be at least 10 characters long."),
 });
 
 type CompanyInfoFormValues = z.infer<typeof companyInfoSchema>;
@@ -67,7 +68,8 @@ const ManageCompanyInfoPage = () => {
           address: 'Shop Location, City, India',
           phone: '+91 9000000000',
           email: 'info@jhsmartsolutions.in',
-          slogan: 'Smart, Fast, and Affordable Digital Solutions.'
+          slogan: 'Smart, Fast, and Affordable Digital Solutions.',
+          heroText: 'We Build Websites & Apps That Grow Your Business.',
       };
       reset(defaultData);
       // Optionally, save these defaults to Firestore
@@ -132,6 +134,10 @@ const ManageCompanyInfoPage = () => {
                         <Skeleton className="h-4 w-20" />
                         <Skeleton className="h-20 w-full" />
                     </div>
+                    <div className="space-y-2">
+                        <Skeleton className="h-4 w-20" />
+                        <Skeleton className="h-20 w-full" />
+                    </div>
                     <Skeleton className="h-10 w-32" />
                 </div>
             ) : (
@@ -160,6 +166,11 @@ const ManageCompanyInfoPage = () => {
                         <Label htmlFor="slogan">Slogan</Label>
                         <Textarea id="slogan" {...register('slogan')} />
                         {errors.slogan && <p className="text-sm text-destructive">{errors.slogan.message}</p>}
+                    </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="heroText">Hero Headline</Label>
+                        <Textarea id="heroText" {...register('heroText')} />
+                        {errors.heroText && <p className="text-sm text-destructive">{errors.heroText.message}</p>}
                     </div>
                     <Button type="submit" disabled={isSubmitting}>
                         {isSubmitting ? 'Saving...' : 'Save Changes'}

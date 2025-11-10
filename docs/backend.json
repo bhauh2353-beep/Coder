@@ -256,9 +256,10 @@
         "address": { "type": "string", "description": "The company's physical address." },
         "phone": { "type": "string", "description": "The company's contact phone number." },
         "email": { "type": "string", "description": "The company's contact email address.", "format": "email" },
-        "slogan": { "type": "string", "description": "The company's slogan or tagline." }
+        "slogan": { "type": "string", "description": "The company's slogan or tagline." },
+        "heroText": { "type": "string", "description": "The main headline text for the hero section." }
       },
-      "required": ["id", "name", "address", "phone", "email", "slogan"]
+      "required": ["id", "name", "address", "phone", "email", "slogan", "heroText"]
     }
   },
   "auth": {

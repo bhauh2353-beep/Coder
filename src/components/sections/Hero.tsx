@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { highlights } from '@/lib/data';
@@ -7,6 +8,9 @@ import { Card } from '../ui/card';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Typewriter from '../Typewriter';
+import { useFirestore, useDoc } from '@/firebase';
+import { doc } from 'firebase/firestore';
+import { Skeleton } from '../ui/skeleton';
 
 const Hero = () => {
   const handleScrollLink = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -15,6 +19,16 @@ const Hero = () => {
   };
 
   const heroImage = PlaceHolderImages.find(p => p.id === 'hero-background');
+  
+  const firestore = useFirestore();
+  const companyInfoRef = useMemo(() => {
+    if (!firestore) return null;
+    return doc(firestore, 'companyInfo', 'main');
+  }, [firestore]);
+  const { data: companyInfo, isLoading: isCompanyInfoLoading } = useDoc(companyInfoRef);
+
+  const heroText = companyInfo?.heroText || 'We Build Websites & Apps That Grow Your Business.';
+  const slogan = companyInfo?.slogan || 'Smart, Fast, and Affordable Digital Solutions.';
 
   return (
     <section id="home" className="relative w-full pt-20 pb-16 md:pt-32 md:pb-24 overflow-hidden">
@@ -32,13 +46,20 @@ const Hero = () => {
       
       <div className="container mx-auto px-4 relative z-10 text-center">
         <div className="min-h-[140px] md:min-h-[150px]">
-          <Typewriter
-            text="We Build Websites & Apps That Grow Your Business."
-            className="text-4xl md:text-6xl font-headline font-bold text-foreground leading-tight"
-          />
+          {isCompanyInfoLoading ? (
+            <>
+              <Skeleton className="h-12 w-3/4 mx-auto" />
+              <Skeleton className="h-12 w-2/3 mx-auto mt-4" />
+            </>
+          ) : (
+             <Typewriter
+              text={heroText}
+              className="text-4xl md:text-6xl font-headline font-bold text-foreground leading-tight"
+            />
+          )}
         </div>
         <p className="mt-4 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-          Smart, Fast, and Affordable Digital Solutions.
+          {isCompanyInfoLoading ? <Skeleton className="h-6 w-1/2 mx-auto" /> : slogan}
         </p>
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button asChild size="lg">
