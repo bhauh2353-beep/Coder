@@ -66,6 +66,11 @@ export type CompanyInfo = {
 
 export type IconMap = { [key: string]: LucideIcon };
 
+export type SocialLink = {
+    name: string;
+    href: string;
+    colorClass: string;
+}
     
 
     

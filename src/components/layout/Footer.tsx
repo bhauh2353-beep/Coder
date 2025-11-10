@@ -75,12 +75,12 @@ const Footer = () => {
 
           <div className="space-y-4 flex flex-col items-center">
             <h3 className="font-headline text-lg font-medium">Follow Us</h3>
-            <div className="flex space-x-4">
+            <div className="flex space-x-2">
               {socialLinks.map((social) => {
                 const Icon = iconMap[social.name];
                 return (
                   <Link key={social.name} href={social.href} target="_blank" rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-primary transition-colors">
+                    className={`p-2 rounded-full transition-colors duration-300 text-muted-foreground hover:bg-accent ${social.colorClass}`}>
                     <Icon className="w-6 h-6" />
                     <span className="sr-only">{social.name}</span>
                   </Link>

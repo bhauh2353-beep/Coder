@@ -13,7 +13,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { PlaceHolderImages } from './placeholder-images';
-import type { IconMap, Service, Project, PricingPlan, Testimonial } from './types';
+import type { IconMap, Service, Project, PricingPlan, Testimonial, SocialLink } from './types';
 
 export const navLinks = [
   { href: '#home', label: 'Home' },
@@ -148,9 +148,9 @@ export const defaultTestimonials: Omit<Testimonial, 'id'>[] = [
   },
 ];
 
-export const socialLinks = [
-    { name: 'Facebook', href: '#' },
-    { name: 'Instagram', href: '#' },
-    { name: 'LinkedIn', href: '#' },
-    { name: 'WhatsApp', href: 'https://wa.me/919000000000' },
+export const socialLinks: SocialLink[] = [
+    { name: 'Facebook', href: '#', colorClass: 'hover:text-[#1877F2]' },
+    { name: 'Instagram', href: '#', colorClass: 'hover:text-[#E4405F]' },
+    { name: 'LinkedIn', href: '#', colorClass: 'hover:text-[#0A66C2]' },
+    { name: 'WhatsApp', href: 'https://wa.me/919000000000', colorClass: 'hover:text-[#25D366]' },
 ];
