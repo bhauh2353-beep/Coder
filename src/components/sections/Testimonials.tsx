@@ -60,9 +60,9 @@ const Testimonials = () => {
             plugins={[plugin.current]}
             className="w-full max-w-7xl mx-auto"
         >
-            <CarouselContent className="-ml-1">
+            <CarouselContent>
                 {isLoading && Array.from({ length: 4 }).map((_, index) => (
-                    <CarouselItem key={index} className="basis-1/2 md:basis-1/4">
+                    <CarouselItem key={index} className="basis-1/2 md:basis-1/4 p-0">
                         <div className="h-full">
                             <Card className="h-full shadow-lg bg-card/80 backdrop-blur-sm">
                                 <CardContent className="flex flex-col items-center text-center p-1 md:p-2 gap-1 md:gap-2 h-full">
@@ -81,7 +81,7 @@ const Testimonials = () => {
                     </CarouselItem>
                 ))}
                 {!isLoading && testimonials?.map((testimonial) => (
-                    <CarouselItem key={testimonial.id} className="basis-1/2 md:basis-1/4">
+                    <CarouselItem key={testimonial.id} className="basis-1/2 md:basis-1/4 p-0">
                         <div className='h-full'>
                             <Card className="h-full shadow-lg bg-card/80 backdrop-blur-sm">
                                 <CardContent className="flex flex-col items-center text-center p-1 h-full gap-1">
