@@ -26,7 +26,7 @@ const Logo = ({ className }: LogoProps) => {
 
   const companyName = companyInfo?.name || 'JH Smart Solutions';
 
-  if (isLoading || !isMounted) {
+  if (!isMounted || isLoading) {
     return <Skeleton className={cn("h-8 w-48", className)} />;
   }
 
