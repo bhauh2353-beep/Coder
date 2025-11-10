@@ -7,12 +7,36 @@ import { navLinks } from '@/lib/data';
 import Logo from '@/components/Logo';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, LogIn } from 'lucide-react';
+import { Menu, LogIn, LogOut } from 'lucide-react';
+import { useUser } from '@/firebase';
+import { Avatar, AvatarFallback } from '../ui/avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { getAuth, signOut } from 'firebase/auth';
 
 const Header: FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeLink, setActiveLink] = useState('#home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, isUserLoading } = useUser();
+
+  const getInitials = (name: string | null | undefined) => {
+    if (!name) return '??';
+    const names = name.split(' ');
+    if (names.length > 1) {
+      return `${names[0][0]}${names[names.length - 1][0]}`.toUpperCase();
+    }
+    return name.substring(0, 2).toUpperCase();
+  };
+
+  const handleSignOut = () => {
+    const auth = getAuth();
+    signOut(auth);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -67,6 +91,38 @@ const Header: FC = () => {
     </nav>
   );
 
+  const AuthContent = () => {
+    if (isUserLoading) return null;
+    if (user) {
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+              <Avatar className="h-8 w-8">
+                <AvatarFallback className='bg-primary text-primary-foreground'>
+                  {getInitials(user.displayName || user.email)}
+                </AvatarFallback>
+              </Avatar>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56" align="end" forceMount>
+            <DropdownMenuItem onClick={handleSignOut}>
+              <LogOut className="mr-2 h-4 w-4" />
+              <span>Log out</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    }
+    return (
+      <Button asChild variant="outline">
+        <Link href="/login">
+          <LogIn className="mr-2 h-4 w-4" /> Login
+        </Link>
+      </Button>
+    );
+  };
+
   return (
     <header
       className={cn(
@@ -82,11 +138,7 @@ const Header: FC = () => {
           <Button asChild>
             <Link href="#contact" onClick={(e) => handleLinkClick(e, '#contact')}>Get a Free Quote</Link>
           </Button>
-          <Button asChild variant="outline">
-            <Link href="/login">
-              <LogIn className="mr-2 h-4 w-4" /> Login
-            </Link>
-          </Button>
+          <AuthContent />
         </div>
 
         <div className="md:hidden">
@@ -114,16 +166,25 @@ const Header: FC = () => {
                                     {link.label}
                                 </Link>
                             ))}
-                             <Link
-                                href="/login"
-                                onClick={(e) => handleLinkClick(e, '/login')}
-                                className={cn(
-                                    'transition-colors hover:text-primary',
-                                    'text-foreground/80 flex items-center'
-                                )}
-                            >
-                               <LogIn className="mr-2 h-5 w-5" /> Login
-                            </Link>
+                             {!user ? (
+                              <Link
+                                  href="/login"
+                                  onClick={(e) => handleLinkClick(e, '/login')}
+                                  className='transition-colors hover:text-primary text-foreground/80 flex items-center'
+                              >
+                                <LogIn className="mr-2 h-5 w-5" /> Login
+                              </Link>
+                            ) : (
+                              <button
+                                  onClick={() => {
+                                    handleSignOut();
+                                    setIsMobileMenuOpen(false);
+                                  }}
+                                  className='transition-colors hover:text-primary text-foreground/80 flex items-center text-lg'
+                              >
+                                <LogOut className="mr-2 h-5 w-5" /> Logout
+                              </button>
+                            )}
                         </nav>
                          <Button asChild className="mt-auto">
                             <Link href="#contact" onClick={(e) => handleLinkClick(e, '#contact')}>Get a Free Quote</Link>
