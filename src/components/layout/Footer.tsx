@@ -33,7 +33,7 @@ const Footer = () => {
             </p>
           </div>
 
-          <div className="space-y-4 flex-1 flex flex-col items-center">
+          <div className="space-y-4 flex flex-col items-center">
             <h3 className="font-headline text-lg font-medium">Contact Us</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li className="flex items-center gap-2">
