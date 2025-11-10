@@ -66,7 +66,7 @@ const Testimonials = () => {
                         <div className="p-1 h-full">
                             <Card className="h-full shadow-lg bg-card/80 backdrop-blur-sm">
                                 <CardContent className="flex flex-col items-center text-center p-4 md:p-6 gap-2 md:gap-4">
-                                    <Skeleton className="w-20 h-20 rounded-full" />
+                                    <Skeleton className="w-16 h-16 md:w-20 md:h-20 rounded-full" />
                                     <div className='flex flex-col items-center gap-2 w-full'>
                                         <Skeleton className="h-4 w-full" />
                                         <Skeleton className="h-4 w-4/5" />
@@ -84,28 +84,29 @@ const Testimonials = () => {
                     <CarouselItem key={testimonial.id} className="basis-1/2 md:basis-1/4">
                         <div className='p-1 h-full'>
                             <Card className="h-full shadow-lg bg-card/80 backdrop-blur-sm">
-                                <CardContent className="flex flex-col items-center text-center p-4 md:p-6 gap-2 md:gap-4 h-full">
+                                <CardContent className="flex flex-col items-center text-center p-2 md:p-6 gap-2 h-full">
                                 {testimonial.clientPhotoUrl && (
-                                    <Image
-                                    src={testimonial.clientPhotoUrl}
-                                    alt={`Photo of ${testimonial.clientName}`}
-                                    width={80}
-                                    height={80}
-                                    className="rounded-full"
-                                    data-ai-hint={testimonial.imageHint}
-                                    />
+                                    <div className="w-16 h-16 md:w-20 md:h-20 relative">
+                                        <Image
+                                        src={testimonial.clientPhotoUrl}
+                                        alt={`Photo of ${testimonial.clientName}`}
+                                        fill
+                                        className="rounded-full object-cover"
+                                        data-ai-hint={testimonial.imageHint}
+                                        />
+                                    </div>
                                 )}
-                                <p className="text-muted-foreground flex-grow text-sm">"{testimonial.message}"</p>
+                                <p className="text-muted-foreground flex-grow text-xs md:text-sm">"{testimonial.message}"</p>
                                 <div className="flex flex-col items-center">
                                     <div className="flex items-center gap-0.5">
                                         {Array.from({ length: 5 }).map((_, i) => (
                                         <Star
                                             key={i}
-                                            className={`w-5 h-5 ${i < testimonial.rating ? 'text-yellow-400 fill-yellow-400' : 'text-muted-foreground/50'}`}
+                                            className={`w-4 h-4 md:w-5 md:h-5 ${i < testimonial.rating ? 'text-yellow-400 fill-yellow-400' : 'text-muted-foreground/50'}`}
                                         />
                                         ))}
                                     </div>
-                                    <span className="font-bold font-headline mt-2 text-base">{testimonial.clientName}</span>
+                                    <span className="font-bold font-headline mt-1 md:mt-2 text-sm md:text-base">{testimonial.clientName}</span>
                                 </div>
                                 </CardContent>
                             </Card>
