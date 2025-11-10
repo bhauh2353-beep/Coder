@@ -131,7 +131,7 @@ const Contact = () => {
             {/* Bottom Row */}
              <div className="grid md:grid-cols-2 gap-12 items-start">
                  <div className="space-y-8">
-                    <div className="bg-card/80 backdrop-blur-sm p-6 rounded-lg shadow-md flex flex-col md:flex-row justify-around items-center gap-6 text-base">
+                    <div className="bg-card/80 backdrop-blur-sm p-6 rounded-lg shadow-md flex flex-col items-start gap-4 text-base">
                         <a href={`mailto:${companyInfo?.email}`} className="flex items-center gap-3 group">
                             <Mail className="w-6 h-6 text-primary"/>
                             <span className="text-muted-foreground group-hover:text-primary transition-colors">{companyInfo?.email || 'info@jhsmartsolutions.in'}</span>
