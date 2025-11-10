@@ -5,7 +5,7 @@ import { useFirestore, useDoc } from '@/firebase';
 import { doc } from 'firebase/firestore';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { Skeleton } from './ui/skeleton';
+import { Skeleton } from '@/components/ui/skeleton';
 
 type LogoProps = {
   className?: string;
@@ -41,7 +41,6 @@ const Logo = ({ className }: LogoProps) => {
   return (
     <Link href="/" className={cn('font-body font-bold text-2xl tracking-tight flex items-center', className)}>
         {companyName}
-        <span className="ml-2 h-6 w-1.5 bg-primary blinking-cursor" />
     </Link>
   );
 };
