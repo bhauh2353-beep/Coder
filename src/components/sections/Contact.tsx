@@ -134,7 +134,7 @@ const Contact = () => {
 
             <div className="grid grid-cols-1 gap-1">
                 <div className="bg-card/80 backdrop-blur-sm p-6 rounded-lg shadow-md flex flex-col items-center justify-center gap-4 text-center h-full">
-                    <h3 className="text-xl font-headline font-semibold">Contact Details</h3>
+                    <h3 className="text-xl font-headline font-semibold text-center">Contact Details</h3>
                     {(isLoading || !isMounted) ? (
                         <div className="space-y-4 w-full">
                             <Skeleton className="h-6 w-3/4 mx-auto" />
@@ -142,18 +142,18 @@ const Contact = () => {
                             <Skeleton className="h-6 w-2/3 mx-auto" />
                         </div>
                     ) : (
-                        <div className="flex flex-col space-y-4 text-xs">
+                        <div className="flex flex-col space-y-4 text-xs items-center">
                         <a href={`mailto:${email}`} className="flex flex-col md:flex-row items-center gap-2 group">
                             <Mail className="w-5 h-5 text-primary"/>
-                            <span className="text-muted-foreground group-hover:text-primary transition-colors">{email}</span>
+                            <span className="text-muted-foreground group-hover:text-primary transition-colors font-bold">{email}</span>
                         </a>
                         <a href={`tel:${phone}`} className="flex flex-col md:flex-row items-center gap-2 group">
                             <Phone className="w-5 h-5 text-primary"/>
-                            <span className="text-muted-foreground group-hover:text-primary transition-colors">{phone}</span>
+                            <span className="text-muted-foreground group-hover:text-primary transition-colors font-bold">{phone}</span>
                         </a>
                         <div className="flex flex-col md:flex-row items-center gap-2">
                             <MapPin className="w-5 h-5 text-primary"/>
-                            <span className="text-muted-foreground">{address}</span>
+                            <span className="text-muted-foreground font-bold">{address}</span>
                         </div>
                         </div>
                     )}
