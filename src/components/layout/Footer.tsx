@@ -96,7 +96,7 @@ const Footer = () => {
               {socialLinks.map((social) => {
                 const Icon = iconMap[social.name];
                 const href = social.name === 'WhatsApp' && phone
-                  ? `https://wa.me/${phone.replace(/\s/g, '').replace('+', '')}`
+                  ? `https://wa.me/${phone.replace(/[\s+]/g, '')}`
                   : social.href;
                 return (
                   <Link key={social.name} href={href} target="_blank" rel="noopener noreferrer"
