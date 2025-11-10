@@ -148,15 +148,15 @@ const Header: FC = () => {
         isScrolled ? 'bg-background/80 backdrop-blur-sm border-b' : 'bg-transparent'
       )}
     >
-      <div className="flex h-16 items-center justify-between">
+      <div className="flex h-16 items-center justify-between px-4 md:px-6">
         <Logo />
 
-        <div className="hidden md:flex items-center gap-4 pr-6">
+        <div className="hidden md:flex items-center gap-4">
           <NavMenu />
           <AuthContent />
         </div>
 
-        <div className="md:hidden pr-4">
+        <div className="md:hidden">
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                 <SheetTrigger asChild>
                     <Button variant="ghost" size="icon">

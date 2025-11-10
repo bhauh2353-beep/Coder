@@ -60,7 +60,7 @@ const Footer = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row items-center md:items-start justify-around gap-8 text-center md:text-left">
           <div className="space-y-4 flex flex-col items-center md:items-start">
-            <Logo className="text-3xl" />
+            <Logo className="text-3xl px-0" />
              {isLoading || !isMounted ? <Skeleton className='h-5 w-72' /> : <p className="text-muted-foreground text-sm max-w-xs">{slogan}</p>}
           </div>
 
