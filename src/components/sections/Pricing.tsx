@@ -73,9 +73,9 @@ const Pricing = () => {
                 plugins={[plugin.current]}
                 className="w-full max-w-6xl mx-auto"
             >
-                <CarouselContent>
+                <CarouselContent className="-ml-1">
                     {isLoading && Array.from({ length: 4 }).map((_, i) => (
-                         <CarouselItem key={i} className="basis-1/2 lg:basis-1/4">
+                         <CarouselItem key={i} className="basis-1/2 lg:basis-1/4 p-1">
                             <div className="h-full">
                                 <Card className="flex flex-col shadow-lg bg-card/80 backdrop-blur-sm p-4 h-full">
                                     <Skeleton className="h-5 w-28" />
@@ -92,29 +92,29 @@ const Pricing = () => {
                         </CarouselItem>
                     ))}
                     {!isLoading && pricingPlans?.map((plan, index) => (
-                        <CarouselItem key={index} className="basis-1/2 lg:basis-1/4">
+                        <CarouselItem key={index} className="basis-1/2 lg:basis-1/4 p-1">
                             <div className='h-full'>
                                 <Card className="flex flex-col shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 bg-card/80 backdrop-blur-sm h-full">
-                                <CardHeader className="p-2 md:p-4">
-                                    <CardTitle className='font-headline text-base md:text-lg'>{plan.name}</CardTitle>
-                                    <CardDescription className="text-xs">{plan.description}</CardDescription>
-                                    <div className="text-xl md:text-3xl font-bold font-headline pt-1 md:pt-2">
+                                <CardHeader className="p-2">
+                                    <CardTitle className='font-headline text-sm'>{plan.name}</CardTitle>
+                                    <CardDescription className="text-[10px]">{plan.description}</CardDescription>
+                                    <div className="text-lg font-bold font-headline pt-1">
                                         {plan.price}
                                     </div>
                                 </CardHeader>
-                                <CardContent className="flex-grow p-2 md:p-4">
-                                    <ul className="space-y-1 md:space-y-2">
+                                <CardContent className="flex-grow p-2">
+                                    <ul className="space-y-1">
                                     {plan.features.map((feature, i) => (
-                                        <li key={i} className="flex items-center gap-2">
-                                        <Check className="w-4 h-4 text-green-500" />
-                                        <span className='text-muted-foreground text-xs'>{feature}</span>
+                                        <li key={i} className="flex items-center gap-1">
+                                        <Check className="w-3 h-3 text-green-500" />
+                                        <span className='text-muted-foreground text-[10px]'>{feature}</span>
                                         </li>
                                     ))}
                                     </ul>
                                 </CardContent>
-                                <CardFooter className="p-2 md:p-4">
+                                <CardFooter className="p-2 mt-auto">
                                     <DialogTrigger asChild>
-                                        <Button className="w-full" size="sm" onClick={() => handleBookNow(plan.name)}>Book Now</Button>
+                                        <Button className="w-full h-8 text-xs" size="sm" onClick={() => handleBookNow(plan.name)}>Book Now</Button>
                                     </DialogTrigger>
                                 </CardFooter>
                                 </Card>
