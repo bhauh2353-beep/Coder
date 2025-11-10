@@ -103,7 +103,7 @@ const Contact = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-8 items-start">
-            <div className="bg-card/80 backdrop-blur-sm p-4 md:p-8 rounded-lg shadow-md h-full">
+            <div className="bg-card/80 backdrop-blur-sm p-4 md:p-6 rounded-lg shadow-md h-full">
             <h3 className="text-lg font-headline font-semibold mb-6">Send us a Message</h3>
             <form action={handleFormAction} className="space-y-4">
             <div>
@@ -158,7 +158,7 @@ const Contact = () => {
                         </div>
                     )}
                 </div>
-                <div className="w-full h-[450px] md:h-[350px] rounded-lg overflow-hidden shadow-md">
+                <div className="w-full h-[450px] md:h-[300px] rounded-lg overflow-hidden shadow-md">
                 <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d121059.04360432833!2d73.79292693952477!3d18.5246035602058!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf2e67461101%3A0x828d43bf9d9ee343!2sPune%2C%20Maharashtra%2C%20India!5e0!3m2!1sen!2sus!4v1689578112345!5m2!1sen!2sus"
                     width="100%"
