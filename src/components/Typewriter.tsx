@@ -18,7 +18,7 @@ const Typewriter = ({
   className,
   cursorClassName,
 }: TypewriterProps) => {
-  const [displayedText, setDisplayedText] = useState('');
+  const [displayedText, setDisplayedText] = useState(text);
   const index = useRef(0);
   const timeoutIds = useRef<NodeJS.Timeout[]>([]);
 
