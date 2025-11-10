@@ -57,9 +57,9 @@ const Services = () => {
             </div>
 
             <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-4">
                     {isLoading && Array.from({ length: 6 }).map((_, i) => (
-                        <div key={i} className="h-full">
+                        <div key={i} className="h-full p-1">
                             <Card className="text-center flex flex-col items-center shadow-lg bg-card/80 backdrop-blur-sm p-2 md:p-6 h-full">
                                 <Skeleton className="w-10 h-10 md:w-16 md:h-16 rounded-full" />
                                 <Skeleton className="h-5 md:h-6 w-20 md:w-32 mt-3 md:mt-4" />
@@ -69,7 +69,7 @@ const Services = () => {
                         </div>
                     ))}
                     {!isLoading && services?.map((service) => (
-                        <div key={service.id} className='h-full'>
+                        <div key={service.id} className='h-full p-1'>
                             <Card className="text-center flex flex-col items-center shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 bg-card/80 backdrop-blur-sm h-full p-2 md:p-4">
                             <CardHeader className="items-center p-2 md:p-4">
                                 <div className="bg-primary/10 p-3 md:p-4 rounded-full">
