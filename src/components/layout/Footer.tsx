@@ -58,61 +58,59 @@ const Footer = () => {
   return (
     <footer className="bg-background/80 backdrop-blur-sm border-t">
       <div className="container mx-auto px-4 py-8">
-        <div className="flex flex-col md:flex-row items-center justify-around gap-8 text-center">
-          <div className="space-y-4 flex flex-col items-center">
+        <div className="flex flex-col md:flex-row items-center md:items-start justify-around gap-8 text-center md:text-left">
+          <div className="space-y-4 flex flex-col items-center md:items-start">
             <Logo className="text-3xl" />
              {isLoading || !isMounted ? <Skeleton className='h-5 w-72' /> : <p className="text-muted-foreground text-sm max-w-xs">{slogan}</p>}
           </div>
 
-          <div className="flex flex-row md:flex-col gap-8 md:gap-4 justify-center items-start">
-              <div className="space-y-4 flex flex-col items-center md:items-start">
-                <h3 className="font-headline text-lg font-medium">Contact Us</h3>
-                {(isLoading || !isMounted) ? (
-                    <div className="space-y-2">
-                        <Skeleton className='h-5 w-64' />
-                        <Skeleton className='h-5 w-48' />
-                        <Skeleton className='h-5 w-56' />
-                    </div>
-                ) : (
-                    <ul className="space-y-2 text-sm text-muted-foreground text-left">
-                    <li className="flex items-center gap-2">
-                        <MapPin className="w-4 h-4 text-primary" />
-                        <span>{address}</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                        <Phone className="w-4 h-4 text-primary" />
-                        <a href={`tel:${phone}`} className="hover:text-primary transition-colors">
-                        {phone}
-                        </a>
-                    </li>
-                    <li className="flex items-center gap-2">
-                        <Mail className="w-4 h-4 text-primary" />
-                        <a href={`mailto:${email}`} className="hover:text-primary transition-colors">
-                        {email}
-                        </a>
-                    </li>
-                    </ul>
-                )}
-              </div>
-
-              <div className="space-y-4 flex flex-col items-center">
-                <h3 className="font-headline text-lg font-medium">Follow Us</h3>
-                <div className="flex space-x-2">
-                  {socialLinks.map((social) => {
-                    const Icon = iconMap[social.name];
-                    const href = social.name === 'WhatsApp' && phone
-                      ? `https://wa.me/${phone.replace(/\s/g, '').replace('+', '')}`
-                      : social.href;
-                    return (
-                      <Link key={social.name} href={href} target="_blank" rel="noopener noreferrer"
-                        className={`p-2 rounded-full transition-transform duration-300 hover:scale-110 ${social.colorClass}`}>
-                        <Icon className="w-6 h-6" />
-                        <span className="sr-only">{social.name}</span>
-                      </Link>
-                    );
-                  })}
+          <div className="space-y-4 flex flex-col items-center md:items-start">
+            <h3 className="font-headline text-lg font-medium">Contact Us</h3>
+            {(isLoading || !isMounted) ? (
+                <div className="space-y-2">
+                    <Skeleton className='h-5 w-64' />
+                    <Skeleton className='h-5 w-48' />
+                    <Skeleton className='h-5 w-56' />
                 </div>
-              </div>
+            ) : (
+                <ul className="space-y-2 text-sm text-muted-foreground text-center md:text-left">
+                <li className="flex items-center gap-2 justify-center md:justify-start">
+                    <MapPin className="w-4 h-4 text-primary" />
+                    <span>{address}</span>
+                </li>
+                <li className="flex items-center gap-2 justify-center md:justify-start">
+                    <Phone className="w-4 h-4 text-primary" />
+                    <a href={`tel:${phone}`} className="hover:text-primary transition-colors">
+                    {phone}
+                    </a>
+                </li>
+                <li className="flex items-center gap-2 justify-center md:justify-start">
+                    <Mail className="w-4 h-4 text-primary" />
+                    <a href={`mailto:${email}`} className="hover:text-primary transition-colors">
+                    {email}
+                    </a>
+                </li>
+                </ul>
+            )}
+          </div>
+
+          <div className="space-y-4 flex flex-col items-center">
+            <h3 className="font-headline text-lg font-medium">Follow Us</h3>
+            <div className="flex space-x-2">
+              {socialLinks.map((social) => {
+                const Icon = iconMap[social.name];
+                const href = social.name === 'WhatsApp' && phone
+                  ? `https://wa.me/${phone.replace(/\s/g, '').replace('+', '')}`
+                  : social.href;
+                return (
+                  <Link key={social.name} href={href} target="_blank" rel="noopener noreferrer"
+                    className={`p-2 rounded-full transition-transform duration-300 hover:scale-110 ${social.colorClass}`}>
+                    <Icon className="w-6 h-6" />
+                    <span className="sr-only">{social.name}</span>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         </div>
 
