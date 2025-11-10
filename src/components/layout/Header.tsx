@@ -7,13 +7,15 @@ import { navLinks } from '@/lib/data';
 import Logo from '@/components/Logo';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, LogIn, LogOut } from 'lucide-react';
+import { Menu, LogIn, LogOut, LayoutDashboard } from 'lucide-react';
 import { useUser } from '@/firebase';
 import { Avatar, AvatarFallback } from '../ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { getAuth, signOut } from 'firebase/auth';
@@ -106,6 +108,22 @@ const Header: FC = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56" align="end" forceMount>
+             <DropdownMenuLabel className="font-normal">
+              <div className="flex flex-col space-y-1">
+                <p className="text-sm font-medium leading-none">{user.displayName || user.email}</p>
+                <p className="text-xs leading-none text-muted-foreground">
+                  {user.email}
+                </p>
+              </div>
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem asChild>
+              <Link href="/management">
+                <LayoutDashboard className="mr-2 h-4 w-4" />
+                <span>Management</span>
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleSignOut}>
               <LogOut className="mr-2 h-4 w-4" />
               <span>Log out</span>
@@ -175,15 +193,24 @@ const Header: FC = () => {
                                 <LogIn className="mr-2 h-5 w-5" /> Login
                               </Link>
                             ) : (
-                              <button
-                                  onClick={() => {
-                                    handleSignOut();
-                                    setIsMobileMenuOpen(false);
-                                  }}
-                                  className='transition-colors hover:text-primary text-foreground/80 flex items-center text-lg'
-                              >
-                                <LogOut className="mr-2 h-5 w-5" /> Logout
-                              </button>
+                              <>
+                                <Link
+                                  href="/management"
+                                  onClick={(e) => handleLinkClick(e, '/management')}
+                                  className='transition-colors hover:text-primary text-foreground/80 flex items-center'
+                                >
+                                  <LayoutDashboard className="mr-2 h-5 w-5" /> Management
+                                </Link>
+                                <button
+                                    onClick={() => {
+                                      handleSignOut();
+                                      setIsMobileMenuOpen(false);
+                                    }}
+                                    className='transition-colors hover:text-primary text-foreground/80 flex items-center text-lg'
+                                >
+                                  <LogOut className="mr-2 h-5 w-5" /> Logout
+                                </button>
+                              </>
                             )}
                         </nav>
                          <Button asChild className="mt-auto">
