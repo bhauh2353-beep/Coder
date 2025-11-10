@@ -9,12 +9,13 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Textarea } from '@/components/ui/textarea';
+import Image from 'next/image';
 
 const companyInfoSchema = z.object({
   name: z.string().min(2, "Company Name is required."),
@@ -23,6 +24,7 @@ const companyInfoSchema = z.object({
   email: z.string().email("A valid email is required."),
   slogan: z.string().min(10, "Slogan must be at least 10 characters long."),
   heroText: z.string().min(10, "Hero text must be at least 10 characters long."),
+  logoUrl: z.string().optional(),
 });
 
 type CompanyInfoFormValues = z.infer<typeof companyInfoSchema>;
@@ -47,10 +49,15 @@ const ManageCompanyInfoPage = () => {
     register,
     handleSubmit,
     reset,
+    control,
+    watch,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<CompanyInfoFormValues>({
     resolver: zodResolver(companyInfoSchema),
   });
+  
+  const currentLogoUrl = watch('logoUrl');
 
   useEffect(() => {
     if (!isUserLoading && !user) {
@@ -70,6 +77,7 @@ const ManageCompanyInfoPage = () => {
           email: 'info@jhsmartsolutions.in',
           slogan: 'Smart, Fast, and Affordable Digital Solutions.',
           heroText: 'We Build Websites & Apps That Grow Your Business.',
+          logoUrl: '',
       };
       reset(defaultData);
       // Optionally, save these defaults to Firestore
@@ -86,6 +94,17 @@ const ManageCompanyInfoPage = () => {
       </div>
     );
   }
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setValue('logoUrl', reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const onSubmit = (data: CompanyInfoFormValues) => {
     if(!companyInfoRef) return;
@@ -130,6 +149,10 @@ const ManageCompanyInfoPage = () => {
                         <Skeleton className="h-4 w-20" />
                         <Skeleton className="h-10 w-full" />
                     </div>
+                     <div className="space-y-2">
+                        <Skeleton className="h-4 w-20" />
+                        <Skeleton className="h-24 w-24 rounded-md" />
+                    </div>
                     <div className="space-y-2">
                         <Skeleton className="h-4 w-20" />
                         <Skeleton className="h-20 w-full" />
@@ -142,6 +165,17 @@ const ManageCompanyInfoPage = () => {
                 </div>
             ) : (
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                    <div className="space-y-2">
+                        <Label htmlFor="logoUrl">Company Logo</Label>
+                        <div className='flex items-center gap-4'>
+                            {currentLogoUrl && (
+                                <Image src={currentLogoUrl} alt="Company Logo" width={80} height={80} className="rounded-md object-contain border p-1" />
+                            )}
+                            <Input id="logoUrlInput" type="file" accept="image/*" onChange={handleImageUpload} className="max-w-sm" />
+                        </div>
+                        {errors.logoUrl && <p className="text-sm text-destructive">{errors.logoUrl.message}</p>}
+                    </div>
+
                      <div className="space-y-2">
                         <Label htmlFor="name">Company Name</Label>
                         <Input id="name" {...register('name')} />

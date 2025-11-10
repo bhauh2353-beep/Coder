@@ -59,10 +59,12 @@ export type Testimonial = {
 
 export type CompanyInfo = {
     id: string;
+    name: string;
     address: string;
     phone: string;
     email: string;
     slogan: string;
+    logoUrl?: string;
 };
 
 

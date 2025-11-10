@@ -278,6 +278,7 @@
       "properties": {
         "id": { "type": "string", "description": "Unique identifier for the company info document."},
         "name": { "type": "string", "description": "The company's name." },
+        "logoUrl": { "type": "string", "description": "The company's logo as a data URL.", "format": "uri" },
         "address": { "type": "string", "description": "The company's physical address." },
         "phone": { "type": "string", "description": "The company's contact phone number." },
         "email": { "type": "string", "description": "The company's contact email address.", "format": "email" },

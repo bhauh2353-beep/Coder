@@ -6,6 +6,7 @@ import { doc } from 'firebase/firestore';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
+import Image from 'next/image';
 
 type LogoProps = {
   className?: string;
@@ -27,20 +28,33 @@ const Logo = ({ className }: LogoProps) => {
   }, []);
 
   const companyName = companyInfo?.name || 'JH Smart Solutions';
+  const logoUrl = companyInfo?.logoUrl;
 
-  // This prevents hydration mismatches. The server and initial client render will always be the Skeleton.
-  // The actual content will only render on the client after the component has mounted.
   if (!isMounted || isLoading) {
     return (
-        <div className={cn('font-body font-bold text-xl md:text-2xl tracking-tight flex items-center', className)}>
-            <Skeleton className="h-8 w-48" />
-        </div>
+      <div className={cn('flex items-center', className)}>
+        <Skeleton className="h-10 w-40" />
+      </div>
     );
   }
 
   return (
-    <Link href="/" className={cn('font-body font-bold text-xl md:text-2xl tracking-tight flex items-center', className)}>
-        {companyName}
+    <Link href="/" className={cn('flex items-center', className)}>
+      {logoUrl ? (
+        <div className="relative h-10 w-40">
+          <Image
+            src={logoUrl}
+            alt={`${companyName} Logo`}
+            fill
+            className="object-contain"
+            priority
+          />
+        </div>
+      ) : (
+        <span className="font-body font-bold text-xl md:text-2xl tracking-tight">
+          {companyName}
+        </span>
+      )}
     </Link>
   );
 };
