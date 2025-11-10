@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useMemo, useRef } from 'react';
@@ -33,7 +34,7 @@ const Testimonials = () => {
     );
 
   return (
-    <section id="testimonials" className="relative w-full py-12 md:py-16 overflow-hidden">
+    <section id="testimonials" className="relative w-full py-8 md:py-12 overflow-hidden">
         {backgroundImage && (
             <Image
                 src={backgroundImage.imageUrl}

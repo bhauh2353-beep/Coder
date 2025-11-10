@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useMemo, useRef, useEffect } from 'react';
@@ -44,7 +45,7 @@ const Pricing = () => {
         setModalOpen(true);
     }
   return (
-    <section id="pricing" className="relative w-full py-12 md:py-16 overflow-hidden">
+    <section id="pricing" className="relative w-full py-8 md:py-12 overflow-hidden">
       {backgroundImage && (
             <Image
                 src={backgroundImage.imageUrl}

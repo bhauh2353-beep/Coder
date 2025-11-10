@@ -83,7 +83,7 @@ const Contact = () => {
 
 
   return (
-    <section id="contact" className="relative w-full py-12 md:py-16 overflow-hidden">
+    <section id="contact" className="relative w-full py-8 md:py-12 overflow-hidden">
         {backgroundImage && (
             <Image
                 src={backgroundImage.imageUrl}
