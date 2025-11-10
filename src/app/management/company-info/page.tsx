@@ -17,6 +17,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Textarea } from '@/components/ui/textarea';
 
 const companyInfoSchema = z.object({
+  name: z.string().min(2, "Company Name is required."),
   address: z.string().min(5, "Address is required."),
   phone: z.string().min(10, "A valid phone number is required."),
   email: z.string().email("A valid email is required."),
@@ -62,6 +63,7 @@ const ManageCompanyInfoPage = () => {
     } else if (!isLoading) {
       // Set default values if no data exists
       const defaultData = {
+          name: 'JH Smart Solutions',
           address: 'Shop Location, City, India',
           phone: '+91 9000000000',
           email: 'info@jhsmartsolutions.in',
@@ -104,7 +106,7 @@ const ManageCompanyInfoPage = () => {
         <CardHeader>
             <CardTitle>Your Business Details</CardTitle>
             <CardDescription>
-                Update your company's contact information and slogan. This will be displayed on your website.
+                Update your company's name, contact information and slogan. This will be displayed on your website.
             </CardDescription>
         </CardHeader>
         <CardContent>
@@ -124,12 +126,21 @@ const ManageCompanyInfoPage = () => {
                     </div>
                     <div className="space-y-2">
                         <Skeleton className="h-4 w-20" />
+                        <Skeleton className="h-10 w-full" />
+                    </div>
+                    <div className="space-y-2">
+                        <Skeleton className="h-4 w-20" />
                         <Skeleton className="h-20 w-full" />
                     </div>
                     <Skeleton className="h-10 w-32" />
                 </div>
             ) : (
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                     <div className="space-y-2">
+                        <Label htmlFor="name">Company Name</Label>
+                        <Input id="name" {...register('name')} />
+                        {errors.name && <p className="text-sm text-destructive">{errors.name.message}</p>}
+                    </div>
                     <div className="space-y-2">
                         <Label htmlFor="address">Address</Label>
                         <Input id="address" {...register('address')} />
