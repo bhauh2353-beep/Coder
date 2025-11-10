@@ -46,7 +46,7 @@ const Hero = () => {
           src={heroImage.imageUrl}
           alt={heroImage.description}
           fill
-          className="object-cover"
+          className="object-none object-top"
           data-ai-hint={heroImage.imageHint}
           priority
         />
