@@ -64,7 +64,14 @@ const Hero = () => {
               />
               <AnimateOnScroll className="mt-12">
                 <div className="text-base md:text-lg text-foreground font-bold max-w-3xl mx-auto">
-                  {isCompanyInfoLoading || !isMounted ? <Skeleton className="h-6 w-1/2 mx-auto" /> : slogan}
+                  {isCompanyInfoLoading || !isMounted ? <Skeleton className="h-6 w-1/2 mx-auto" /> : (
+                     <Typewriter
+                        text={slogan}
+                        speed={50}
+                        delayAfterComplete={3000}
+                        className="text-base md:text-lg text-foreground font-bold"
+                     />
+                  )}
                 </div>
               </AnimateOnScroll>
             </div>
