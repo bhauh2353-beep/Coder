@@ -87,6 +87,13 @@ export default function ManageContactsPage() {
                         <TableCell>{contact.message}</TableCell>
                     </TableRow>
                     ))}
+                     {!isLoading && (!contacts || contacts.length === 0) && (
+                        <TableRow>
+                            <TableCell colSpan={5} className="text-center text-muted-foreground">
+                                No contact submissions found.
+                            </TableCell>
+                        </TableRow>
+                    )}
                 </TableBody>
             </Table>
         </CardContent>

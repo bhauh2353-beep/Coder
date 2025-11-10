@@ -90,6 +90,13 @@ export default function ManageLeadsPage() {
                         <TableCell>{lead.message}</TableCell>
                     </TableRow>
                     ))}
+                    {!isLoading && (!leads || leads.length === 0) && (
+                        <TableRow>
+                            <TableCell colSpan={6} className="text-center text-muted-foreground">
+                                No leads found.
+                            </TableCell>
+                        </TableRow>
+                    )}
                 </TableBody>
             </Table>
         </CardContent>
