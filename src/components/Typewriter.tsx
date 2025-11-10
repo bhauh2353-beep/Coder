@@ -18,12 +18,11 @@ const Typewriter = ({
   className,
   cursorClassName,
 }: TypewriterProps) => {
-  const [displayedText, setDisplayedText] = useState(text);
+  const [displayedText, setDisplayedText] = useState('');
   const index = useRef(0);
   const timeoutIds = useRef<NodeJS.Timeout[]>([]);
 
   useEffect(() => {
-    // Clear any running timeouts when the text changes
     timeoutIds.current.forEach(clearTimeout);
     timeoutIds.current = [];
     index.current = 0;
@@ -36,11 +35,10 @@ const Typewriter = ({
         const timeoutId = setTimeout(type, speed);
         timeoutIds.current.push(timeoutId);
       } else {
-        // Typing complete, wait then reset
         const timeoutId = setTimeout(() => {
           index.current = 0;
           setDisplayedText('');
-          type(); // Start typing again
+          type(); 
         }, delayAfterComplete);
         timeoutIds.current.push(timeoutId);
       }
@@ -50,7 +48,6 @@ const Typewriter = ({
         type();
     }
 
-    // Cleanup function to clear timeouts when the component unmounts
     return () => {
       timeoutIds.current.forEach(clearTimeout);
     };
