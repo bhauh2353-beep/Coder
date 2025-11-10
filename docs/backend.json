@@ -163,7 +163,7 @@
         "creationDate"
       ]
     },
-     "Service": {
+    "Service": {
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Service",
       "type": "object",
@@ -186,7 +186,46 @@
           "description": "Description of the service."
         }
       },
-      "required": ["id", "icon", "title", "description"]
+      "required": [
+        "id",
+        "icon",
+        "title",
+        "description"
+      ]
+    },
+    "Project": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Project",
+      "type": "object",
+      "description": "Represents a project in the portfolio.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the project."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the project."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the project."
+        },
+        "category": {
+          "type": "string",
+          "description": "Category of the project (e.g., Websites, Apps, Automation)."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the project's image.",
+          "format": "uri"
+        },
+        "imageHint": {
+            "type": "string",
+            "description": "AI hint for the project image."
+        }
+      },
+      "required": ["id", "title", "description", "category", "imageUrl", "imageHint"]
     }
   },
   "auth": {
@@ -276,8 +315,26 @@
             }
           ]
         }
+      },
+       {
+        "path": "/projects/{projectId}",
+        "definition": {
+          "entityName": "Project",
+          "schema": {
+            "$ref": "#/backend/entities/Project"
+          },
+          "description": "Stores portfolio projects.",
+          "params": [
+            {
+              "name": "projectId",
+              "description": "Unique identifier for the project."
+            }
+          ]
+        }
       }
     ],
-    "reasoning": "The Firestore structure is designed to store contact form submissions, service quote requests (leads), client testimonials, and user accounts for optional admin login. The structure prioritizes simplicity, security, and scalability.\n\nAuthorization Independence: Since there is no user-specific data or collaborative data, denormalization isn't required. All collections are treated as public-write, admin-read.\n\nStructural Segregation: Each data type (contacts, leads, testimonials, users) is stored in its own dedicated collection. This enforces a homogeneous security posture, simplifying rules.\n\nAccess Modeling: Contact, Lead, and Testimonial data is stored directly in collections without user ownership. This is suitable because the application proposal does not explicitly define data ownership use cases for these collections.\n\nData Clarity: Each entity has a well-defined schema with explicit fields, aiding in maintainability and predictability.\n\nQAPs: The design supports secure `list` operations because each collection is segregated by entity type, allowing security rules to be applied uniformly to each collection."
+    "reasoning": "The Firestore structure is designed to store contact form submissions, service quote requests (leads), client testimonials, and user accounts for optional admin login. The structure prioritizes simplicity, security, and scalability.\n\nAuthorization Independence: Since there is no user-specific data or collaborative data, denormalization isn't required. All collections are treated as public-write, admin-read.\n\nStructural Segregation: Each data type (contacts, leads, testimonials, users) is stored in its own dedicated collection. This enforces a homogeneous security posture, simplifying rules.\n\nAccess Modeling: Contact, Lead, and Testimonial data is stored in collections without user ownership. This is suitable because the application proposal does not explicitly define data ownership use cases for these collections.\n\nData Clarity: Each entity has a well-defined schema with explicit fields, aiding in maintainability and predictability.\n\nQAPs: The design supports secure `list` operations because each collection is segregated by entity type, allowing security rules to be applied uniformly to each collection."
   }
 }
+
+    

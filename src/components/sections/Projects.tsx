@@ -1,22 +1,40 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { projects } from '@/lib/data';
 import AnimateOnScroll from '../AnimateOnScroll';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { useCollection, useFirestore } from '@/firebase';
+import { collection } from 'firebase/firestore';
+import type { Project } from '@/lib/types';
+import { Skeleton } from '../ui/skeleton';
 
 const Projects = () => {
   const [filter, setFilter] = useState('All');
-  const categories = ['All', ...Array.from(new Set(projects.map(p => p.category)))];
   const backgroundImage = PlaceHolderImages.find(p => p.id === 'projects-background');
 
-  const filteredProjects = filter === 'All' 
-    ? projects 
-    : projects.filter(p => p.category === filter);
+  const firestore = useFirestore();
+  const projectsCollection = useMemo(() => {
+    if (!firestore) return null;
+    return collection(firestore, 'projects');
+  }, [firestore]);
+
+  const { data: projects, isLoading } = useCollection<Project>(projectsCollection);
+
+  const categories = useMemo(() => {
+    if (!projects) return ['All'];
+    return ['All', ...Array.from(new Set(projects.map(p => p.category)))];
+  }, [projects]);
+  
+  const filteredProjects = useMemo(() => {
+    if (!projects) return [];
+    if (filter === 'All') return projects;
+    return projects.filter(p => p.category === filter);
+  }, [projects, filter]);
+
 
   return (
     <section id="projects" className="relative w-full py-20 md:py-32 overflow-hidden">
@@ -45,19 +63,37 @@ const Projects = () => {
             ))}
           </TabsList>
           
-          <TabsContent value={filter}>
             <div className="grid md:grid-cols-3 gap-8">
-              {filteredProjects.map((project, index) => (
+              {isLoading && Array.from({ length: 3 }).map((_, index) => (
                 <AnimateOnScroll key={index} delay={index * 100}>
+                  <Card className="overflow-hidden h-full flex flex-col shadow-lg bg-card/80 backdrop-blur-sm">
+                      <div className="aspect-video relative w-full">
+                         <Skeleton className="w-full h-full" />
+                      </div>
+                    <CardHeader>
+                      <Skeleton className="h-6 w-3/4" />
+                    </CardHeader>
+                    <CardContent className="flex-grow">
+                       <Skeleton className="h-4 w-full" />
+                       <Skeleton className="h-4 w-2/3 mt-2" />
+                    </CardContent>
+                    <CardFooter>
+                      <Skeleton className="h-10 w-28" />
+                    </CardFooter>
+                  </Card>
+                </AnimateOnScroll>
+              ))}
+              {!isLoading && filteredProjects.map((project, index) => (
+                <AnimateOnScroll key={project.id} delay={index * 100}>
                   <Card className="overflow-hidden h-full flex flex-col shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 bg-card/80 backdrop-blur-sm">
-                    {project.image && (
+                    {project.imageUrl && (
                       <div className="aspect-video relative w-full">
                          <Image
-                          src={project.image.imageUrl}
+                          src={project.imageUrl}
                           alt={project.title}
                           fill
                           className="object-cover"
-                          data-ai-hint={project.image.imageHint}
+                          data-ai-hint={project.imageHint}
                         />
                       </div>
                     )}
@@ -74,7 +110,6 @@ const Projects = () => {
                 </AnimateOnScroll>
               ))}
             </div>
-          </TabsContent>
         </Tabs>
       </div>
     </section>
@@ -82,3 +117,5 @@ const Projects = () => {
 };
 
 export default Projects;
+
+    

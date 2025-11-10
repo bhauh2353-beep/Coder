@@ -13,7 +13,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { PlaceHolderImages } from './placeholder-images';
-import type { IconMap, Service } from './types';
+import type { IconMap, Service, Project } from './types';
 
 export const navLinks = [
   { href: '#home', label: 'Home' },
@@ -38,6 +38,7 @@ export const iconMap: IconMap = {
   MessageCircle,
   ShoppingCart,
   Printer,
+  Smartphone,
 };
 
 export const defaultServices: Omit<Service, 'id'>[] = [
@@ -74,22 +75,25 @@ export const defaultServices: Omit<Service, 'id'>[] = [
 ];
 
 
-export const projects = [
+export const defaultProjects: Omit<Project, 'id'>[] = [
   {
     category: 'Websites',
-    image: PlaceHolderImages.find(p => p.id === 'project-1'),
+    imageUrl: PlaceHolderImages.find(p => p.id === 'project-1')?.imageUrl || '',
+    imageHint: PlaceHolderImages.find(p => p.id === 'project-1')?.imageHint || '',
     title: 'E-commerce Platform',
     description: 'A full-featured online store with a custom CMS and payment gateway integration.',
   },
   {
     category: 'Apps',
-    image: PlaceHolderImages.find(p => p.id === 'project-2'),
+    imageUrl: PlaceHolderImages.find(p => p.id === 'project-2')?.imageUrl || '',
+    imageHint: PlaceHolderImages.find(p => p.id === 'project-2')?.imageHint || '',
     title: 'Fitness Tracker App',
     description: 'A mobile app to track workouts, set goals, and monitor progress with social features.',
   },
   {
     category: 'Automation',
-    image: PlaceHolderImages.find(p => p.id === 'project-3'),
+    imageUrl: PlaceHolderImages.find(p => p.id === 'project-3')?.imageUrl || '',
+    imageHint: PlaceHolderImages.find(p => p.id === 'project-3')?.imageHint || '',
     title: 'Business Analytics Dashboard',
     description: 'A real-time dashboard for visualizing sales data and customer behavior.',
   },
@@ -142,3 +146,5 @@ export const socialLinks = [
     { name: 'Instagram', href: '#' },
     { name: 'LinkedIn', href: '#' },
 ];
+
+    

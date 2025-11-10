@@ -26,4 +26,15 @@ export type Service = {
     description: string;
 }
 
+export type Project = {
+    id: string;
+    title: string;
+    description: string;
+    category: string;
+    imageUrl: string;
+    imageHint: string;
+}
+
 export type IconMap = { [key: string]: LucideIcon };
+
+    

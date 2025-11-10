@@ -111,6 +111,18 @@ service cloud.firestore {
       allow read: if true;
       allow write: if isSignedIn();
     }
+    
+    /**
+     * @description Allows public read access for projects, but write access is restricted to authenticated users.
+     * @path /projects/{projectId}
+     * @allow (get) - Anyone can read a project.
+     * @allow (list) - Anyone can list all projects.
+     * @allow (create, update, delete) - Only authenticated users (admins) can modify projects.
+     */
+    match /projects/{projectId} {
+      allow read: if true;
+      allow write: if isSignedIn();
+    }
 
     function isSignedIn() {
       return request.auth != null;
@@ -125,3 +137,5 @@ service cloud.firestore {
     }
   }
 }
+
+    
