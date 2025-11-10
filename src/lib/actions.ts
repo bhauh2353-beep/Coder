@@ -1,8 +1,27 @@
 "use server";
 
 import { z } from "zod";
-import { getSdks, addDocumentNonBlocking, setDocumentNonBlocking } from "@/firebase";
-import { collection, doc } from "firebase/firestore";
+import { getApps, initializeApp, getApp } from 'firebase/app';
+import { getFirestore, collection, doc, setDoc } from 'firebase/firestore';
+import { firebaseConfig } from "@/firebase/config";
+
+// Helper function to initialize Firebase on the server
+function getFirebaseAdmin() {
+  if (!getApps().length) {
+    let firebaseApp;
+    try {
+      firebaseApp = initializeApp();
+    } catch (e) {
+      if (process.env.NODE_ENV === "production") {
+        console.warn('Automatic initialization failed. Falling back to firebase config object.', e);
+      }
+      firebaseApp = initializeApp(firebaseConfig);
+    }
+    return { firestore: getFirestore(firebaseApp) };
+  }
+  return { firestore: getFirestore(getApp()) };
+}
+
 
 const leadSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -36,16 +55,17 @@ export async function saveLead(prevState: any, formData: FormData) {
   }
 
   try {
-    const { firestore } = getSdks();
+    const { firestore } = getFirebaseAdmin();
     const leadsCollection = collection(firestore, 'leads');
     const newDocRef = doc(leadsCollection);
-    await setDocumentNonBlocking(newDocRef, {
+    await setDoc(newDocRef, {
         ...validatedFields.data,
         id: newDocRef.id,
         submissionDate: new Date().toISOString(),
-    }, {});
+    });
     return { message: "Quote request received! We will get back to you shortly." };
   } catch (e) {
+    console.error("Error saving lead:", e);
     return { message: "An error occurred while saving the lead." };
   }
 }
@@ -66,16 +86,17 @@ export async function saveContact(prevState: any, formData: FormData) {
   }
 
   try {
-    const { firestore } = getSdks();
+    const { firestore } = getFirebaseAdmin();
     const contactsCollection = collection(firestore, 'contacts');
     const newDocRef = doc(contactsCollection);
-    await setDocumentNonBlocking(newDocRef, {
+    await setDoc(newDocRef, {
         ...validatedFields.data,
         id: newDocRef.id,
         submissionDate: new Date().toISOString(),
-    }, {});
+    });
     return { message: "Thank you! We'll contact you soon." };
   } catch (e) {
+    console.error("Error saving contact:", e);
     return { message: "An error occurred while saving your message." };
   }
 }
