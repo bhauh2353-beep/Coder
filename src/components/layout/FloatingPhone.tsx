@@ -35,7 +35,7 @@ const FloatingPhone = () => {
         return () => window.removeEventListener("scroll", toggleVisibility);
     }, []);
 
-    const phoneNumber = companyInfo?.phone || "919000000000";
+    const phoneNumber = companyInfo?.phone || "+917972688626";
 
     if (!isMounted) {
         return null;

@@ -66,7 +66,7 @@ const ManageCompanyInfoPage = () => {
       const defaultData = {
           name: 'JH Smart Solutions',
           address: 'Shop Location, City, India',
-          phone: '+91 9000000000',
+          phone: '+91 7972688626',
           email: 'info@jhsmartsolutions.in',
           slogan: 'Smart, Fast, and Affordable Digital Solutions.',
           heroText: 'We Build Websites & Apps That Grow Your Business.',
