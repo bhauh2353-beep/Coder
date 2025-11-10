@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUser, useFirestore, useCollection } from '@/firebase';
 import { Mail } from 'lucide-react';
-import { collection } from 'firebase/firestore';
+import { collection, query } from 'firebase/firestore';
 import {
   Table,
   TableBody,
@@ -14,6 +14,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import type { Contact } from '@/lib/types';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -21,8 +22,13 @@ export default function ManageContactsPage() {
   const { user, isUserLoading } = useUser();
   const router = useRouter();
   const firestore = useFirestore();
-  const contactsCollection = collection(firestore, 'contacts');
-  const { data: contacts, isLoading } = useCollection<Contact>(contactsCollection);
+
+  const contactsQuery = useMemo(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'contacts'));
+  }, [firestore]);
+
+  const { data: contacts, isLoading } = useCollection<Contact>(contactsQuery);
 
   useEffect(() => {
     if (!isUserLoading && !user) {

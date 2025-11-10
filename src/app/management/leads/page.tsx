@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUser, useFirestore, useCollection } from '@/firebase';
 import { Users } from 'lucide-react';
-import { collection } from 'firebase/firestore';
+import { collection, query } from 'firebase/firestore';
 import {
   Table,
   TableBody,
@@ -22,8 +22,13 @@ export default function ManageLeadsPage() {
   const { user, isUserLoading } = useUser();
   const router = useRouter();
   const firestore = useFirestore();
-  const leadsCollection = collection(firestore, 'leads');
-  const { data: leads, isLoading } = useCollection<Lead>(leadsCollection);
+  
+  const leadsQuery = useMemo(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'leads'));
+  }, [firestore]);
+
+  const { data: leads, isLoading } = useCollection<Lead>(leadsQuery);
 
   useEffect(() => {
     if (!isUserLoading && !user) {
