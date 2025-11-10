@@ -103,7 +103,7 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-1 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
             <div className="bg-card/80 backdrop-blur-sm p-8 rounded-lg shadow-md h-full">
             <h3 className="text-2xl font-headline font-semibold mb-6">Send us a Message</h3>
             <form action={handleFormAction} className="space-y-4">
@@ -143,7 +143,7 @@ const Contact = () => {
                             <Skeleton className="h-6 w-2/3" />
                         </div>
                     ) : (
-                        <div className="flex flex-col space-y-4 text-sm">
+                        <div className="flex flex-col space-y-4 text-xs">
                         <a href={`mailto:${email}`} className="flex items-center gap-3 group">
                             <Mail className="w-5 h-5 text-primary"/>
                             <span className="text-muted-foreground group-hover:text-primary transition-colors">{email}</span>
