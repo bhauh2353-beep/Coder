@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useMemo, useRef, useEffect } from 'react';
@@ -76,7 +75,7 @@ const Pricing = () => {
                 <CarouselContent className="-ml-1">
                     {isLoading && Array.from({ length: 4 }).map((_, i) => (
                          <CarouselItem key={i} className="basis-1/2 lg:basis-1/4 p-1">
-                            <div className="h-full md:min-h-[280px]">
+                            <div className="h-full md:min-h-[320px]">
                                 <Card className="flex flex-col shadow-lg bg-card/80 backdrop-blur-sm p-4 h-full">
                                     <Skeleton className="h-5 w-28" />
                                     <Skeleton className="h-3 w-40 mt-2" />
@@ -93,7 +92,7 @@ const Pricing = () => {
                     ))}
                     {!isLoading && pricingPlans?.map((plan, index) => (
                         <CarouselItem key={index} className="basis-1/2 lg:basis-1/4 p-1">
-                            <div className='h-full md:min-h-[280px]'>
+                            <div className='h-full md:min-h-[320px]'>
                                 <Card className="flex flex-col shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 bg-card/80 backdrop-blur-sm h-full">
                                 <CardHeader className="p-2">
                                     <CardTitle className='font-headline text-sm'>{plan.name}</CardTitle>
