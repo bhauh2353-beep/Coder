@@ -7,7 +7,7 @@ type LogoProps = {
 
 const Logo = ({ className }: LogoProps) => {
   return (
-    <Link href="#home" className={cn('font-headline font-bold text-lg tracking-tight', className)}>
+    <Link href="/" className={cn('font-headline font-bold text-lg tracking-tight', className)}>
       JH Smart Solutions
     </Link>
   );
