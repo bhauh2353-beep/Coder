@@ -17,7 +17,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import type { Contact } from '@/lib/types';
 import { Skeleton } from '@/components/ui/skeleton';
 
-export default function ManageContactsPage() {
+export default function ManageCustomerQueryPage() {
   const { user, isUserLoading } = useUser();
   const router = useRouter();
   const firestore = useFirestore();
@@ -47,14 +47,14 @@ export default function ManageContactsPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center gap-4 mb-8">
         <Mail className="w-8 h-8" />
-        <h1 className="text-3xl font-bold font-headline">Manage Contacts</h1>
+        <h1 className="text-3xl font-bold font-headline">Customer Queries</h1>
       </div>
 
       <Card>
         <CardHeader>
             <CardTitle>Contact Submissions</CardTitle>
             <CardDescription>
-            Browse and manage all contact form submissions.
+            Browse and manage all customer queries from the contact form.
             </CardDescription>
         </CardHeader>
         <CardContent>
@@ -90,7 +90,7 @@ export default function ManageContactsPage() {
                      {!isLoading && (!contacts || contacts.length === 0) && (
                         <TableRow>
                             <TableCell colSpan={5} className="text-center text-muted-foreground">
-                                No contact submissions found.
+                                No customer queries found.
                             </TableCell>
                         </TableRow>
                     )}

@@ -33,9 +33,9 @@ const managementSections = [
     icon: MessageSquare,
   },
   {
-    title: 'Contacts',
-    description: 'View and manage contact form submissions.',
-    href: '/management/contacts',
+    title: 'Customer Query',
+    description: 'View and manage customer queries.',
+    href: '/management/customer-query',
     icon: Mail,
   },
   {
