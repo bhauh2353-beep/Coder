@@ -7,6 +7,8 @@ export type Contact = {
   phone: string;
   message: string;
   submissionDate: string;
+  serviceRequestNumber: string;
+  status: 'Pending' | 'Resolved';
 };
 
 export type Lead = {
@@ -63,5 +65,7 @@ export type CompanyInfo = {
 
 
 export type IconMap = { [key: string]: LucideIcon };
+
+    
 
     
