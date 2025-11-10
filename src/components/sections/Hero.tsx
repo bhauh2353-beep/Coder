@@ -68,7 +68,7 @@ const Hero = () => {
                         speed={50}
                         className="text-2xl md:text-4xl font-headline font-bold text-foreground leading-tight"
                     />
-                    <AnimateOnScroll className="mt-8">
+                    <AnimateOnScroll className="mt-12">
                         <div className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
                         {isCompanyInfoLoading || !isMounted ? <Skeleton className="h-6 w-1/2 mx-auto" /> : slogan}
                         </div>
