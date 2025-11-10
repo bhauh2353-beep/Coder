@@ -156,6 +156,16 @@ const ManageProjectsPage = () => {
           ctx?.drawImage(img, 0, 0, width, height);
           const dataUrl = canvas.toDataURL('image/jpeg');
           setValue('imageUrl', dataUrl, { shouldValidate: true });
+
+          // If editing an existing project, save the image immediately
+          if (editingProject && firestore) {
+            const docRef = doc(firestore, 'projects', editingProject.id);
+            setDocumentNonBlocking(docRef, { imageUrl: dataUrl }, { merge: true });
+            toast({
+              title: "Image Updated",
+              description: "The project image has been saved.",
+            });
+          }
         };
         img.src = event.target?.result as string;
       };

@@ -156,6 +156,16 @@ const ManageServicesPage = () => {
           ctx?.drawImage(img, 0, 0, width, height);
           const dataUrl = canvas.toDataURL('image/jpeg');
           setValue('imageUrl', dataUrl, { shouldValidate: true });
+
+          // If editing an existing service, save the image immediately
+          if (editingService && firestore) {
+            const docRef = doc(firestore, 'services', editingService.id);
+            setDocumentNonBlocking(docRef, { imageUrl: dataUrl }, { merge: true });
+            toast({
+              title: "Image Updated",
+              description: "The service image has been saved.",
+            });
+          }
         };
         img.src = event.target?.result as string;
       };

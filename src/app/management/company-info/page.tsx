@@ -100,7 +100,16 @@ const ManageCompanyInfoPage = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setValue('logoUrl', reader.result as string);
+        const newLogoUrl = reader.result as string;
+        setValue('logoUrl', newLogoUrl);
+        // Immediately save the new logo URL to Firestore
+        if (companyInfoRef) {
+          setDocumentNonBlocking(companyInfoRef, { logoUrl: newLogoUrl }, { merge: true });
+          toast({
+            title: "Logo Updated",
+            description: "Your new company logo has been saved.",
+          });
+        }
       };
       reader.readAsDataURL(file);
     }
