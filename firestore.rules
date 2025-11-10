@@ -1,10 +1,11 @@
+
 /**
  * @fileoverview Firestore Security Rules for the application.
  *
  * Core Philosophy:
- * This ruleset enforces public read and write access for 'contacts' and 'leads' collections.
- * User data is secured with owner-only access. Testimonials are publicly accessible for reading and writing.
- * Services can be read by anyone but only modified by authenticated users (admins).
+ * This ruleset enforces public write access for 'contacts' and 'leads' collections for anyone,
+ * but read access is restricted to authenticated users (admins).
+ * User data is secured with owner-only access. Testimonials are publicly readable.
  *
  * Data Structure:
  * - /contacts/{contactId}: Contact form submissions.
@@ -12,55 +13,41 @@
  * - /testimonials/{testimonialId}: Client testimonials.
  * - /users/{userId}: User account information.
  * - /services/{serviceId}: Service offerings.
+ * - /projects/{projectId}: Portfolio projects.
+ * - /pricingPlans/{planId}: Pricing plans.
+ * - /companyInfo/{infoId}: Company's contact information.
  *
  * Key Security Decisions:
- * - Contact, Lead, and Testimonial submissions are publicly writable, meaning anyone can create, update, or delete them.
+ * - Contact and Lead submissions are publicly writable.
+ * - Reading contacts and leads is restricted to authenticated admins to protect PII.
  * - User listing is disabled.
- *
- * Denormalization for Authorization:
- * - Not applicable in this scenario, as there are no ownership or role-based access control requirements other than user accounts.
- *
- * Structural Segregation:
- * - Contacts, Leads, Testimonials, Users, and Services are stored in separate collections, simplifying rule management.
  */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
-     * @description Allows anyone to create, update, or delete contact form submissions.
+     * @description Allows anyone to create contact submissions, but only admins can read them.
      * @path /contacts/{contactId}
      * @allow (create) - Any user can submit a contact form.
-     * @allow (update) - Any user can update a contact form.
-     * @allow (delete) - Any user can delete a contact form.
-     * @deny (get) - Getting a specific contact is denied
-     * @deny (list) - Listing all contacts is denied
-     * @principle Public read and write access for contact submissions.
+     * @allow (read, list) - Only authenticated users (admins) can view submissions.
      */
     match /contacts/{contactId} {
-      allow read: if isSignedIn();
-      allow list: if isSignedIn();
+      allow read, list: if isSignedIn();
       allow create: if true;
-      allow update: if isSignedIn();
-      allow delete: if isSignedIn();
+      allow update, delete: if isSignedIn();
     }
 
     /**
-     * @description Allows anyone to create, update, or delete service quote requests (leads).
+     * @description Allows anyone to create leads, but only admins can read them.
      * @path /leads/{leadId}
      * @allow (create) - Any user can submit a service quote request.
-     * @allow (update) - Any user can update a service quote request.
-     * @allow (delete) - Any user can delete a service quote request.
-     * @deny (get) - Getting a specific lead is denied.
-     * @deny (list) - Listing all leads is denied.
-     * @principle Public read and write access for lead submissions.
+     * @allow (read, list) - Only authenticated users (admins) can view leads.
      */
     match /leads/{leadId} {
-      allow read: if isSignedIn();
-      allow list: if isSignedIn();
+      allow read, list: if isSignedIn();
       allow create: if true;
-      allow update: if isSignedIn();
-      allow delete: if isSignedIn();
+      allow update, delete: if isSignedIn();
     }
 
     /**
@@ -77,13 +64,8 @@ service cloud.firestore {
     /**
      * @description Restricts access to user account information to the owner only.
      * @path /users/{userId}
-     * @allow (create) - A user can create their own account if the userId matches their auth UID.
-     * @allow (update) - A user can update their own account if the userId matches their auth UID.
-     * @allow (delete) - A user can delete their own account if the userId matches their auth UID.
-     * @deny (get) - Getting other user info is denied.
+     * @allow (read, create, update, delete) - Owner-only access.
      * @deny (list) - Listing all users is denied.
-     * @deny (create) - Creating a user with an ID that doesn't match the authenticated user's ID.
-     * @principle Enforces document ownership for user accounts.
      */
     match /users/{userId} {
       allow get: if isOwner(userId);
@@ -96,9 +78,8 @@ service cloud.firestore {
     /**
      * @description Allows public read access for services, but write access is restricted to authenticated users.
      * @path /services/{serviceId}
-     * @allow (get) - Anyone can read a service.
-     * @allow (list) - Anyone can list all services.
-     * @allow (create, update, delete) - Only authenticated users (admins) can modify services.
+     * @allow (read) - Anyone can read services.
+     * @allow (write) - Only authenticated users (admins) can modify services.
      */
     match /services/{serviceId} {
       allow read: if true;
@@ -108,9 +89,8 @@ service cloud.firestore {
     /**
      * @description Allows public read access for projects, but write access is restricted to authenticated users.
      * @path /projects/{projectId}
-     * @allow (get) - Anyone can read a project.
-     * @allow (list) - Anyone can list all projects.
-     * @allow (create, update, delete) - Only authenticated users (admins) can modify projects.
+     * @allow (read) - Anyone can read projects.
+     * @allow (write) - Only authenticated users (admins) can modify projects.
      */
     match /projects/{projectId} {
       allow read: if true;
@@ -120,9 +100,8 @@ service cloud.firestore {
     /**
      * @description Allows public read access for pricing plans, but write access is restricted to authenticated users.
      * @path /pricingPlans/{planId}
-     * @allow (get) - Anyone can read a pricing plan.
-     * @allow (list) - Anyone can list all pricing plans.
-     * @allow (create, update, delete) - Only authenticated users (admins) can modify pricing plans.
+     * @allow (read) - Anyone can read pricing plans.
+     * @allow (write) - Only authenticated users (admins) can modify pricing plans.
      */
     match /pricingPlans/{planId} {
       allow read: if true;
@@ -132,9 +111,8 @@ service cloud.firestore {
     /**
      * @description Allows public read access for company info, but write access is restricted to authenticated users.
      * @path /companyInfo/{infoId}
-     * @allow (get) - Anyone can read company info.
-     * @allow (list) - Anyone can list company info.
-     * @allow (create, update, delete) - Only authenticated users (admins) can modify company info.
+     * @allow (read) - Anyone can read company info.
+     * @allow (write) - Only authenticated users (admins) can modify company info.
      */
     match /companyInfo/{infoId} {
       allow read: if true;
