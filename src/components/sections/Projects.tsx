@@ -60,7 +60,7 @@ const Projects = () => {
         </div>
 
         <Tabs defaultValue="All" className="w-full" onValueChange={setFilter}>
-          <TabsList className={`grid w-full max-w-lg mx-auto grid-cols-${categories.length} mb-8 bg-background/50 backdrop-blur-sm`}>
+          <TabsList className="max-w-lg mx-auto mb-8 bg-background/50 backdrop-blur-sm">
             {categories.map(category => (
                 <TabsTrigger key={category} value={category}>{category}</TabsTrigger>
             ))}
