@@ -33,7 +33,7 @@ const Logo = ({ className }: LogoProps) => {
   if (!isMounted || isLoading) {
     return (
       <div className={cn('flex items-center gap-2', className)}>
-        <Skeleton className="h-10 w-48 rounded-md" />
+        <Skeleton className="h-12 w-48 rounded-md" />
         <Skeleton className="h-6 w-32" />
       </div>
     );
@@ -52,7 +52,7 @@ const Logo = ({ className }: LogoProps) => {
           />
         </div>
       ) : null}
-      <span className="sr-only">
+      <span className="block bg-gradient-to-r from-green-400 via-yellow-500 to-orange-500 bg-clip-text text-transparent font-bold text-lg whitespace-nowrap">
         {companyName}
       </span>
     </Link>
