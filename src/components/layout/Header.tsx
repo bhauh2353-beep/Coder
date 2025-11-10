@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 import { navLinks } from '@/lib/data';
 import Logo from '@/components/Logo';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, LogIn, LogOut, LayoutDashboard } from 'lucide-react';
 import { useUser } from '@/firebase';
 import { Avatar, AvatarFallback } from '../ui/avatar';
@@ -173,6 +173,9 @@ const Header: FC = () => {
                     </Button>
                 </SheetTrigger>
                 <SheetContent side="right" className="w-full max-w-xs">
+                    <SheetHeader>
+                        <SheetTitle className="sr-only">Menu</SheetTitle>
+                    </SheetHeader>
                     <div className="p-4 h-full flex flex-col">
                         <Logo />
                         <nav className="flex flex-col space-y-6 text-lg mt-10">
