@@ -4,12 +4,14 @@
  * Core Philosophy:
  * This ruleset enforces public read and write access for 'contacts' and 'leads' collections.
  * User data is secured with owner-only access. Testimonials are publicly accessible for reading and writing.
+ * Services can be read by anyone but only modified by authenticated users (admins).
  *
  * Data Structure:
  * - /contacts/{contactId}: Contact form submissions.
  * - /leads/{leadId}: Service quote requests.
  * - /testimonials/{testimonialId}: Client testimonials.
  * - /users/{userId}: User account information.
+ * - /services/{serviceId}: Service offerings.
  *
  * Key Security Decisions:
  * - Contact, Lead, and Testimonial submissions are publicly writable, meaning anyone can create, update, or delete them.
@@ -19,7 +21,7 @@
  * - Not applicable in this scenario, as there are no ownership or role-based access control requirements other than user accounts.
  *
  * Structural Segregation:
- * - Contacts, Leads, Testimonials, and Users are stored in separate collections, simplifying rule management.
+ * - Contacts, Leads, Testimonials, Users, and Services are stored in separate collections, simplifying rule management.
  */
 rules_version = '2';
 service cloud.firestore {
@@ -96,6 +98,19 @@ service cloud.firestore {
       allow create: if request.auth != null && request.auth.uid == userId;
       allow update: if isExistingOwner(userId);
       allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Allows public read access for services, but write access is restricted to authenticated users.
+     * @path /services/{serviceId}
+     * @allow (get) - Anyone can read a service.
+     * @allow (list) - Anyone can list all services.
+     * @allow (create, update, delete) - Only authenticated users (admins) can modify services.
+     */
+    match /services/{serviceId} {
+      allow get: if true;
+      allow list: if true;
+      allow write: if isSignedIn();
     }
 
     function isSignedIn() {

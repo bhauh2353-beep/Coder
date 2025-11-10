@@ -162,6 +162,31 @@
         "displayName",
         "creationDate"
       ]
+    },
+     "Service": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Service",
+      "type": "object",
+      "description": "Represents a service offered by the business.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the service."
+        },
+        "icon": {
+          "type": "string",
+          "description": "Name of the Lucide icon for the service."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the service."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the service."
+        }
+      },
+      "required": ["id", "icon", "title", "description"]
     }
   },
   "auth": {
@@ -232,6 +257,22 @@
             {
               "name": "userId",
               "description": "Unique identifier for the user."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/services/{serviceId}",
+        "definition": {
+          "entityName": "Service",
+          "schema": {
+            "$ref": "#/backend/entities/Service"
+          },
+          "description": "Stores the services offered.",
+          "params": [
+            {
+              "name": "serviceId",
+              "description": "Unique identifier for the service."
             }
           ]
         }

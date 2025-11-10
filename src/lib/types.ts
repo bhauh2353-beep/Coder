@@ -1,3 +1,5 @@
+import type { LucideIcon } from "lucide-react";
+
 export type Contact = {
   id: string;
   name: string;
@@ -16,3 +18,12 @@ export type Lead = {
   message?: string;
   submissionDate: string;
 };
+
+export type Service = {
+    id: string;
+    icon: string;
+    title: string;
+    description: string;
+}
+
+export type IconMap = { [key: string]: LucideIcon };
