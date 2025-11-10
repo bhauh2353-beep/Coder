@@ -41,7 +41,7 @@ const Logo = ({ className }: LogoProps) => {
   return (
     <Link href="/" className={cn('flex items-center', className)}>
       {logoUrl ? (
-        <div className="relative h-10 w-40">
+        <div className="relative h-12 w-40">
           <Image
             src={logoUrl}
             alt={`${companyName} Logo`}
