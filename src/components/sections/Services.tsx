@@ -79,7 +79,7 @@ const Services = () => {
                 >
                     <CarouselContent>
                         {isLoading && Array.from({ length: 6 }).map((_, i) => (
-                            <CarouselItem key={i} className="basis-1/3">
+                            <CarouselItem key={i} className="basis-1/2 md:basis-1/4">
                                 <div className="p-1 h-full">
                                     <Card className="text-center flex flex-col items-center shadow-lg bg-card/80 backdrop-blur-sm p-2 md:p-6 h-full">
                                         <Skeleton className="w-10 h-10 md:w-16 md:h-16 rounded-full" />
@@ -91,7 +91,7 @@ const Services = () => {
                             </CarouselItem>
                         ))}
                         {!isLoading && services?.map((service) => (
-                            <CarouselItem key={service.id} className="basis-1/3">
+                            <CarouselItem key={service.id} className="basis-1/2 md:basis-1/4">
                                 <div className='p-1 h-full'>
                                     <Card className="text-center flex flex-col items-center shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 bg-card/80 backdrop-blur-sm h-full p-2 md:p-4">
                                     <CardHeader className="items-center p-2 md:p-4">
