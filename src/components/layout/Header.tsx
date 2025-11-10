@@ -151,12 +151,6 @@ const Header: FC = () => {
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <div className="relative group">
           <Logo />
-          <span className="font-code text-primary absolute -left-4 -top-2 text-lg opacity-20 group-hover:opacity-80 transition-opacity duration-300" style={{ animation: 'float 4s ease-in-out infinite 0.5s' }}>
-            {"</>"}
-          </span>
-          <span className="font-code text-accent absolute -right-4 -bottom-2 text-lg opacity-20 group-hover:opacity-80 transition-opacity duration-300" style={{ animation: 'float 4s ease-in-out infinite 1.5s' }}>
-            {"()"}
-          </span>
         </div>
 
         <div className="hidden md:flex items-center gap-4">
