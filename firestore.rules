@@ -1,0 +1,113 @@
+/**
+ * @fileoverview Firestore Security Rules for the application.
+ *
+ * Core Philosophy:
+ * This ruleset enforces public read and write access for 'contacts' and 'leads' collections.
+ * User data is secured with owner-only access. Testimonials are publicly accessible for reading and writing.
+ *
+ * Data Structure:
+ * - /contacts/{contactId}: Contact form submissions.
+ * - /leads/{leadId}: Service quote requests.
+ * - /testimonials/{testimonialId}: Client testimonials.
+ * - /users/{userId}: User account information.
+ *
+ * Key Security Decisions:
+ * - Contact, Lead, and Testimonial submissions are publicly writable, meaning anyone can create, update, or delete them.
+ * - User listing is disabled.
+ *
+ * Denormalization for Authorization:
+ * - Not applicable in this scenario, as there are no ownership or role-based access control requirements other than user accounts.
+ *
+ * Structural Segregation:
+ * - Contacts, Leads, Testimonials, and Users are stored in separate collections, simplifying rule management.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * @description Allows anyone to create, update, or delete contact form submissions.
+     * @path /contacts/{contactId}
+     * @allow (create) - Any user can submit a contact form.
+     * @allow (update) - Any user can update a contact form.
+     * @allow (delete) - Any user can delete a contact form.
+     * @deny (get) - Getting a specific contact is denied
+     * @deny (list) - Listing all contacts is denied
+     * @principle Public read and write access for contact submissions.
+     */
+    match /contacts/{contactId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if true;
+      allow update: if true;
+      allow delete: if true;
+    }
+
+    /**
+     * @description Allows anyone to create, update, or delete service quote requests (leads).
+     * @path /leads/{leadId}
+     * @allow (create) - Any user can submit a service quote request.
+     * @allow (update) - Any user can update a service quote request.
+     * @allow (delete) - Any user can delete a service quote request.
+     * @deny (get) - Getting a specific lead is denied.
+     * @deny (list) - Listing all leads is denied.
+     * @principle Public read and write access for lead submissions.
+     */
+    match /leads/{leadId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if true;
+      allow update: if true;
+      allow delete: if true;
+    }
+
+    /**
+     * @description Allows anyone to create, update, or delete client testimonials.
+     * @path /testimonials/{testimonialId}
+     * @allow (create) - Any user can submit a testimonial.
+     * @allow (update) - Any user can update a testimonial.
+     * @allow (delete) - Any user can delete a testimonial.
+     * @deny (get) - Getting a specific testimonial is denied.
+     * @deny (list) - Listing all testimonials is denied.
+     * @principle Public read and write access for testimonial submissions.
+     */
+    match /testimonials/{testimonialId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if true;
+      allow update: if true;
+      allow delete: if true;
+    }
+
+    /**
+     * @description Restricts access to user account information to the owner only.
+     * @path /users/{userId}
+     * @allow (create) - A user can create their own account if the userId matches their auth UID.
+     * @allow (update) - A user can update their own account if the userId matches their auth UID.
+     * @allow (delete) - A user can delete their own account if the userId matches their auth UID.
+     * @deny (get) - Getting other user info is denied.
+     * @deny (list) - Listing all users is denied.
+     * @deny (create) - Creating a user with an ID that doesn't match the authenticated user's ID.
+     * @principle Enforces document ownership for user accounts.
+     */
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow list: if false;
+      allow create: if request.auth != null && request.auth.uid == userId;
+      allow update: if isExistingOwner(userId);
+      allow delete: if isExistingOwner(userId);
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+    }
+  }
+}

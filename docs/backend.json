@@ -1,0 +1,242 @@
+{
+  "entities": {
+    "Contact": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Contact",
+      "type": "object",
+      "description": "Represents a contact form submission.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the contact submission."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the person submitting the contact form."
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number of the person submitting the contact form."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the person submitting the contact form.",
+          "format": "email"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message content from the contact form."
+        },
+        "submissionDate": {
+          "type": "string",
+          "description": "Date and time when the contact form was submitted.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "phone",
+        "email",
+        "message",
+        "submissionDate"
+      ]
+    },
+    "Lead": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Lead",
+      "type": "object",
+      "description": "Represents a lead generated from service quote requests or pricing inquiries.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the lead."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the lead."
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number of the lead."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the lead.",
+          "format": "email"
+        },
+        "service": {
+          "type": "string",
+          "description": "Service requested by the lead."
+        },
+        "message": {
+          "type": "string",
+          "description": "Additional message from the lead."
+        },
+        "submissionDate": {
+          "type": "string",
+          "description": "Date and time when the lead was submitted.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "phone",
+        "email",
+        "service",
+        "message",
+        "submissionDate"
+      ]
+    },
+    "Testimonial": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Testimonial",
+      "type": "object",
+      "description": "Represents a client testimonial.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the testimonial."
+        },
+        "clientName": {
+          "type": "string",
+          "description": "Name of the client providing the testimonial."
+        },
+        "clientPhotoUrl": {
+          "type": "string",
+          "description": "URL of the client's photo.",
+          "format": "uri"
+        },
+        "rating": {
+          "type": "number",
+          "description": "Rating given by the client (e.g., 1-5 stars)."
+        },
+        "message": {
+          "type": "string",
+          "description": "Text of the testimonial."
+        },
+        "submissionDate": {
+          "type": "string",
+          "description": "Date and time when the testimonial was submitted.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "clientName",
+        "clientPhotoUrl",
+        "rating",
+        "message",
+        "submissionDate"
+      ]
+    },
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user account (e.g., for admin login).",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the user."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the user (used for login).",
+          "format": "email"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Display name of the user."
+        },
+        "creationDate": {
+          "type": "string",
+          "description": "Date and time when the user account was created.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "email",
+        "displayName",
+        "creationDate"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/contacts/{contactId}",
+        "definition": {
+          "entityName": "Contact",
+          "schema": {
+            "$ref": "#/backend/entities/Contact"
+          },
+          "description": "Stores contact form submissions. Anyone can create a contact.",
+          "params": [
+            {
+              "name": "contactId",
+              "description": "Unique identifier for the contact submission."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/leads/{leadId}",
+        "definition": {
+          "entityName": "Lead",
+          "schema": {
+            "$ref": "#/backend/entities/Lead"
+          },
+          "description": "Stores service quote requests (leads). Anyone can create a lead.",
+          "params": [
+            {
+              "name": "leadId",
+              "description": "Unique identifier for the lead."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/testimonials/{testimonialId}",
+        "definition": {
+          "entityName": "Testimonial",
+          "schema": {
+            "$ref": "#/backend/entities/Testimonial"
+          },
+          "description": "Stores client testimonials.",
+          "params": [
+            {
+              "name": "testimonialId",
+              "description": "Unique identifier for the testimonial."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Stores user account information for optional admin login.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "Unique identifier for the user."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to store contact form submissions, service quote requests (leads), client testimonials, and user accounts for optional admin login. The structure prioritizes simplicity, security, and scalability.\n\nAuthorization Independence: Since there is no user-specific data or collaborative data, denormalization isn't required. All collections are treated as public-write, admin-read.\n\nStructural Segregation: Each data type (contacts, leads, testimonials, users) is stored in its own dedicated collection. This enforces a homogeneous security posture, simplifying rules.\n\nAccess Modeling: Contact, Lead, and Testimonial data is stored directly in collections without user ownership. This is suitable because the application proposal does not explicitly define data ownership use cases for these collections.\n\nData Clarity: Each entity has a well-defined schema with explicit fields, aiding in maintainability and predictability.\n\nQAPs: The design supports secure `list` operations because each collection is segregated by entity type, allowing security rules to be applied uniformly to each collection."
+  }
+}
