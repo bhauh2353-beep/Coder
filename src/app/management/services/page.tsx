@@ -105,12 +105,14 @@ const ManageServicesPage = () => {
   }, [user, isUserLoading, router]);
 
   useEffect(() => {
-    if (editingService) {
-      reset(editingService);
-    } else {
-      reset({ icon: '', title: '', description: '', imageUrl: '', imageHint: '' });
+    if (isFormDialogOpen) {
+      if (editingService) {
+        reset(editingService);
+      } else {
+        reset({ icon: '', title: '', description: '', imageUrl: '', imageHint: '' });
+      }
     }
-  }, [editingService, reset]);
+  }, [editingService, reset, isFormDialogOpen]);
 
   if (isUserLoading || !user) {
     return (
@@ -127,7 +129,6 @@ const ManageServicesPage = () => {
 
   const handleAddNew = () => {
     setEditingService(null);
-    reset({ icon: '', title: '', description: '', imageUrl: '', imageHint: '' });
     setIsFormDialogOpen(true);
   };
 
@@ -285,7 +286,11 @@ const ManageServicesPage = () => {
                     {!isLoading && services?.map((service) => (
                         <TableRow key={service.id}>
                             <TableCell>
-                                <Image src={service.imageUrl} alt={service.title} width={100} height={60} className="rounded-md object-cover" />
+                                {service.imageUrl ? (
+                                    <Image src={service.imageUrl} alt={service.title} width={100} height={60} className="rounded-md object-cover" />
+                                ) : (
+                                    <div className='w-[100px] h-[60px] bg-muted rounded-md' />
+                                )}
                             </TableCell>
                             <TableCell>{renderIcon(service.icon)}</TableCell>
                             <TableCell>{service.title}</TableCell>
