@@ -9,11 +9,24 @@ import {
 } from '@/components/ui/carousel';
 import { testimonials } from '@/lib/data';
 import { Star } from 'lucide-react';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const Testimonials = () => {
+    const backgroundImage = PlaceHolderImages.find(p => p.id === 'testimonials-background');
+
   return (
-    <section id="testimonials" className="w-full py-20 md:py-32 bg-secondary/50">
-      <div className="container mx-auto px-4">
+    <section id="testimonials" className="relative w-full py-20 md:py-32 overflow-hidden">
+        {backgroundImage && (
+            <Image
+                src={backgroundImage.imageUrl}
+                alt={backgroundImage.description}
+                fill
+                className="object-cover"
+                data-ai-hint={backgroundImage.imageHint}
+            />
+        )}
+        <div className="absolute inset-0 bg-background/90"></div>
+      <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-headline font-bold">What Our Clients Say</h2>
           <p className="text-muted-foreground mt-2 max-w-xl mx-auto">
@@ -32,7 +45,7 @@ const Testimonials = () => {
             {testimonials.map((testimonial, index) => (
               <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/2">
                 <div className="p-1">
-                  <Card className="h-full shadow-lg">
+                  <Card className="h-full shadow-lg bg-card/80 backdrop-blur-sm">
                     <CardContent className="flex flex-col items-center text-center p-6 gap-4">
                       {testimonial.image && (
                          <Image

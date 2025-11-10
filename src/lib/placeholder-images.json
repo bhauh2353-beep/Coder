@@ -41,6 +41,36 @@
       "description": "Portrait of a professional female client.",
       "imageUrl": "https://images.unsplash.com/photo-1573497019236-17f8177b81e8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3b21hbiUyMHByb2Zlc3Npb25hbHxlbnwwfHx8fDE3NjI3MzU1OTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "woman professional"
+    },
+    {
+      "id": "services-background",
+      "description": "A person using multiple digital devices.",
+      "imageUrl": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxkaWdpdGFsJTIwc2VydmljZXN8ZW58MHx8fHwxNzYyODA0MjY0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "digital services"
+    },
+    {
+      "id": "projects-background",
+      "description": "A collaborative team working on a project.",
+      "imageUrl": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwcm9qZWN0JTIwdGVhbXxlbnwwfHx8fDE3NjI4MDQzMTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "project team"
+    },
+    {
+      "id": "pricing-background",
+      "description": "Abstract image representing value and pricing.",
+      "imageUrl": "https://images.unsplash.com/photo-1579621970795-87f91d908d28?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhZmZvcmRhYmxlJTIwcHJpY2luZ3xlbnwwfHx8fDE3NjI4MDQzNTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "affordable pricing"
+    },
+    {
+      "id": "testimonials-background",
+      "description": "A group of diverse people in a meeting.",
+      "imageUrl": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjbGllbnQlMjBzYXRpc2ZhY3Rpb258ZW58MHx8fHwxNzYyODA0NDAwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "client satisfaction"
+    },
+    {
+      "id": "contact-background",
+      "description": "A person writing on a notepad.",
+      "imageUrl": "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb250YWN0JTIwdXN8ZW58MHx8fHwxNzYyODA0NDMyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "contact us"
     }
   ]
 }

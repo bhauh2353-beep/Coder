@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Mail, Phone, MapPin } from "lucide-react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -12,6 +13,8 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { saveContact } from "@/lib/actions";
 import SeoTool from "@/components/SeoTool";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
+
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
@@ -33,6 +36,8 @@ const Contact = () => {
   } = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
   });
+   const backgroundImage = PlaceHolderImages.find(p => p.id === 'contact-background');
+
 
   useEffect(() => {
     if (state?.message) {
@@ -53,8 +58,18 @@ const Contact = () => {
   }, [state, toast, reset]);
 
   return (
-    <section id="contact" className="w-full py-20 md:py-32 bg-background">
-      <div className="container mx-auto px-4">
+    <section id="contact" className="relative w-full py-20 md:py-32 overflow-hidden">
+        {backgroundImage && (
+            <Image
+                src={backgroundImage.imageUrl}
+                alt={backgroundImage.description}
+                fill
+                className="object-cover"
+                data-ai-hint={backgroundImage.imageHint}
+            />
+        )}
+        <div className="absolute inset-0 bg-background/90"></div>
+      <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-headline font-bold">Get In Touch</h2>
           <p className="text-muted-foreground mt-2 max-w-xl mx-auto">
@@ -63,7 +78,7 @@ const Contact = () => {
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 items-start">
-          <div className="bg-card p-8 rounded-lg shadow-md">
+          <div className="bg-card/80 backdrop-blur-sm p-8 rounded-lg shadow-md">
             <h3 className="text-2xl font-headline font-semibold mb-6">Send us a Message</h3>
             <form action={formAction} className="space-y-4">
               <div>
@@ -93,7 +108,7 @@ const Contact = () => {
           </div>
 
           <div className="space-y-8">
-            <div className="space-y-4 text-lg">
+            <div className="bg-card/80 backdrop-blur-sm p-8 rounded-lg shadow-md space-y-4 text-lg">
                 <a href="mailto:info@jhsmartsolutions.in" className="flex items-center gap-4 group">
                     <Mail className="w-8 h-8 text-primary"/>
                     <span className="text-muted-foreground group-hover:text-primary transition-colors">info@jhsmartsolutions.in</span>
