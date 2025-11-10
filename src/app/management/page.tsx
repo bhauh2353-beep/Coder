@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useUser } from '@/firebase';
-import { LayoutDashboard, Settings, Briefcase, DollarSign, MessageSquare, Mail, Users } from 'lucide-react';
+import { LayoutDashboard, Settings, Briefcase, DollarSign, MessageSquare, Mail, Users, Info } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 
 const managementSections = [
@@ -43,6 +43,12 @@ const managementSections = [
     description: 'View and manage service quote requests.',
     href: '/management/leads',
     icon: Users,
+  },
+   {
+    title: 'Company Info',
+    description: 'Update your business contact details.',
+    href: '/management/company-info',
+    icon: Info,
   },
 ];
 

@@ -1,3 +1,8 @@
+'use client';
+
+import { useMemo } from 'react';
+import { useFirestore, useDoc } from '@/firebase';
+import { doc } from 'firebase/firestore';
 import Logo from '@/components/Logo';
 import { socialLinks } from '@/lib/data';
 import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin } from 'lucide-react';
@@ -10,6 +15,13 @@ const iconMap: { [key: string]: React.ElementType } = {
 };
 
 const Footer = () => {
+  const firestore = useFirestore();
+  const companyInfoRef = useMemo(() => {
+    if (!firestore) return null;
+    return doc(firestore, 'companyInfo', 'main');
+  }, [firestore]);
+  const { data: companyInfo } = useDoc(companyInfoRef);
+
   return (
     <footer className="bg-background/80 backdrop-blur-sm border-t">
       <div className="container mx-auto px-4 py-8">
@@ -26,15 +38,19 @@ const Footer = () => {
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-primary" />
-                <span>Shop Location, City, India</span>
+                <span>{companyInfo?.address || 'Shop Location, City, India'}</span>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-primary" />
-                <a href="tel:+919000000000" className="hover:text-primary transition-colors">+91 9xxxxxxxxx</a>
+                <a href={`tel:${companyInfo?.phone}`} className="hover:text-primary transition-colors">
+                  {companyInfo?.phone || '+91 9xxxxxxxxx'}
+                </a>
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-primary" />
-                <a href="mailto:info@jhsmartsolutions.in" className="hover:text-primary transition-colors">info@jhsmartsolutions.in</a>
+                <a href={`mailto:${companyInfo?.email}`} className="hover:text-primary transition-colors">
+                  {companyInfo?.email || 'info@jhsmartsolutions.in'}
+                </a>
               </li>
             </ul>
           </div>

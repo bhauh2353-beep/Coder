@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -14,6 +14,8 @@ import { useToast } from "@/hooks/use-toast";
 import { saveContact } from "@/lib/actions";
 import SeoTool from "@/components/SeoTool";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { useFirestore, useDoc } from '@/firebase';
+import { doc } from 'firebase/firestore';
 
 
 const contactSchema = z.object({
@@ -36,7 +38,14 @@ const Contact = () => {
   } = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
   });
-   const backgroundImage = PlaceHolderImages.find(p => p.id === 'contact-background');
+  const backgroundImage = PlaceHolderImages.find(p => p.id === 'contact-background');
+
+  const firestore = useFirestore();
+  const companyInfoRef = useMemo(() => {
+    if (!firestore) return null;
+    return doc(firestore, 'companyInfo', 'main');
+  }, [firestore]);
+  const { data: companyInfo } = useDoc(companyInfoRef);
 
 
   useEffect(() => {
@@ -113,17 +122,17 @@ const Contact = () => {
 
           <div className="space-y-8">
             <div className="bg-card/80 backdrop-blur-sm p-8 rounded-lg shadow-md space-y-4 text-lg">
-                <a href="mailto:info@jhsmartsolutions.in" className="flex items-center gap-4 group">
+                <a href={`mailto:${companyInfo?.email}`} className="flex items-center gap-4 group">
                     <Mail className="w-8 h-8 text-primary"/>
-                    <span className="text-muted-foreground group-hover:text-primary transition-colors">info@jhsmartsolutions.in</span>
+                    <span className="text-muted-foreground group-hover:text-primary transition-colors">{companyInfo?.email || 'info@jhsmartsolutions.in'}</span>
                 </a>
-                 <a href="tel:+919000000000" className="flex items-center gap-4 group">
+                 <a href={`tel:${companyInfo?.phone}`} className="flex items-center gap-4 group">
                     <Phone className="w-8 h-8 text-primary"/>
-                    <span className="text-muted-foreground group-hover:text-primary transition-colors">+91 9xxxxxxxxx</span>
+                    <span className="text-muted-foreground group-hover:text-primary transition-colors">{companyInfo?.phone || '+91 9xxxxxxxxx'}</span>
                 </a>
                  <div className="flex items-center gap-4">
                     <MapPin className="w-8 h-8 text-primary"/>
-                    <span className="text-muted-foreground">Shop Location, City, India</span>
+                    <span className="text-muted-foreground">{companyInfo?.address || 'Shop Location, City, India'}</span>
                 </div>
             </div>
 

@@ -128,6 +128,19 @@ service cloud.firestore {
       allow read: if true;
       allow write: if isSignedIn();
     }
+    
+    /**
+     * @description Allows public read access for company info, but write access is restricted to authenticated users.
+     * @path /companyInfo/{infoId}
+     * @allow (get) - Anyone can read company info.
+     * @allow (list) - Anyone can list company info.
+     * @allow (create, update, delete) - Only authenticated users (admins) can modify company info.
+     */
+    match /companyInfo/{infoId} {
+      allow read: if true;
+      allow write: if isSignedIn();
+    }
+
 
     function isSignedIn() {
       return request.auth != null;

@@ -53,6 +53,14 @@ export type Testimonial = {
     submissionDate: string;
 }
 
+export type CompanyInfo = {
+    id: string;
+    address: string;
+    phone: string;
+    email: string;
+};
+
+
 export type IconMap = { [key: string]: LucideIcon };
 
     
