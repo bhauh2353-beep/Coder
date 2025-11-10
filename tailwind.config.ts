@@ -10,7 +10,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['Inter', 'sans-serif'],
+        body: ['Lora', 'serif'],
         headline: ['Space Grotesk', 'sans-serif'],
         brand: ['Great Vibes', 'cursive'],
         code: ['Source Code Pro', 'monospace'],
