@@ -131,7 +131,7 @@ const Contact = () => {
                       </a>
                       <a href={`tel:${companyInfo?.phone}`} className="flex items-center gap-3 group">
                           <Phone className="w-6 h-6 text-primary"/>
-                          <span className="text-muted-foreground group-hover:text-primary transition-colors">{companyInfo?.phone || '+91 9xxxxxxxxx'}</span>
+                          <span className="text-muted-foreground group-hover:text-primary transition-colors">{companyInfo?.phone || '+91 7972688626'}</span>
                       </a>
                       <div className="flex items-start gap-3">
                           <MapPin className="w-6 h-6 text-primary mt-1"/>
