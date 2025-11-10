@@ -1,9 +1,12 @@
+
 "use client";
 
+import { useMemo, useState, useEffect } from 'react';
+import { useFirestore, useDoc } from '@/firebase';
+import { doc } from 'firebase/firestore';
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { useState, useEffect } from "react";
 
 const WhatsAppIcon = () => (
     <svg
@@ -26,6 +29,13 @@ const WhatsAppIcon = () => (
 const FloatingWhatsApp = () => {
     const [isMounted, setIsMounted] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
+    
+    const firestore = useFirestore();
+    const companyInfoRef = useMemo(() => {
+        if (!firestore) return null;
+        return doc(firestore, 'companyInfo', 'main');
+    }, [firestore]);
+    const { data: companyInfo } = useDoc(companyInfoRef);
 
     useEffect(() => {
         setIsMounted(true);
@@ -43,7 +53,7 @@ const FloatingWhatsApp = () => {
         return () => window.removeEventListener("scroll", toggleVisibility);
     }, []);
 
-    const phoneNumber = "919000000000"; // Replace with your actual number
+    const phoneNumber = companyInfo?.phone || "919000000000";
 
     if (!isMounted) {
         return null;
