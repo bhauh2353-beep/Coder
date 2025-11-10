@@ -49,6 +49,42 @@
       "imageHint": "digital services"
     },
     {
+      "id": "service-website",
+      "description": "A person coding on a laptop.",
+      "imageUrl": "https://images.unsplash.com/photo-1715967635831-f5a1f9658880?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx3ZWJzaXRlJTIwY29kZXxlbnwwfHx8fDE3NjI3OTgyMDN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "website code"
+    },
+    {
+      "id": "service-android",
+      "description": "An android robot standing in front of a phone.",
+      "imageUrl": "https://images.unsplash.com/photo-1721864428894-3900930506aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxhbmRyb2lkJTIwcGhvbmV8ZW58MHx8fHwxNzYyNzk4MjAyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "android phone"
+    },
+    {
+      "id": "service-windows",
+      "description": "A computer screen showing a windows application.",
+      "imageUrl": "https://images.unsplash.com/photo-1719990674907-69816f391ef5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8d2luZG93cyUyMGFwcGxpY2F0aW9ufGVufDB8fHx8MTc2Mjc5ODIwMnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "windows application"
+    },
+    {
+      "id": "service-whatsapp",
+      "description": "A phone with the WhatsApp logo on screen.",
+      "imageUrl": "https://images.unsplash.com/photo-1633354931133-27ac1ee5d853?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx3aGF0c2FwcCUyMGxvZ298ZW58MHx8fHwxNzYyNzk4MjAzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "whatsapp logo"
+    },
+    {
+      "id": "service-store",
+      "description": "A modern online store interface on a tablet.",
+      "imageUrl": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxvbmxpbmUlMjBzdG9yZXxlbnwwfHx8fDE3NjI2OTIxNTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "online store"
+    },
+    {
+      "id": "service-printing",
+      "description": "A professional printer printing documents.",
+      "imageUrl": "https://images.unsplash.com/photo-1696426483070-3aab23dbe5ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxkb2N1bWVudCUyMHByaW50aW5nfGVufDB8fHx8MTc2Mjc5ODIwMnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "document printing"
+    },
+    {
       "id": "projects-background",
       "description": "A collaborative team working on a project.",
       "imageUrl": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwcm9qZWN0JTIwdGVhbXxlbnwwfHx8fDE3NjI4MDQzMTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
@@ -69,7 +105,7 @@
     {
       "id": "contact-background",
       "description": "A person writing on a notepad.",
-      "imageUrl": "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb250YWN0JTIwdXN8ZW58MHx8fHwxNzYyODA0NDMyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb250YWN0JTIwdXN8ZW58MHx8fHwxNzYyODA0NDMyfDA&ixlibrb-4.1.0&q=80&w=1080",
       "imageHint": "contact us"
     }
   ]

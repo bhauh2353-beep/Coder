@@ -47,31 +47,43 @@ export const defaultServices: Omit<Service, 'id'>[] = [
     icon: 'Codepen',
     title: 'Website Development',
     description: 'Creating stunning, high-performance websites tailored to your brand and business goals.',
+    imageUrl: PlaceHolderImages.find(p => p.id === 'service-website')?.imageUrl || '',
+    imageHint: PlaceHolderImages.find(p => p.id === 'service-website')?.imageHint || '',
   },
   {
     icon: 'AppWindow',
     title: 'Android App Development',
     description: 'Building native Android apps that provide seamless user experiences and powerful functionality.',
+    imageUrl: PlaceHolderImages.find(p => p.id === 'service-android')?.imageUrl || '',
+    imageHint: PlaceHolderImages.find(p => p.id === 'service-android')?.imageHint || '',
   },
   {
     icon: 'Monitor',
     title: 'Windows App & Dashboard',
     description: 'Developing custom Windows applications and intuitive data dashboards for your business.',
+    imageUrl: PlaceHolderImages.find(p => p.id === 'service-windows')?.imageUrl || '',
+    imageHint: PlaceHolderImages.find(p => p.id === 'service-windows')?.imageHint || '',
   },
   {
     icon: 'MessageCircle',
     title: 'WhatsApp Business Setup',
     description: 'Integrating WhatsApp Business API for customer communication, support, and automation.',
+    imageUrl: PlaceHolderImages.find(p => p.id === 'service-whatsapp')?.imageUrl || '',
+    imageHint: PlaceHolderImages.find(p => p.id === 'service-whatsapp')?.imageHint || '',
   },
   {
     icon: 'ShoppingCart',
     title: 'Online Store Creation',
     description: 'Launching feature-rich e-commerce stores that drive sales and grow your online presence.',
+    imageUrl: PlaceHolderImages.find(p => p.id === 'service-store')?.imageUrl || '',
+    imageHint: PlaceHolderImages.find(p => p.id === 'service-store')?.imageHint || '',
   },
   {
     icon: 'Printer',
     title: 'Digital Document & Printing',
     description: 'Professional design and printing services for all your digital and physical document needs.',
+    imageUrl: PlaceHolderImages.find(p => p.id === 'service-printing')?.imageUrl || '',
+    imageHint: PlaceHolderImages.find(p => p.id === 'service-printing')?.imageHint || '',
   },
 ];
 
@@ -154,3 +166,5 @@ export const socialLinks: SocialLink[] = [
     { name: 'LinkedIn', href: '#', colorClass: 'text-[#0A66C2]' },
     { name: 'WhatsApp', href: '#', colorClass: 'text-[#25D366]' },
 ];
+
+    

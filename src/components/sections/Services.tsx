@@ -57,30 +57,43 @@ const Services = () => {
             </div>
 
             <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-                <div className="grid grid-cols-2 md:grid-cols-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
                     {isLoading && Array.from({ length: 6 }).map((_, i) => (
-                        <div key={i} className="h-full p-1">
-                            <Card className="text-center flex flex-col items-center shadow-lg bg-card/80 backdrop-blur-sm p-2 md:p-6 h-full">
-                                <Skeleton className="w-10 h-10 md:w-16 md:h-16 rounded-full" />
+                        <div key={i} className="h-full">
+                            <Card className="text-center flex flex-col items-center shadow-lg bg-card/80 backdrop-blur-sm p-2 md:p-4 h-full overflow-hidden">
+                                <div className="aspect-video relative w-full">
+                                    <Skeleton className="w-full h-full" />
+                                </div>
                                 <Skeleton className="h-5 md:h-6 w-20 md:w-32 mt-3 md:mt-4" />
-                                <Skeleton className="h-3 md:h-4 w-24 md:w-48 mt-2" />
-                                <Skeleton className="h-8 md:h-10 w-20 md:w-24 mt-4 md:mt-6" />
+                                <div className='flex-grow mt-2 space-y-2'>
+                                    <Skeleton className="h-3 md:h-4 w-full" />
+                                    <Skeleton className="h-3 md:h-4 w-5/6" />
+                                </div>
+                                <Skeleton className="h-8 md:h-9 w-20 md:w-24 mt-4 md:mt-6" />
                             </Card>
                         </div>
                     ))}
                     {!isLoading && services?.map((service) => (
-                        <div key={service.id} className='h-full p-1'>
-                            <Card className="text-center flex flex-col items-center shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 bg-card/80 backdrop-blur-sm h-full p-2 md:p-4">
-                            <CardHeader className="items-center p-2 md:p-4">
-                                <div className="bg-primary/10 p-3 md:p-4 rounded-full">
-                                    {renderIcon(service.icon)}
-                                </div>
-                                <CardTitle className="pt-2 md:pt-4 font-headline text-sm md:text-base">{service.title}</CardTitle>
+                        <div key={service.id} className='h-full'>
+                            <Card className="text-center flex flex-col items-center shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 bg-card/80 backdrop-blur-sm h-full overflow-hidden">
+                            {service.imageUrl && (
+                              <div className="aspect-video relative w-full">
+                                 <Image
+                                  src={service.imageUrl}
+                                  alt={service.title}
+                                  fill
+                                  className="object-cover"
+                                  data-ai-hint={service.imageHint}
+                                />
+                              </div>
+                            )}
+                            <CardHeader className="items-center p-2">
+                                <CardTitle className="pt-2 font-headline text-sm md:text-base">{service.title}</CardTitle>
                             </CardHeader>
-                            <CardContent className="flex-grow p-2 md:p-4">
+                            <CardContent className="flex-grow p-2">
                                 <CardDescription className="text-xs">{service.description}</CardDescription>
                             </CardContent>
-                            <CardFooter className="p-2 md:p-4">
+                            <CardFooter className="p-2 mt-auto">
                                 <DialogTrigger asChild>
                                     <Button variant="outline" size="sm" onClick={() => handleGetQuote(service.title)}>
                                         Get Quote
@@ -99,3 +112,5 @@ const Services = () => {
 };
 
 export default Services;
+
+    

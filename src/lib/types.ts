@@ -28,6 +28,8 @@ export type Service = {
     icon: string;
     title: string;
     description: string;
+    imageUrl: string;
+    imageHint: string;
 }
 
 export type Project = {
@@ -75,6 +77,8 @@ export type SocialLink = {
     href: string;
     colorClass: string;
 }
+    
+
     
 
     

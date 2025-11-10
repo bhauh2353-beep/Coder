@@ -213,13 +213,24 @@
         "description": {
           "type": "string",
           "description": "Description of the service."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the service's image.",
+          "format": "uri"
+        },
+        "imageHint": {
+            "type": "string",
+            "description": "AI hint for the service image."
         }
       },
       "required": [
         "id",
         "icon",
         "title",
-        "description"
+        "description",
+        "imageUrl",
+        "imageHint"
       ]
     },
     "Project": {
@@ -428,3 +439,5 @@
     "reasoning": "The Firestore structure is designed to store contact form submissions, service quote requests (leads), client testimonials, and user accounts for optional admin login. The structure prioritizes simplicity, security, and scalability.\n\nAuthorization Independence: Since there is no user-specific data or collaborative data, denormalization isn't required. All collections are treated as public-write, admin-read.\n\nStructural Segregation: Each data type (contacts, leads, testimonials, users) is stored in its own dedicated collection. This enforces a homogeneous security posture, simplifying rules.\n\nAccess Modeling: Contact, Lead, and Testimonial data is stored in collections without user ownership. This is suitable because the application proposal does not explicitly define data ownership use cases for these collections.\n\nData Clarity: Each entity has a well-defined schema with explicit fields, aiding in maintainability and predictability.\n\nQAPs: The design supports secure `list` operations because each collection is segregated by entity type, allowing security rules to be applied uniformly to each collection."
   }
 }
+
+    

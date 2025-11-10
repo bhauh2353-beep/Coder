@@ -44,11 +44,14 @@ import type { Service } from '@/lib/types';
 import { iconMap, defaultServices } from '@/lib/data';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useToast } from '@/hooks/use-toast';
+import Image from 'next/image';
 
 const serviceSchema = z.object({
   icon: z.string().min(1, "Icon is required."),
   title: z.string().min(2, "Title is required."),
   description: z.string().min(10, "Description is required."),
+  imageUrl: z.string().url("A valid image URL is required."),
+  imageHint: z.string().optional(),
 });
 
 type ServiceFormValues = z.infer<typeof serviceSchema>;
@@ -105,7 +108,7 @@ const ManageServicesPage = () => {
     if (editingService) {
       reset(editingService);
     } else {
-      reset({ icon: '', title: '', description: '' });
+      reset({ icon: '', title: '', description: '', imageUrl: '', imageHint: '' });
     }
   }, [editingService, reset]);
 
@@ -124,7 +127,7 @@ const ManageServicesPage = () => {
 
   const handleAddNew = () => {
     setEditingService(null);
-    reset({ icon: '', title: '', description: '' });
+    reset({ icon: '', title: '', description: '', imageUrl: '', imageHint: '' });
     setIsFormDialogOpen(true);
   };
 
@@ -218,6 +221,15 @@ const ManageServicesPage = () => {
                     <Textarea id="description" {...register('description')} />
                     {errors.description && <p className="text-sm text-destructive">{errors.description.message}</p>}
                 </div>
+                <div className="space-y-2">
+                    <Label htmlFor="imageUrl">Image URL</Label>
+                    <Input id="imageUrl" {...register('imageUrl')} placeholder="https://picsum.photos/seed/1/600/400" />
+                     {errors.imageUrl && <p className="text-sm text-destructive">{errors.imageUrl.message}</p>}
+                </div>
+                 <div className="space-y-2">
+                    <Label htmlFor="imageHint">Image Hint (for AI)</Label>
+                    <Input id="imageHint" {...register('imageHint')} placeholder="e.g. web design" />
+                </div>
                 <DialogFooter>
                     <Button type="submit" disabled={isSubmitting}>
                         {isSubmitting ? 'Saving...' : 'Save Service'}
@@ -253,6 +265,7 @@ const ManageServicesPage = () => {
             <Table>
                 <TableHeader>
                     <TableRow>
+                        <TableHead>Image</TableHead>
                         <TableHead>Icon</TableHead>
                         <TableHead>Title</TableHead>
                         <TableHead>Description</TableHead>
@@ -262,6 +275,7 @@ const ManageServicesPage = () => {
                 <TableBody>
                     {isLoading && Array.from({ length: 6 }).map((_, i) => (
                         <TableRow key={i}>
+                            <TableCell><Skeleton className="h-16 w-24 rounded-md" /></TableCell>
                             <TableCell><Skeleton className="h-6 w-6 rounded-full" /></TableCell>
                             <TableCell><Skeleton className="h-4 w-32" /></TableCell>
                             <TableCell><Skeleton className="h-4 w-64" /></TableCell>
@@ -270,6 +284,9 @@ const ManageServicesPage = () => {
                     ))}
                     {!isLoading && services?.map((service) => (
                         <TableRow key={service.id}>
+                            <TableCell>
+                                <Image src={service.imageUrl} alt={service.title} width={100} height={60} className="rounded-md object-cover" />
+                            </TableCell>
                             <TableCell>{renderIcon(service.icon)}</TableCell>
                             <TableCell>{service.title}</TableCell>
                             <TableCell>{service.description}</TableCell>
@@ -292,3 +309,5 @@ const ManageServicesPage = () => {
 }
 
 export default ManageServicesPage;
+
+    
