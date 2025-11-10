@@ -63,7 +63,7 @@ const Hero = () => {
                 className="text-2xl md:text-4xl font-headline font-bold text-foreground leading-tight"
               />
               <AnimateOnScroll className="mt-12">
-                <div className="text-base md:text-lg text-foreground font-bold max-w-3xl mx-auto">
+                <div className="text-base md:text-lg text-muted-foreground font-bold max-w-3xl mx-auto">
                   {isCompanyInfoLoading || !isMounted ? <Skeleton className="h-6 w-1/2 mx-auto" /> : slogan}
                 </div>
               </AnimateOnScroll>
