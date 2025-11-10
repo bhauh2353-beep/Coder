@@ -40,7 +40,7 @@ const Hero = () => {
   const slogan = companyInfo?.slogan || 'Smart, Fast, and Affordable Digital Solutions.';
 
   return (
-    <section id="home" className="relative w-full pt-20 pb-8 md:pt-24 md:pb-12 overflow-hidden">
+    <section id="home" className="relative w-full pt-20 pb-12 md:pt-24 md:pb-16 overflow-hidden">
       {heroImage && (
         <Image
           src={heroImage.imageUrl}
@@ -63,7 +63,7 @@ const Hero = () => {
                 className="text-2xl md:text-4xl font-headline font-bold text-foreground leading-tight"
               />
               <AnimateOnScroll className="mt-12">
-                <div className="text-base md:text-lg text-muted-foreground font-bold max-w-3xl mx-auto">
+                <div className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
                   {isCompanyInfoLoading || !isMounted ? <Skeleton className="h-6 w-1/2 mx-auto" /> : slogan}
                 </div>
               </AnimateOnScroll>
