@@ -64,21 +64,14 @@ service cloud.firestore {
     }
 
     /**
-     * @description Allows anyone to create, update, or delete client testimonials.
+     * @description Allows public read access for testimonials, but write access is restricted to authenticated users.
      * @path /testimonials/{testimonialId}
-     * @allow (create) - Any user can submit a testimonial.
-     * @allow (update) - Any user can update a testimonial.
-     * @allow (delete) - Any user can delete a testimonial.
-     * @deny (get) - Getting a specific testimonial is denied.
-     * @deny (list) - Listing all testimonials is denied.
-     * @principle Public read and write access for testimonial submissions.
+     * @allow (read) - Anyone can read testimonials.
+     * @allow (write) - Only authenticated users (admins) can modify testimonials.
      */
     match /testimonials/{testimonialId} {
       allow read: if true;
-      allow list: if true;
-      allow create: if true;
-      allow update: if true;
-      allow delete: if true;
+      allow write: if isSignedIn();
     }
 
     /**

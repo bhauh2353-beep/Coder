@@ -13,7 +13,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { PlaceHolderImages } from './placeholder-images';
-import type { IconMap, Service, Project, PricingPlan } from './types';
+import type { IconMap, Service, Project, PricingPlan, Testimonial } from './types';
 
 export const navLinks = [
   { href: '#home', label: 'Home' },
@@ -39,6 +39,7 @@ export const iconMap: IconMap = {
   ShoppingCart,
   Printer,
   Smartphone,
+  Star,
 };
 
 export const defaultServices: Omit<Service, 'id'>[] = [
@@ -120,24 +121,30 @@ export const defaultPricingPlans: Omit<PricingPlan, 'id'>[] = [
   },
 ];
 
-export const testimonials = [
+export const defaultTestimonials: Omit<Testimonial, 'id'>[] = [
   {
-    image: PlaceHolderImages.find(p => p.id === 'testimonial-1'),
-    name: 'Rohan Sharma',
+    clientPhotoUrl: PlaceHolderImages.find(p => p.id === 'testimonial-1')?.imageUrl || '',
+    imageHint: PlaceHolderImages.find(p => p.id === 'testimonial-1')?.imageHint || '',
+    clientName: 'Rohan Sharma',
     rating: 5,
     message: 'JH Smart Solutions delivered a fantastic website for my business. The team was professional, responsive, and the final product exceeded my expectations.',
+    submissionDate: new Date().toISOString(),
   },
   {
-    image: PlaceHolderImages.find(p => p.id === 'testimonial-2'),
-    name: 'Priya Mehta',
+    clientPhotoUrl: PlaceHolderImages.find(p => p.id === 'testimonial-2')?.imageUrl || '',
+    imageHint: PlaceHolderImages.find(p => p.id === 'testimonial-2')?.imageHint || '',
+    clientName: 'Priya Mehta',
     rating: 5,
     message: 'The mobile app they developed is flawless. It has helped us increase customer engagement significantly. Highly recommended!',
+     submissionDate: new Date().toISOString(),
   },
   {
-    image: PlaceHolderImages.find(p => p.id === 'testimonial-3'),
-    name: 'Anil Kumar',
+    clientPhotoUrl: PlaceHolderImages.find(p => p.id === 'testimonial-3')?.imageUrl || '',
+    imageHint: PlaceHolderImages.find(p => p.id === 'testimonial-3')?.imageHint || '',
+    clientName: 'Anil Kumar',
     rating: 4,
     message: 'Great service and support. The automation solution they built has saved us countless hours of manual work. A true game-changer for our operations.',
+     submissionDate: new Date().toISOString(),
   },
 ];
 

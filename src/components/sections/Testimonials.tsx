@@ -1,3 +1,6 @@
+'use client';
+
+import { useMemo } from 'react';
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import {
@@ -7,12 +10,22 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { testimonials } from '@/lib/data';
+import { useCollection, useFirestore } from '@/firebase';
+import { collection } from 'firebase/firestore';
+import type { Testimonial } from '@/lib/types';
 import { Star } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { Skeleton } from '../ui/skeleton';
 
 const Testimonials = () => {
     const backgroundImage = PlaceHolderImages.find(p => p.id === 'testimonials-background');
+    const firestore = useFirestore();
+    const testimonialsCollection = useMemo(() => {
+        if (!firestore) return null;
+        return collection(firestore, 'testimonials');
+    }, [firestore]);
+
+    const { data: testimonials, isLoading } = useCollection<Testimonial>(testimonialsCollection);
 
   return (
     <section id="testimonials" className="relative w-full py-20 md:py-32 overflow-hidden">
@@ -42,19 +55,38 @@ const Testimonials = () => {
           className="w-full max-w-4xl mx-auto"
         >
           <CarouselContent>
-            {testimonials.map((testimonial, index) => (
+             {isLoading && Array.from({ length: 2 }).map((_, index) => (
               <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/2">
                 <div className="p-1">
                   <Card className="h-full shadow-lg bg-card/80 backdrop-blur-sm">
                     <CardContent className="flex flex-col items-center text-center p-6 gap-4">
-                      {testimonial.image && (
+                        <Skeleton className="w-20 h-20 rounded-full" />
+                        <div className='flex flex-col items-center gap-2 w-full'>
+                            <Skeleton className="h-4 w-full" />
+                            <Skeleton className="h-4 w-4/5" />
+                        </div>
+                        <div className="flex flex-col items-center w-full">
+                           <Skeleton className="h-5 w-24" />
+                           <Skeleton className="h-4 w-32 mt-2" />
+                        </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </CarouselItem>
+            ))}
+            {!isLoading && testimonials?.map((testimonial, index) => (
+              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/2">
+                <div className="p-1">
+                  <Card className="h-full shadow-lg bg-card/80 backdrop-blur-sm">
+                    <CardContent className="flex flex-col items-center text-center p-6 gap-4">
+                      {testimonial.clientPhotoUrl && (
                          <Image
-                          src={testimonial.image.imageUrl}
-                          alt={`Photo of ${testimonial.name}`}
+                          src={testimonial.clientPhotoUrl}
+                          alt={`Photo of ${testimonial.clientName}`}
                           width={80}
                           height={80}
                           className="rounded-full"
-                          data-ai-hint={testimonial.image.imageHint}
+                          data-ai-hint={testimonial.imageHint}
                         />
                       )}
                       <p className="text-muted-foreground flex-grow">"{testimonial.message}"</p>
@@ -67,7 +99,7 @@ const Testimonials = () => {
                             />
                             ))}
                         </div>
-                        <span className="font-bold font-headline mt-2">{testimonial.name}</span>
+                        <span className="font-bold font-headline mt-2">{testimonial.clientName}</span>
                       </div>
                     </CardContent>
                   </Card>

@@ -43,6 +43,16 @@ export type PricingPlan = {
     features: string[];
 }
 
+export type Testimonial = {
+    id: string;
+    clientName: string;
+    clientPhotoUrl: string;
+    imageHint?: string;
+    rating: number;
+    message: string;
+    submissionDate: string;
+}
+
 export type IconMap = { [key: string]: LucideIcon };
 
     

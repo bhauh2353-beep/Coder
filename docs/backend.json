@@ -108,6 +108,10 @@
           "description": "URL of the client's photo.",
           "format": "uri"
         },
+        "imageHint": {
+          "type": "string",
+          "description": "AI hint for the client's photo."
+        },
         "rating": {
           "type": "number",
           "description": "Rating given by the client (e.g., 1-5 stars)."
