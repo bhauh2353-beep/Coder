@@ -93,36 +93,35 @@ const Contact = () => {
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 items-start">
-            <div className="space-y-8">
-                <div className="bg-card/80 backdrop-blur-sm p-8 rounded-lg shadow-md h-full">
-                <h3 className="text-2xl font-headline font-semibold mb-6">Send us a Message</h3>
-                <form action={handleFormAction} className="space-y-4">
-                <div>
-                    <Label htmlFor="name">Name</Label>
-                    <Input id="name" {...register("name")} />
-                    {errors.name && <p className="text-sm text-destructive mt-1">{errors.name.message}</p>}
-                </div>
-                <div>
-                    <Label htmlFor="email">Email</Label>
-                    <Input id="email" type="email" {...register("email")} />
-                    {errors.email && <p className="text-sm text-destructive mt-1">{errors.email.message}</p>}
-                </div>
-                <div>
-                    <Label htmlFor="phone">Phone (Optional)</Label>
-                    <Input id="phone" type="tel" {...register("phone")} />
-                    {errors.phone && <p className="text-sm text-destructive mt-1">{errors.phone.message}</p>}
-                </div>
-                <div>
-                    <Label htmlFor="message">Message</Label>
-                    <Textarea id="message" {...register("message")} />
-                    {errors.message && <p className="text-sm text-destructive mt-1">{errors.message.message}</p>}
-                </div>
-                <Button type="submit" className="w-full" disabled={isSubmitting}>
-                    {isSubmitting ? "Sending..." : "Send Message"}
-                </Button>
-                </form>
-                </div>
-                <SeoTool />
+            <div className="bg-card/80 backdrop-blur-sm p-8 rounded-lg shadow-md h-full">
+            <h3 className="text-2xl font-headline font-semibold mb-6">Send us a Message</h3>
+            <form action={handleFormAction} className="space-y-4">
+            <div>
+                <Label htmlFor="name">Name</Label>
+                <Input id="name" {...register("name")} />
+                {errors.name && <p className="text-sm text-destructive mt-1">{errors.name.message}</p>}
+            </div>
+            <div>
+                <Label htmlFor="email">Email</Label>
+                <Input id="email" type="email" {...register("email")} />
+                {errors.email && <p className="text-sm text-destructive mt-1">{errors.email.message}</p>}
+            </div>
+            <div>
+                <Label htmlFor="phone">Phone (Optional)</Label>
+                <Input id="phone" type="tel" {...register("phone")} />
+                {errors.phone && <p className="text-sm text-destructive mt-1">{errors.phone.message}</p>}
+            </div>
+            <div>
+                <Label htmlFor="message">Message</Label>
+                <Textarea id="message" {...register("message")} />
+                {errors.message && <p className="text-sm text-destructive mt-1">{errors.message.message}</p>}
+            </div>
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
+                {isSubmitting ? "Sending..." : "Send Message"}
+            </Button>
+            </form>
+            <div className="my-8 border-t border-border/50"></div>
+            <SeoTool />
             </div>
 
             <div className="space-y-8">

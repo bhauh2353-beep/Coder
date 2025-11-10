@@ -35,17 +35,14 @@ const SeoTool = () => {
   };
 
   return (
-    <Card className="bg-card/50 backdrop-blur-sm">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2 font-headline">
-          <Wand2 className="text-primary" />
-          AI SEO Description Generator
-        </CardTitle>
-        <CardDescription>
-          Optimize your website's visibility with an AI-generated SEO description.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
+    <div>
+        <div className="flex items-center gap-2 mb-6">
+            <Wand2 className="text-primary w-6 h-6" />
+            <h3 className="text-2xl font-headline font-semibold">AI SEO Generator</h3>
+        </div>
+        <p className="text-muted-foreground text-sm mb-4">
+            Optimize your website's visibility with an AI-generated SEO description.
+        </p>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="services">Services Offered</Label>
@@ -71,7 +68,7 @@ const SeoTool = () => {
               {...register("location", { required: true })}
             />
           </div>
-          <Button type="submit" disabled={isLoading}>
+          <Button type="submit" disabled={isLoading} className="w-full">
             {isLoading ? "Generating..." : "Generate Description"}
           </Button>
         </form>
@@ -89,12 +86,11 @@ const SeoTool = () => {
               readOnly
               value={seoDescription}
               rows={4}
-              className="bg-background"
+              className="bg-background/50"
             />
           </div>
         )}
-      </CardContent>
-    </Card>
+    </div>
   );
 };
 
