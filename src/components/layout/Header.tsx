@@ -153,9 +153,6 @@ const Header: FC = () => {
 
         <div className="hidden md:flex items-center gap-4">
           <NavMenu />
-          <Button asChild>
-            <Link href="#contact" onClick={(e) => handleLinkClick(e, '#contact')}>Get a Free Quote</Link>
-          </Button>
           <AuthContent />
         </div>
 
@@ -213,9 +210,6 @@ const Header: FC = () => {
                               </>
                             )}
                         </nav>
-                         <Button asChild className="mt-auto">
-                            <Link href="#contact" onClick={(e) => handleLinkClick(e, '#contact')}>Get a Free Quote</Link>
-                        </Button>
                     </div>
                 </SheetContent>
             </Sheet>
