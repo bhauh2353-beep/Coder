@@ -131,7 +131,7 @@ const Projects = () => {
                               </div>
                             )}
                             <CardHeader>
-                              <CardTitle className="font-headline">{project.title}</CardTitle>
+                              <CardTitle className="font-headline text-lg">{project.title}</CardTitle>
                             </CardHeader>
                             <CardContent className="flex-grow">
                               <p className="text-muted-foreground text-sm">{project.description}</p>
