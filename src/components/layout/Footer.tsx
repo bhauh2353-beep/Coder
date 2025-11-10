@@ -14,9 +14,9 @@ const WhatsAppIcon = () => (
       width="24"
       height="24"
       viewBox="0 0 24 24"
-      fill="none"
+      fill="currentColor"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="1"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -80,7 +80,7 @@ const Footer = () => {
                 const Icon = iconMap[social.name];
                 return (
                   <Link key={social.name} href={social.href} target="_blank" rel="noopener noreferrer"
-                    className={`p-2 rounded-full transition-colors duration-300 text-muted-foreground hover:bg-accent ${social.colorClass}`}>
+                    className={`p-2 rounded-full transition-transform duration-300 hover:scale-110 ${social.colorClass}`}>
                     <Icon className="w-6 h-6" />
                     <span className="sr-only">{social.name}</span>
                   </Link>
