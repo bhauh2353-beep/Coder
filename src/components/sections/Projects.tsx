@@ -91,7 +91,7 @@ const Projects = () => {
             >
                 <CarouselContent>
                   {isLoading && Array.from({ length: 4 }).map((_, index) => (
-                    <CarouselItem key={index} className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
+                    <CarouselItem key={index} className="basis-1/2 lg:basis-1/4">
                        <div className='p-1 h-full'>
                         <AnimateOnScroll delay={index * 100} className='h-full'>
                           <Card className="overflow-hidden h-full flex flex-col shadow-lg bg-card/80 backdrop-blur-sm">
@@ -114,7 +114,7 @@ const Projects = () => {
                     </CarouselItem>
                   ))}
                   {!isLoading && filteredProjects.map((project, index) => (
-                    <CarouselItem key={project.id} className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
+                    <CarouselItem key={project.id} className="basis-1/2 lg:basis-1/4">
                        <div className='p-1 h-full'>
                         <AnimateOnScroll delay={index * 100} className='h-full'>
                           <Card className="overflow-hidden h-full flex flex-col shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 bg-card/80 backdrop-blur-sm">
