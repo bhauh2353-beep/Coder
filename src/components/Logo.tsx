@@ -46,7 +46,7 @@ const Logo = ({ className }: LogoProps) => {
             src={logoUrl}
             alt={`${companyName} Logo`}
             fill
-            className="object-contain"
+            className="object-contain object-left"
             priority
           />
         </div>
