@@ -164,7 +164,7 @@ const Header: FC = () => {
                         <span className="sr-only">Open menu</span>
                     </Button>
                 </SheetTrigger>
-                <SheetContent side="right" className="w-full max-w-[220px]">
+                <SheetContent side="right" className="w-full max-w-[200px]">
                     <SheetHeader>
                         <SheetTitle className="sr-only">Menu</SheetTitle>
                     </SheetHeader>
