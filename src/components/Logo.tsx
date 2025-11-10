@@ -26,15 +26,19 @@ const Logo = ({ className }: LogoProps) => {
 
   const companyName = companyInfo?.name || 'JH Smart Solutions';
 
-  if (!isMounted || isLoading) {
-    return <Skeleton className={cn("h-8 w-48", className)} />;
-  }
-
+  // Always render the container, but conditionally render the content
+  // This helps prevent hydration mismatches where the server renders a Skeleton and client renders a Link
   return (
-    <Link href="/" className={cn('font-body font-bold text-2xl tracking-tight flex items-center', className)}>
-      {companyName}
-      <span className="ml-2 h-6 w-1.5 bg-primary blinking-cursor" />
-    </Link>
+    <div className={cn('font-body font-bold text-2xl tracking-tight flex items-center', className)}>
+      {!isMounted || isLoading ? (
+         <Skeleton className="h-8 w-48" />
+      ) : (
+        <Link href="/" className='flex items-center'>
+            {companyName}
+            <span className="ml-2 h-6 w-1.5 bg-primary blinking-cursor" />
+        </Link>
+      )}
+    </div>
   );
 };
 
