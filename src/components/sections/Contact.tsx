@@ -133,7 +133,7 @@ const Contact = () => {
             </form>
             </div>
 
-            <div className="space-y-4">
+            <div>
                 <div className="bg-card/80 backdrop-blur-sm p-6 rounded-lg shadow-md flex flex-col items-start gap-4 text-base">
                     <h3 className="text-2xl font-headline font-semibold">Contact Details</h3>
                     {(isLoading || !isMounted) ? (
