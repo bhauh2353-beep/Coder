@@ -149,9 +149,7 @@ const Header: FC = () => {
       )}
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        <div className="relative group">
-          <Logo />
-        </div>
+        <Logo />
 
         <div className="hidden md:flex items-center gap-4">
           <NavMenu />
