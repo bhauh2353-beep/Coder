@@ -92,68 +92,73 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-start">
-          <div className="bg-card/80 backdrop-blur-sm p-8 rounded-lg shadow-md">
-            <h3 className="text-2xl font-headline font-semibold mb-6">Send us a Message</h3>
-            <form action={handleFormAction} className="space-y-4">
-              <div>
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" {...register("name")} />
-                {errors.name && <p className="text-sm text-destructive mt-1">{errors.name.message}</p>}
-              </div>
-              <div>
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" {...register("email")} />
-                {errors.email && <p className="text-sm text-destructive mt-1">{errors.email.message}</p>}
-              </div>
-              <div>
-                <Label htmlFor="phone">Phone (Optional)</Label>
-                <Input id="phone" type="tel" {...register("phone")} />
-                {errors.phone && <p className="text-sm text-destructive mt-1">{errors.phone.message}</p>}
-              </div>
-              <div>
-                <Label htmlFor="message">Message</Label>
-                <Textarea id="message" {...register("message")} />
-                {errors.message && <p className="text-sm text-destructive mt-1">{errors.message.message}</p>}
-              </div>
-              <Button type="submit" className="w-full" disabled={isSubmitting}>
-                {isSubmitting ? "Sending..." : "Send Message"}
-              </Button>
-            </form>
-          </div>
-
-          <div className="space-y-8">
-            <div className="bg-card/80 backdrop-blur-sm p-6 rounded-lg shadow-md flex flex-col md:flex-row justify-around items-center gap-6 text-base">
-                <a href={`mailto:${companyInfo?.email}`} className="flex items-center gap-3 group">
-                    <Mail className="w-6 h-6 text-primary"/>
-                    <span className="text-muted-foreground group-hover:text-primary transition-colors">{companyInfo?.email || 'info@jhsmartsolutions.in'}</span>
-                </a>
-                 <a href={`tel:${companyInfo?.phone}`} className="flex items-center gap-3 group">
-                    <Phone className="w-6 h-6 text-primary"/>
-                    <span className="text-muted-foreground group-hover:text-primary transition-colors">{companyInfo?.phone || '+91 9xxxxxxxxx'}</span>
-                </a>
-                 <div className="flex items-center gap-3">
-                    <MapPin className="w-6 h-6 text-primary"/>
-                    <span className="text-muted-foreground">{companyInfo?.address || 'Shop Location, City, India'}</span>
+        <div className="flex flex-col gap-12">
+            {/* Top Row */}
+            <div className="grid md:grid-cols-2 gap-12 items-start">
+                 <div className="bg-card/80 backdrop-blur-sm p-8 rounded-lg shadow-md h-full">
+                    <h3 className="text-2xl font-headline font-semibold mb-6">Send us a Message</h3>
+                    <form action={handleFormAction} className="space-y-4">
+                    <div>
+                        <Label htmlFor="name">Name</Label>
+                        <Input id="name" {...register("name")} />
+                        {errors.name && <p className="text-sm text-destructive mt-1">{errors.name.message}</p>}
+                    </div>
+                    <div>
+                        <Label htmlFor="email">Email</Label>
+                        <Input id="email" type="email" {...register("email")} />
+                        {errors.email && <p className="text-sm text-destructive mt-1">{errors.email.message}</p>}
+                    </div>
+                    <div>
+                        <Label htmlFor="phone">Phone (Optional)</Label>
+                        <Input id="phone" type="tel" {...register("phone")} />
+                        {errors.phone && <p className="text-sm text-destructive mt-1">{errors.phone.message}</p>}
+                    </div>
+                    <div>
+                        <Label htmlFor="message">Message</Label>
+                        <Textarea id="message" {...register("message")} />
+                        {errors.message && <p className="text-sm text-destructive mt-1">{errors.message.message}</p>}
+                    </div>
+                    <Button type="submit" className="w-full" disabled={isSubmitting}>
+                        {isSubmitting ? "Sending..." : "Send Message"}
+                    </Button>
+                    </form>
+                </div>
+                <div className="space-y-8">
+                     <SeoTool />
                 </div>
             </div>
 
-            <div className="aspect-video w-full rounded-lg overflow-hidden shadow-md">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d121059.04360432833!2d73.79292693952477!3d18.5246035602058!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf2e67461101%3A0x828d43bf9d9ee343!2sPune%2C%20Maharashtra%2C%20India!5e0!3m2!1sen!2sus!4v1689578112345!5m2!1sen!2sus"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen={true}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Google Map of our location"
-              ></iframe>
+            {/* Bottom Row */}
+             <div className="grid md:grid-cols-2 gap-12 items-start">
+                 <div className="space-y-8">
+                    <div className="bg-card/80 backdrop-blur-sm p-6 rounded-lg shadow-md flex flex-col md:flex-row justify-around items-center gap-6 text-base">
+                        <a href={`mailto:${companyInfo?.email}`} className="flex items-center gap-3 group">
+                            <Mail className="w-6 h-6 text-primary"/>
+                            <span className="text-muted-foreground group-hover:text-primary transition-colors">{companyInfo?.email || 'info@jhsmartsolutions.in'}</span>
+                        </a>
+                        <a href={`tel:${companyInfo?.phone}`} className="flex items-center gap-3 group">
+                            <Phone className="w-6 h-6 text-primary"/>
+                            <span className="text-muted-foreground group-hover:text-primary transition-colors">{companyInfo?.phone || '+91 9xxxxxxxxx'}</span>
+                        </a>
+                        <div className="flex items-center gap-3">
+                            <MapPin className="w-6 h-6 text-primary"/>
+                            <span className="text-muted-foreground">{companyInfo?.address || 'Shop Location, City, India'}</span>
+                        </div>
+                    </div>
+                 </div>
+                 <div className="aspect-video w-full rounded-lg overflow-hidden shadow-md">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d121059.04360432833!2d73.79292693952477!3d18.5246035602058!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf2e67461101%3A0x828d43bf9d9ee343!2sPune%2C%20Maharashtra%2C%20India!5e0!3m2!1sen!2sus!4v1689578112345!5m2!1sen!2sus"
+                        width="100%"
+                        height="100%"
+                        style={{ border: 0 }}
+                        allowFullScreen={true}
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        title="Google Map of our location"
+                    ></iframe>
+                </div>
             </div>
-             <div className="mt-12">
-               <SeoTool />
-             </div>
-          </div>
         </div>
       </div>
     </section>
