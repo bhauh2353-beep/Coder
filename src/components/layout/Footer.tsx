@@ -7,6 +7,7 @@ import Logo from '@/components/Logo';
 import { socialLinks } from '@/lib/data';
 import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin } from 'lucide-react';
 import Link from 'next/link';
+import { Skeleton } from '../ui/skeleton';
 
 const WhatsAppIcon = () => (
     <svg
@@ -38,7 +39,7 @@ const Footer = () => {
     if (!firestore) return null;
     return doc(firestore, 'companyInfo', 'main');
   }, [firestore]);
-  const { data: companyInfo } = useDoc(companyInfoRef);
+  const { data: companyInfo, isLoading } = useDoc(companyInfoRef);
 
   return (
     <footer className="bg-background/80 backdrop-blur-sm border-t">
@@ -46,31 +47,37 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row items-center justify-around gap-8 text-center">
           <div className="space-y-4 flex flex-col items-center">
             <Logo className="text-3xl" />
-            <p className="text-muted-foreground text-sm max-w-xs">
-              {companyInfo?.slogan || 'Smart, Fast, and Affordable Digital Solutions.'}
-            </p>
+             {isLoading ? <Skeleton className='h-5 w-72' /> : <p className="text-muted-foreground text-sm max-w-xs">{companyInfo?.slogan}</p>}
           </div>
 
           <div className="space-y-4 flex flex-col items-center">
             <h3 className="font-headline text-lg font-medium">Contact Us</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-primary" />
-                <span>{companyInfo?.address || 'Shop Location, City, India'}</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-primary" />
-                <a href={`tel:${companyInfo?.phone || '7972688626'}`} className="hover:text-primary transition-colors">
-                  {companyInfo?.phone || '+91 7972688626'}
-                </a>
-              </li>
-              <li className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-primary" />
-                <a href={`mailto:${companyInfo?.email}`} className="hover:text-primary transition-colors">
-                  {companyInfo?.email || 'info@jhsmartsolutions.in'}
-                </a>
-              </li>
-            </ul>
+             {isLoading ? (
+                 <div className="space-y-2">
+                    <Skeleton className='h-5 w-64' />
+                    <Skeleton className='h-5 w-48' />
+                    <Skeleton className='h-5 w-56' />
+                 </div>
+             ) : (
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-center gap-2">
+                    <MapPin className="w-4 h-4 text-primary" />
+                    <span>{companyInfo?.address}</span>
+                </li>
+                <li className="flex items-center gap-2">
+                    <Phone className="w-4 h-4 text-primary" />
+                    <a href={`tel:${companyInfo?.phone}`} className="hover:text-primary transition-colors">
+                    {companyInfo?.phone}
+                    </a>
+                </li>
+                <li className="flex items-center gap-2">
+                    <Mail className="w-4 h-4 text-primary" />
+                    <a href={`mailto:${companyInfo?.email}`} className="hover:text-primary transition-colors">
+                    {companyInfo?.email}
+                    </a>
+                </li>
+                </ul>
+             )}
           </div>
 
           <div className="space-y-4 flex flex-col items-center">
@@ -78,8 +85,11 @@ const Footer = () => {
             <div className="flex space-x-2">
               {socialLinks.map((social) => {
                 const Icon = iconMap[social.name];
+                const href = social.name === 'WhatsApp' && companyInfo?.phone
+                  ? `https://wa.me/${companyInfo.phone.replace(/\+/g, '')}`
+                  : social.href;
                 return (
-                  <Link key={social.name} href={social.href} target="_blank" rel="noopener noreferrer"
+                  <Link key={social.name} href={href} target="_blank" rel="noopener noreferrer"
                     className={`p-2 rounded-full transition-transform duration-300 hover:scale-110 ${social.colorClass}`}>
                     <Icon className="w-6 h-6" />
                     <span className="sr-only">{social.name}</span>
@@ -91,10 +101,10 @@ const Footer = () => {
         </div>
 
         <div className="mt-8 border-t pt-6 text-center text-sm text-muted-foreground space-y-2">
-          <p>&copy; {new Date().getFullYear()} {companyInfo?.name || 'JH Smart Solutions'}. All rights reserved.</p>
-          <p>
-            Designed & Developed by <a href="#" className="font-semibold text-primary hover:underline">{companyInfo?.name || 'JH Smart Solutions'}</a>
-          </p>
+            {isLoading ? <Skeleton className='h-5 w-64 mx-auto' /> : <p>&copy; {new Date().getFullYear()} {companyInfo?.name}. All rights reserved.</p>}
+            {isLoading ? <Skeleton className='h-5 w-80 mx-auto mt-2' /> : <p>
+                Designed & Developed by <a href="#" className="font-semibold text-primary hover:underline">{companyInfo?.name}</a>
+            </p>}
         </div>
       </div>
     </footer>
