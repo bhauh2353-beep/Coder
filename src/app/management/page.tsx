@@ -1,11 +1,14 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useUser } from '@/firebase';
+import { useUser, useFirestore, useCollection } from '@/firebase';
+import { collection, query, where } from 'firebase/firestore';
 import { LayoutDashboard, Settings, Briefcase, DollarSign, MessageSquare, Mail, Users, Info } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import type { Contact } from '@/lib/types';
+import { Badge } from '@/components/ui/badge';
 
 const managementSections = [
   {
@@ -13,48 +16,64 @@ const managementSections = [
     description: 'Add, edit, or delete your services.',
     href: '/management/services',
     icon: Settings,
+    id: 'services',
   },
   {
     title: 'Projects',
     description: 'Manage your recent work and portfolio.',
     href: '/management/projects',
     icon: Briefcase,
+    id: 'projects',
   },
   {
     title: 'Pricing',
     description: 'Update your pricing plans and features.',
     href: '/management/pricing',
     icon: DollarSign,
+    id: 'pricing',
   },
   {
     title: 'Testimonials',
     description: 'Curate client testimonials.',
     href: '/management/testimonials',
     icon: MessageSquare,
+    id: 'testimonials',
   },
   {
     title: 'Customer Query',
     description: 'View and manage customer queries.',
     href: '/management/customer-query',
     icon: Mail,
+    id: 'customer-query',
   },
   {
     title: 'Leads',
     description: 'View and manage service quote requests.',
     href: '/management/leads',
     icon: Users,
+    id: 'leads',
   },
    {
     title: 'Company Info',
     description: 'Update your business contact details.',
     href: '/management/company-info',
     icon: Info,
+    id: 'company-info',
   },
 ];
 
 export default function ManagementPage() {
   const { user, isUserLoading } = useUser();
   const router = useRouter();
+  const firestore = useFirestore();
+
+  const pendingContactsQuery = useMemo(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'contacts'), where('status', '==', 'Pending'));
+  }, [firestore]);
+
+  const { data: pendingContacts } = useCollection<Contact>(pendingContactsQuery);
+  const pendingCount = pendingContacts?.length || 0;
 
   useEffect(() => {
     if (!isUserLoading && !user) {
@@ -85,10 +104,15 @@ export default function ManagementPage() {
             <Card className="h-full hover:border-primary hover:shadow-lg transition-all">
               <CardHeader className="flex flex-row items-center gap-4">
                 <section.icon className="w-8 h-8 text-primary" />
-                <div>
+                <div className='flex-grow'>
                   <CardTitle className="font-headline">{section.title}</CardTitle>
                   <CardDescription>{section.description}</CardDescription>
                 </div>
+                {section.id === 'customer-query' && pendingCount > 0 && (
+                  <Badge className="h-6 w-6 flex items-center justify-center rounded-full p-0">
+                    {pendingCount}
+                  </Badge>
+                )}
               </CardHeader>
             </Card>
           </Link>
