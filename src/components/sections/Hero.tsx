@@ -46,7 +46,7 @@ const Hero = () => {
           src={heroImage.imageUrl}
           alt={heroImage.description}
           fill
-          className="object-none object-top"
+          className="object-cover object-top"
           data-ai-hint={heroImage.imageHint}
           priority
         />
@@ -55,7 +55,7 @@ const Hero = () => {
       
       <div className="px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         <div className="flex flex-col items-center">
-          <div className="h-[120px] md:min-h-[80px] flex items-center justify-center">
+          <div className="h-[120px] md:h-[80px] flex items-center justify-center">
             <div className="flex flex-col items-center">
               <Typewriter
                 text={heroText}
