@@ -55,7 +55,7 @@ const Hero = () => {
       
       <div className="px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         <div className="flex flex-col items-center">
-          <div className="min-h-[100px] md:min-h-[80px] flex items-center justify-center">
+          <div className="min-h-[120px] md:min-h-[80px] flex items-center justify-center">
             {(isCompanyInfoLoading || !isMounted) ? (
               <div className='w-full'>
                 <Skeleton className="h-10 w-3/4 mx-auto" />
