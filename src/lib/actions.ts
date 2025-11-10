@@ -57,12 +57,30 @@ export async function saveLead(prevState: any, formData: FormData) {
 
   try {
     const { firestore } = getFirebaseAdmin();
+    
+    const serviceRequestNumber = await runTransaction(firestore, async (transaction) => {
+        const counterRef = doc(firestore, 'counters', 'leadCounter');
+        const counterDoc = await transaction.get(counterRef);
+
+        let newCount = 1;
+        if (counterDoc.exists()) {
+            newCount = counterDoc.data().current_number + 1;
+        }
+
+        transaction.set(counterRef, { current_number: newCount }, { merge: true });
+
+        // Pad the number with leading zeros to a length of 5
+        const paddedCount = String(newCount).padStart(5, '0');
+        return `SR-${paddedCount}`;
+    });
+    
     const leadsCollection = collection(firestore, 'leads');
     const newDocRef = doc(leadsCollection);
     await setDoc(newDocRef, {
         ...validatedFields.data,
         id: newDocRef.id,
         submissionDate: new Date().toISOString(),
+        serviceRequestNumber: serviceRequestNumber,
     });
     return { message: "Quote request received! We will get back to you shortly." };
   } catch (e) {

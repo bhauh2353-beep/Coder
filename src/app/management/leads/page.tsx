@@ -1,10 +1,11 @@
+
 'use client';
 
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useUser, useFirestore, useCollection } from '@/firebase';
-import { Users } from 'lucide-react';
-import { collection, query } from 'firebase/firestore';
+import { useUser, useFirestore, useCollection, deleteDocumentNonBlocking } from '@/firebase';
+import { Users, MoreVertical, Trash2 } from 'lucide-react';
+import { collection, query, doc, orderBy } from 'firebase/firestore';
 import {
   Table,
   TableBody,
@@ -16,15 +17,37 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import type { Lead } from '@/lib/types';
 import { Skeleton } from '@/components/ui/skeleton';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 
 export default function ManageLeadsPage() {
   const { user, isUserLoading } = useUser();
   const router = useRouter();
   const firestore = useFirestore();
+  const { toast } = useToast();
+
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [deletingLeadId, setDeletingLeadId] = useState<string | null>(null);
   
   const leadsQuery = useMemo(() => {
     if (!firestore) return null;
-    return query(collection(firestore, 'leads'));
+    return query(collection(firestore, 'leads'), orderBy('submissionDate', 'desc'));
   }, [firestore]);
 
   const { data: leads, isLoading } = useCollection<Lead>(leadsQuery);
@@ -34,6 +57,20 @@ export default function ManageLeadsPage() {
       router.push('/login');
     }
   }, [user, isUserLoading, router]);
+
+  const openDeleteDialog = (id: string) => {
+    setDeletingLeadId(id);
+    setIsDeleteDialogOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (!firestore || !deletingLeadId) return;
+    const docRef = doc(firestore, 'leads', deletingLeadId);
+    deleteDocumentNonBlocking(docRef);
+    toast({ title: 'Success', description: 'Lead deleted successfully.' });
+    setIsDeleteDialogOpen(false);
+    setDeletingLeadId(null);
+  };
 
   if (isUserLoading || !user) {
     return (
@@ -45,6 +82,21 @@ export default function ManageLeadsPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
+       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete this lead.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDelete} className='bg-destructive hover:bg-destructive/90'>Delete</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
       <div className="flex items-center gap-4 mb-8">
         <Users className="w-8 h-8" />
         <h1 className="text-3xl font-bold font-headline">Manage Leads</h1>
@@ -61,38 +113,58 @@ export default function ManageLeadsPage() {
             <Table>
                 <TableHeader>
                     <TableRow>
+                    <TableHead>SRN</TableHead>
                     <TableHead>Date</TableHead>
                     <TableHead>Name</TableHead>
                     <TableHead>Email</TableHead>
                     <TableHead>Phone</TableHead>
                     <TableHead>Service</TableHead>
                     <TableHead>Message</TableHead>
+                    <TableHead className='text-right'>Actions</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                      {isLoading && Array.from({ length: 5 }).map((_, i) => (
                         <TableRow key={i}>
+                            <TableCell><Skeleton className="h-4 w-20" /></TableCell>
                             <TableCell><Skeleton className="h-4 w-24" /></TableCell>
                             <TableCell><Skeleton className="h-4 w-32" /></TableCell>
                             <TableCell><Skeleton className="h-4 w-48" /></TableCell>
                             <TableCell><Skeleton className="h-4 w-32" /></TableCell>
                             <TableCell><Skeleton className="h-4 w-32" /></TableCell>
                             <TableCell><Skeleton className="h-4 w-64" /></TableCell>
+                            <TableCell><Skeleton className="h-8 w-8 ml-auto" /></TableCell>
                         </TableRow>
                     ))}
                     {!isLoading && leads?.map((lead) => (
                     <TableRow key={lead.id}>
+                        <TableCell className="font-medium">{lead.serviceRequestNumber}</TableCell>
                         <TableCell>{new Date(lead.submissionDate).toLocaleDateString()}</TableCell>
                         <TableCell>{lead.name}</TableCell>
                         <TableCell>{lead.email}</TableCell>
                         <TableCell>{lead.phone}</TableCell>
                         <TableCell>{lead.service}</TableCell>
                         <TableCell>{lead.message}</TableCell>
+                        <TableCell className="text-right">
+                           <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="icon">
+                                  <MoreVertical className="h-4 w-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent>
+                                <DropdownMenuItem className="text-destructive" onClick={() => openDeleteDialog(lead.id)}>
+                                    <Trash2 className="mr-2 h-4 w-4" />
+                                    Delete
+                                </DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                        </TableCell>
                     </TableRow>
                     ))}
                     {!isLoading && (!leads || leads.length === 0) && (
                         <TableRow>
-                            <TableCell colSpan={6} className="text-center text-muted-foreground">
+                            <TableCell colSpan={8} className="text-center text-muted-foreground">
                                 No leads found.
                             </TableCell>
                         </TableRow>

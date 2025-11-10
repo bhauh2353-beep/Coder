@@ -19,6 +19,7 @@ export type Lead = {
   service: string;
   message?: string;
   submissionDate: string;
+  serviceRequestNumber: string;
 };
 
 export type Service = {
