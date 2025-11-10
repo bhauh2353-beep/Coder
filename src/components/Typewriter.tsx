@@ -20,29 +20,40 @@ const Typewriter = ({
 }: TypewriterProps) => {
   const [displayedText, setDisplayedText] = useState('');
   const index = useRef(0);
+  const timeoutIds = useRef<NodeJS.Timeout[]>([]);
 
   useEffect(() => {
+    // Clear any running timeouts when the text changes
+    timeoutIds.current.forEach(clearTimeout);
+    timeoutIds.current = [];
+    index.current = 0;
+    setDisplayedText('');
+    
     const type = () => {
       if (index.current < text.length) {
         setDisplayedText((prev) => prev + text.charAt(index.current));
         index.current++;
-        setTimeout(type, speed);
+        const timeoutId = setTimeout(type, speed);
+        timeoutIds.current.push(timeoutId);
       } else {
         // Typing complete, wait then reset
-        setTimeout(() => {
+        const timeoutId = setTimeout(() => {
           index.current = 0;
           setDisplayedText('');
           type(); // Start typing again
         }, delayAfterComplete);
+        timeoutIds.current.push(timeoutId);
       }
     };
 
-    type();
+    if (text) {
+        type();
+    }
 
-    // No cleanup function is needed if we want it to loop forever
-    // and we're managing recursion with setTimeout.
-    // However, it's good practice to have one if the component can unmount.
-    // For this use case where it's always visible, we can simplify.
+    // Cleanup function to clear timeouts when the component unmounts
+    return () => {
+      timeoutIds.current.forEach(clearTimeout);
+    };
   }, [text, speed, delayAfterComplete]);
 
   return (
