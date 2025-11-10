@@ -168,7 +168,7 @@ const Header: FC = () => {
                     <SheetHeader>
                         <SheetTitle className="sr-only">Menu</SheetTitle>
                     </SheetHeader>
-                    <div className="p-4 h-full flex flex-col">
+                    <div className="p-4 h-full flex flex-col" dir='rtl'>
                         <Logo className='text-base' />
                         <nav className="flex flex-col space-y-6 text-sm mt-10">
                             {navLinks.map((link) => (
@@ -190,7 +190,7 @@ const Header: FC = () => {
                                   onClick={(e) => handleLinkClick(e, '/login')}
                                   className='transition-colors hover:text-primary text-foreground/80 flex items-center'
                               >
-                                <LogIn className="mr-2 h-5 w-5" /> Login
+                                <LogIn className="ml-2 h-5 w-5" /> Login
                               </Link>
                             ) : (
                               <>
@@ -199,7 +199,7 @@ const Header: FC = () => {
                                   onClick={(e) => handleLinkClick(e, '/management')}
                                   className='transition-colors hover:text-primary text-foreground/80 flex items-center'
                                 >
-                                  <LayoutDashboard className="mr-2 h-5 w-5" /> Management
+                                  <LayoutDashboard className="ml-2 h-5 w-5" /> Management
                                 </Link>
                                 <button
                                     onClick={() => {
@@ -208,7 +208,7 @@ const Header: FC = () => {
                                     }}
                                     className='transition-colors hover:text-primary text-foreground/80 flex items-center text-sm'
                                 >
-                                  <LogOut className="mr-2 h-5 w-5" /> Logout
+                                  <LogOut className="ml-2 h-5 w-5" /> Logout
                                 </button>
                               </>
                             )}
