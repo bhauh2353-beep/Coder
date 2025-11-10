@@ -101,9 +101,9 @@ export default function ManagementPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center gap-4 mb-8">
         <LayoutDashboard className="w-8 h-8" />
-        <h1 className="text-3xl font-bold font-headline">Management Dashboard</h1>
+        <h1 className="text-2xl font-bold font-headline">Management Dashboard</h1>
       </div>
-      <p className="mb-8 text-muted-foreground">
+      <p className="mb-8 text-muted-foreground text-sm">
         Welcome, {user.displayName || user.email}. Manage your website content from here.
       </p>
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
