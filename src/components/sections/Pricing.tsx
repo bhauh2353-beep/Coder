@@ -58,8 +58,8 @@ const Pricing = () => {
         <div className="absolute inset-0 bg-background/90"></div>
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-headline font-bold">Affordable Pricing</h2>
-          <p className="text-muted-foreground mt-2 max-w-xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-headline font-bold">Affordable Pricing</h2>
+          <p className="text-muted-foreground mt-2 max-w-xl mx-auto text-sm">
             Choose a plan that works for you. All our plans are flexible and designed for growth.
           </p>
         </div>
