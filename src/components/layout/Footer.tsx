@@ -73,7 +73,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="space-y-4 flex-1 flex flex-col items-center md:items-end">
+          <div className="space-y-4 flex-1 flex flex-col items-center">
             <h3 className="font-headline text-lg font-medium">Follow Us</h3>
             <div className="flex space-x-4">
               {socialLinks.map((social) => {
