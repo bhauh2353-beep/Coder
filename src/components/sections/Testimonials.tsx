@@ -46,8 +46,8 @@ const Testimonials = () => {
         <div className="absolute inset-0 bg-background/90"></div>
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-headline font-bold">What Our Clients Say</h2>
-          <p className="text-muted-foreground mt-2 max-w-xl mx-auto">
+          <h2 className="text-xl md:text-2xl font-headline font-bold">What Our Clients Say</h2>
+          <p className="text-muted-foreground mt-2 max-w-xl mx-auto text-sm">
             We are trusted by businesses and individuals. Here's what they think about us.
           </p>
         </div>
