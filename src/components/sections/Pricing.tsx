@@ -76,16 +76,16 @@ const Pricing = () => {
                     {isLoading && Array.from({ length: 4 }).map((_, i) => (
                          <CarouselItem key={i} className="basis-1/2 lg:basis-1/4">
                             <div className="p-1">
-                                <Card className="flex flex-col shadow-lg bg-card/80 backdrop-blur-sm p-6 h-full">
-                                    <Skeleton className="h-6 w-32" />
-                                    <Skeleton className="h-4 w-48 mt-2" />
-                                    <Skeleton className="h-8 w-24 mt-4" />
-                                    <div className="flex-grow mt-6 space-y-3">
-                                        <Skeleton className="h-4 w-full" />
-                                        <Skeleton className="h-4 w-full" />
-                                        <Skeleton className="h-4 w-2/3" />
+                                <Card className="flex flex-col shadow-lg bg-card/80 backdrop-blur-sm p-4 h-full">
+                                    <Skeleton className="h-5 w-28" />
+                                    <Skeleton className="h-3 w-40 mt-2" />
+                                    <Skeleton className="h-7 w-20 mt-4" />
+                                    <div className="flex-grow mt-4 space-y-2">
+                                        <Skeleton className="h-3 w-full" />
+                                        <Skeleton className="h-3 w-full" />
+                                        <Skeleton className="h-3 w-2/3" />
                                     </div>
-                                    <Skeleton className="h-10 w-full mt-6" />
+                                    <Skeleton className="h-9 w-full mt-4" />
                                 </Card>
                             </div>
                         </CarouselItem>
@@ -94,26 +94,26 @@ const Pricing = () => {
                         <CarouselItem key={index} className="basis-1/2 lg:basis-1/4">
                             <div className='p-1 h-full'>
                                 <Card className="flex flex-col shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 bg-card/80 backdrop-blur-sm h-full">
-                                <CardHeader>
-                                    <CardTitle className='font-headline'>{plan.name}</CardTitle>
-                                    <CardDescription>{plan.description}</CardDescription>
-                                    <div className="text-4xl font-bold font-headline pt-4">
+                                <CardHeader className="p-4">
+                                    <CardTitle className='font-headline text-lg'>{plan.name}</CardTitle>
+                                    <CardDescription className="text-xs">{plan.description}</CardDescription>
+                                    <div className="text-3xl font-bold font-headline pt-2">
                                         {plan.price}
                                     </div>
                                 </CardHeader>
-                                <CardContent className="flex-grow">
-                                    <ul className="space-y-3">
+                                <CardContent className="flex-grow p-4">
+                                    <ul className="space-y-2">
                                     {plan.features.map((feature, i) => (
-                                        <li key={i} className="flex items-center gap-3">
-                                        <Check className="w-5 h-5 text-green-500" />
-                                        <span className='text-muted-foreground'>{feature}</span>
+                                        <li key={i} className="flex items-center gap-2">
+                                        <Check className="w-4 h-4 text-green-500" />
+                                        <span className='text-muted-foreground text-xs'>{feature}</span>
                                         </li>
                                     ))}
                                     </ul>
                                 </CardContent>
-                                <CardFooter>
+                                <CardFooter className="p-4">
                                     <DialogTrigger asChild>
-                                        <Button className="w-full" onClick={() => handleBookNow(plan.name)}>Book Now</Button>
+                                        <Button className="w-full" size="sm" onClick={() => handleBookNow(plan.name)}>Book Now</Button>
                                     </DialogTrigger>
                                 </CardFooter>
                                 </Card>
