@@ -56,6 +56,10 @@ const Contact = () => {
       }
     }
   }, [state, toast, reset]);
+  
+  const handleFormAction = (formData: FormData) => {
+    formAction(formData);
+  }
 
   return (
     <section id="contact" className="relative w-full py-20 md:py-32 overflow-hidden">
@@ -80,7 +84,7 @@ const Contact = () => {
         <div className="grid md:grid-cols-2 gap-12 items-start">
           <div className="bg-card/80 backdrop-blur-sm p-8 rounded-lg shadow-md">
             <h3 className="text-2xl font-headline font-semibold mb-6">Send us a Message</h3>
-            <form action={formAction} className="space-y-4">
+            <form action={handleFormAction} className="space-y-4">
               <div>
                 <Label htmlFor="name">Name</Label>
                 <Input id="name" {...register("name")} />

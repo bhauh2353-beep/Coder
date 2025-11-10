@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-import { useFormState } from "react-dom";
+import { useEffect, useActionState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -36,7 +35,7 @@ interface ServiceQuoteModalProps {
 
 export function ServiceQuoteModal({ serviceName, setOpen }: ServiceQuoteModalProps) {
   const { toast } = useToast();
-  const [state, formAction] = useFormState(saveLead, { message: "" });
+  const [state, formAction] = useActionState(saveLead, { message: "" });
   
   const {
     register,
@@ -66,6 +65,10 @@ export function ServiceQuoteModal({ serviceName, setOpen }: ServiceQuoteModalPro
       }
     }
   }, [state, toast, reset, setOpen]);
+  
+  const handleFormAction = (formData: FormData) => {
+    formAction(formData);
+  }
 
   return (
     <DialogContent className="sm:max-w-[425px]">
@@ -76,7 +79,7 @@ export function ServiceQuoteModal({ serviceName, setOpen }: ServiceQuoteModalPro
           Fill out the form below and we'll get back to you.
         </DialogDescription>
       </DialogHeader>
-      <form action={formAction} >
+      <form action={handleFormAction} >
         <div className="grid gap-4 py-4">
           <input type="hidden" {...register("service")} value={serviceName} />
           
