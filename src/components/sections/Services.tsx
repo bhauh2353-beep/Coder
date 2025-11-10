@@ -57,7 +57,7 @@ const Services = () => {
             </div>
 
             <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
                     {isLoading && Array.from({ length: 6 }).map((_, i) => (
                         <div key={i} className="h-full">
                             <Card className="text-center flex flex-col items-center shadow-lg bg-card/80 backdrop-blur-sm p-2 md:p-4 h-full overflow-hidden">
@@ -112,5 +112,3 @@ const Services = () => {
 };
 
 export default Services;
-
-    
