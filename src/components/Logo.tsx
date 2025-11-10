@@ -52,7 +52,7 @@ const Logo = ({ className }: LogoProps) => {
           />
         </div>
       ) : null}
-      <span className="font-body font-bold text-lg md:text-xl tracking-tight bg-gradient-to-r from-green-400 via-yellow-400 to-orange-400 bg-clip-text text-transparent">
+      <span className="sr-only">
         {companyName}
       </span>
     </Link>
