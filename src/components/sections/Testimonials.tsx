@@ -63,7 +63,7 @@ const Testimonials = () => {
             <CarouselContent className="-ml-2">
                 {isLoading && Array.from({ length: 4 }).map((_, index) => (
                     <CarouselItem key={index} className="basis-1/2 md:basis-1/4 p-1">
-                        <div className="h-full">
+                        <div className="h-full md:h-52">
                             <Card className="h-full shadow-lg bg-card/80 backdrop-blur-sm">
                                 <CardContent className="flex flex-col items-center text-center p-1 md:p-2 gap-1 md:gap-2 h-full">
                                     <Skeleton className="w-10 h-10 md:w-12 md:h-12 rounded-full mt-2" />
@@ -82,7 +82,7 @@ const Testimonials = () => {
                 ))}
                 {!isLoading && testimonials?.map((testimonial) => (
                     <CarouselItem key={testimonial.id} className="basis-1/2 md:basis-1/4 p-1">
-                        <div className='h-full'>
+                        <div className='h-full md:h-52'>
                             <Card className="h-full shadow-lg bg-card/80 backdrop-blur-sm">
                                 <CardContent className="flex flex-col items-center text-center p-1 h-full gap-1">
                                 {testimonial.clientPhotoUrl && (
