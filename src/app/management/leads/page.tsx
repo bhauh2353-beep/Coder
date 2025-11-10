@@ -8,7 +8,6 @@ import { collection, query } from 'firebase/firestore';
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
