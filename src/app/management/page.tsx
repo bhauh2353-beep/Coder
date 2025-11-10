@@ -7,7 +7,7 @@ import { useUser, useFirestore, useCollection } from '@/firebase';
 import { collection, query, where } from 'firebase/firestore';
 import { LayoutDashboard, Settings, Briefcase, DollarSign, MessageSquare, Mail, Users, Info } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import type { Contact } from '@/lib/types';
+import type { Contact, Lead } from '@/lib/types';
 import { Badge } from '@/components/ui/badge';
 
 const managementSections = [
@@ -75,6 +75,14 @@ export default function ManagementPage() {
   const { data: pendingContacts } = useCollection<Contact>(pendingContactsQuery);
   const pendingCount = pendingContacts?.length || 0;
 
+  const leadsQuery = useMemo(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'leads'));
+  }, [firestore]);
+
+  const { data: leads } = useCollection<Lead>(leadsQuery);
+  const leadCount = leads?.length || 0;
+
   useEffect(() => {
     if (!isUserLoading && !user) {
       router.push('/login');
@@ -111,6 +119,11 @@ export default function ManagementPage() {
                 {section.id === 'customer-query' && pendingCount > 0 && (
                   <Badge className="h-6 w-6 flex items-center justify-center rounded-full p-0">
                     {pendingCount}
+                  </Badge>
+                )}
+                 {section.id === 'leads' && leadCount > 0 && (
+                  <Badge className="h-6 w-6 flex items-center justify-center rounded-full p-0" variant="secondary">
+                    {leadCount}
                   </Badge>
                 )}
               </CardHeader>
