@@ -13,7 +13,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { PlaceHolderImages } from './placeholder-images';
-import type { IconMap } from './types';
+import type { IconMap, Service } from './types';
 
 export const navLinks = [
   { href: '#home', label: 'Home' },
@@ -39,6 +39,40 @@ export const iconMap: IconMap = {
   ShoppingCart,
   Printer,
 };
+
+export const defaultServices: Omit<Service, 'id'>[] = [
+  {
+    icon: 'Codepen',
+    title: 'Website Development',
+    description: 'Creating stunning, high-performance websites tailored to your brand and business goals.',
+  },
+  {
+    icon: 'AppWindow',
+    title: 'Android App Development',
+    description: 'Building native Android apps that provide seamless user experiences and powerful functionality.',
+  },
+  {
+    icon: 'Monitor',
+    title: 'Windows App & Dashboard',
+    description: 'Developing custom Windows applications and intuitive data dashboards for your business.',
+  },
+  {
+    icon: 'MessageCircle',
+    title: 'WhatsApp Business Setup',
+    description: 'Integrating WhatsApp Business API for customer communication, support, and automation.',
+  },
+  {
+    icon: 'ShoppingCart',
+    title: 'Online Store Creation',
+    description: 'Launching feature-rich e-commerce stores that drive sales and grow your online presence.',
+  },
+  {
+    icon: 'Printer',
+    title: 'Digital Document & Printing',
+    description: 'Professional design and printing services for all your digital and physical document needs.',
+  },
+];
+
 
 export const projects = [
   {

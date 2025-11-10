@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import { useUser, useFirestore, useCollection, setDocumentNonBlocking, deleteDocumentNonBlocking } from '@/firebase';
+import { useUser, useFirestore, useCollection, setDocumentNonBlocking, deleteDocumentNonBlocking, addDocumentNonBlocking } from '@/firebase';
 import { collection, doc } from 'firebase/firestore';
 import { Settings, PlusCircle, Edit, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -22,7 +22,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -32,7 +31,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import type { Service } from '@/lib/types';
-import { iconMap } from '@/lib/data';
+import { iconMap, defaultServices } from '@/lib/data';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useToast } from '@/hooks/use-toast';
 
@@ -56,6 +55,19 @@ const ManageServicesPage = () => {
   }, [firestore]);
 
   const { data: services, isLoading } = useCollection<Service>(servicesCollection);
+
+  useEffect(() => {
+    if (firestore && services?.length === 0 && !isLoading) {
+      const populateServices = async () => {
+        if (!servicesCollection) return;
+        for (const service of defaultServices) {
+          const newDocRef = doc(servicesCollection);
+          addDocumentNonBlocking(servicesCollection, { ...service, id: newDocRef.id });
+        }
+      };
+      populateServices();
+    }
+  }, [firestore, services, isLoading, servicesCollection]);
   
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -106,6 +118,7 @@ const ManageServicesPage = () => {
 
   const handleDelete = (id: string) => {
       if(confirm('Are you sure you want to delete this service?')) {
+        if (!firestore) return;
         const docRef = doc(firestore, 'services', id);
         deleteDocumentNonBlocking(docRef);
         toast({ title: 'Success', description: 'Service deleted successfully.' });
@@ -113,7 +126,7 @@ const ManageServicesPage = () => {
   }
 
   const onSubmit = (data: ServiceFormValues) => {
-    if(!servicesCollection) return;
+    if(!servicesCollection || !firestore) return;
     const id = editingService ? editingService.id : doc(servicesCollection).id;
     const docRef = doc(firestore, 'services', id);
     setDocumentNonBlocking(docRef, { ...data, id }, { merge: true });
@@ -215,7 +228,7 @@ const ManageServicesPage = () => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {isLoading && Array.from({ length: 3 }).map((_, i) => (
+                    {isLoading && Array.from({ length: 6 }).map((_, i) => (
                         <TableRow key={i}>
                             <TableCell><Skeleton className="h-6 w-6 rounded-full" /></TableCell>
                             <TableCell><Skeleton className="h-4 w-32" /></TableCell>
