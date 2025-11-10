@@ -58,9 +58,9 @@ const Hero = () => {
             />
           )}
         </div>
-        <p className="mt-4 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+        <div className="mt-4 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
           {isCompanyInfoLoading ? <Skeleton className="h-6 w-1/2 mx-auto" /> : slogan}
-        </p>
+        </div>
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button asChild size="lg">
             <Link href="#contact" onClick={(e) => handleScrollLink(e, '#contact')}>Get a Free Quote</Link>
