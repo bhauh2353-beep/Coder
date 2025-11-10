@@ -106,23 +106,23 @@ export default function ManagementPage() {
       <p className="mb-8 text-muted-foreground">
         Welcome, {user.displayName || user.email}. Manage your website content from here.
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {managementSections.map((section) => (
           <Link href={section.href} key={section.title} className="group">
             <Card className="h-full hover:border-primary hover:shadow-lg transition-all">
-              <CardHeader className="flex flex-row items-center gap-4">
-                <section.icon className="w-8 h-8 text-primary" />
+              <CardHeader className="flex flex-row items-center gap-2 p-3">
+                <section.icon className="w-6 h-6 text-primary" />
                 <div className='flex-grow'>
-                  <CardTitle className="font-headline">{section.title}</CardTitle>
-                  <CardDescription>{section.description}</CardDescription>
+                  <CardTitle className="text-sm font-semibold">{section.title}</CardTitle>
+                  <CardDescription className='text-xs'>{section.description}</CardDescription>
                 </div>
                 {section.id === 'customer-query' && pendingCount > 0 && (
-                  <Badge className="h-6 w-6 flex items-center justify-center rounded-full p-0">
+                  <Badge className="h-5 w-5 flex items-center justify-center rounded-full p-0 text-xs">
                     {pendingCount}
                   </Badge>
                 )}
                  {section.id === 'leads' && leadCount > 0 && (
-                  <Badge className="h-6 w-6 flex items-center justify-center rounded-full p-0" variant="secondary">
+                  <Badge className="h-5 w-5 flex items-center justify-center rounded-full p-0 text-xs" variant="secondary">
                     {leadCount}
                   </Badge>
                 )}
