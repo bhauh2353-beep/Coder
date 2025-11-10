@@ -32,7 +32,7 @@ const Pricing = () => {
         setModalOpen(true);
     }
   return (
-    <section id="pricing" className="relative w-full py-16 md:py-24 overflow-hidden">
+    <section id="pricing" className="relative w-full py-8 md:py-12 overflow-hidden">
       {backgroundImage && (
             <Image
                 src={backgroundImage.imageUrl}

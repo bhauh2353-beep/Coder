@@ -37,7 +37,7 @@ const Services = () => {
     }
 
   return (
-    <section id="services" className="relative w-full py-16 md:py-24 overflow-hidden">
+    <section id="services" className="relative w-full py-8 md:py-12 overflow-hidden">
         {backgroundImage && (
             <Image
                 src={backgroundImage.imageUrl}
