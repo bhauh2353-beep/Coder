@@ -26,8 +26,9 @@ const Logo = ({ className }: LogoProps) => {
   }
 
   return (
-    <Link href="/" className={cn('font-body font-bold text-2xl tracking-tight', className)}>
+    <Link href="/" className={cn('font-body font-bold text-2xl tracking-tight flex items-center', className)}>
       {companyName}
+      <span className="ml-2 h-6 w-1.5 bg-primary blinking-cursor" />
     </Link>
   );
 };
