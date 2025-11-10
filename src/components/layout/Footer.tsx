@@ -57,7 +57,7 @@ const Footer = () => {
 
   return (
     <footer className="bg-background/80 backdrop-blur-sm border-t">
-      <div className="container mx-auto px-4 py-8">
+      <div className="px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col md:flex-row items-center md:items-start justify-around gap-8 text-center md:text-left">
           <div className="space-y-4 flex flex-col items-center md:items-start">
             <Logo className="text-3xl px-0" />

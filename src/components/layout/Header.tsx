@@ -148,78 +148,76 @@ const Header: FC = () => {
         isScrolled ? 'bg-background/80 backdrop-blur-sm border-b' : 'bg-transparent'
       )}
     >
-      <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
-          <Logo />
+      <div className="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+        <Logo />
 
-          <div className="hidden md:flex items-center gap-4">
-            <NavMenu />
-            <AuthContent />
-          </div>
+        <div className="hidden md:flex items-center gap-4">
+          <NavMenu />
+          <AuthContent />
+        </div>
 
-          <div className="md:hidden">
-              <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-                  <SheetTrigger asChild>
-                      <Button variant="ghost" size="icon">
-                          <Menu />
-                          <span className="sr-only">Open menu</span>
-                      </Button>
-                  </SheetTrigger>
-                  <SheetContent side="right" className="w-full max-w-[200px] p-0">
-                      <SheetHeader>
-                          <SheetTitle className="sr-only">Menu</SheetTitle>
-                      </SheetHeader>
-                      <div className="py-4 h-full flex flex-col">
-                          <div className="px-6 pt-4">
-                              <Logo className='text-base' />
-                          </div>
-                          <nav className="flex flex-col space-y-4 text-sm mt-10 px-6">
-                              {navLinks.map((link) => (
-                                  <Link
-                                      key={link.href}
-                                      href={link.href}
-                                      onClick={(e) => handleLinkClick(e, link.href)}
-                                      className={cn(
-                                          'transition-colors hover:text-primary',
-                                          activeLink === link.href ? 'text-primary' : 'text-foreground/80',
-                                      )}
-                                  >
-                                      {link.label}
-                                  </Link>
-                              ))}
-                              {!user ? (
+        <div className="md:hidden">
+            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+                <SheetTrigger asChild>
+                    <Button variant="ghost" size="icon">
+                        <Menu />
+                        <span className="sr-only">Open menu</span>
+                    </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-full max-w-[200px] p-0">
+                    <SheetHeader>
+                        <SheetTitle className="sr-only">Menu</SheetTitle>
+                    </SheetHeader>
+                    <div className="py-4 h-full flex flex-col">
+                        <div className="px-6 pt-4">
+                            <Logo className='text-base' />
+                        </div>
+                        <nav className="flex flex-col space-y-4 text-sm mt-10 px-6">
+                            {navLinks.map((link) => (
                                 <Link
-                                    href="/login"
-                                    onClick={(e) => handleLinkClick(e, '/login')}
-                                    className='transition-colors hover:text-primary text-foreground/80 flex items-center'
+                                    key={link.href}
+                                    href={link.href}
+                                    onClick={(e) => handleLinkClick(e, link.href)}
+                                    className={cn(
+                                        'transition-colors hover:text-primary',
+                                        activeLink === link.href ? 'text-primary' : 'text-foreground/80',
+                                    )}
                                 >
-                                  <LogIn className="mr-2 h-4 w-4" /> Login
+                                    {link.label}
                                 </Link>
-                              ) : (
-                                <>
-                                  <Link
-                                    href="/management"
-                                    onClick={(e) => handleLinkClick(e, '/management')}
-                                    className='transition-colors hover:text-primary text-foreground/80 flex items-center'
-                                  >
-                                    <LayoutDashboard className="mr-2 h-4 w-4" /> Management
-                                  </Link>
-                                  <button
-                                      onClick={() => {
-                                        handleSignOut();
-                                        setIsMobileMenuOpen(false);
-                                      }}
-                                      className='transition-colors hover:text-primary text-foreground/80 flex items-center text-sm'
-                                  >
-                                    <LogOut className="mr-2 h-4 w-4" /> Logout
-                                  </button>
-                                </>
-                              )}
-                          </nav>
-                      </div>
-                  </SheetContent>
-              </Sheet>
-          </div>
+                            ))}
+                            {!user ? (
+                              <Link
+                                  href="/login"
+                                  onClick={(e) => handleLinkClick(e, '/login')}
+                                  className='transition-colors hover:text-primary text-foreground/80 flex items-center'
+                              >
+                                <LogIn className="mr-2 h-4 w-4" /> Login
+                              </Link>
+                            ) : (
+                              <>
+                                <Link
+                                  href="/management"
+                                  onClick={(e) => handleLinkClick(e, '/management')}
+                                  className='transition-colors hover:text-primary text-foreground/80 flex items-center'
+                                >
+                                  <LayoutDashboard className="mr-2 h-4 w-4" /> Management
+                                </Link>
+                                <button
+                                    onClick={() => {
+                                      handleSignOut();
+                                      setIsMobileMenuOpen(false);
+                                    }}
+                                    className='transition-colors hover:text-primary text-foreground/80 flex items-center text-sm'
+                                >
+                                  <LogOut className="mr-2 h-4 w-4" /> Logout
+                                </button>
+                              </>
+                            )}
+                        </nav>
+                    </div>
+                </SheetContent>
+            </Sheet>
         </div>
       </div>
     </header>

@@ -48,7 +48,7 @@ const Services = () => {
             />
         )}
         <div className="absolute inset-0 bg-background/90"></div>
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl font-headline font-bold">Our Services</h2>
             <p className="text-muted-foreground mt-2 max-w-xl mx-auto text-sm md:text-base">

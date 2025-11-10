@@ -53,7 +53,7 @@ const Hero = () => {
       )}
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"></div>
       
-      <div className="container mx-auto px-4 relative z-10 text-center">
+      <div className="px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         <div className="min-h-[140px] md:min-h-[100px] flex items-center justify-center">
           {(isCompanyInfoLoading || !isMounted) ? (
             <div className='w-full'>
@@ -83,7 +83,7 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 relative z-10 mt-16 md:mt-24">
+      <div className="px-4 sm:px-6 lg:px-8 relative z-10 mt-16 md:mt-24">
         <div className="grid grid-cols-4 gap-2 md:gap-6">
           {highlights.map((highlight, index) => (
             <div key={index}>
