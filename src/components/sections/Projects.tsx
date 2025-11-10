@@ -68,8 +68,8 @@ const Projects = () => {
             </TabsList>
           </div>
           
-            <div className="grid md:grid-cols-3 gap-8">
-              {isLoading && Array.from({ length: 3 }).map((_, index) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {isLoading && Array.from({ length: 4 }).map((_, index) => (
                 <AnimateOnScroll key={index} delay={index * 100}>
                   <Card className="overflow-hidden h-full flex flex-col shadow-lg bg-card/80 backdrop-blur-sm">
                       <div className="aspect-video relative w-full">
