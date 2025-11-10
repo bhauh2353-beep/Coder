@@ -90,24 +90,24 @@ const Projects = () => {
                 plugins={[plugin.current]}
                 className="w-full max-w-7xl mx-auto"
             >
-                <CarouselContent>
+                <CarouselContent className="-ml-1">
                   {isLoading && Array.from({ length: 4 }).map((_, index) => (
-                    <CarouselItem key={index} className="basis-1/2 lg:basis-1/4">
+                    <CarouselItem key={index} className="basis-1/2 lg:basis-1/4 p-1">
                        <div className='h-full'>
                         <AnimateOnScroll delay={index * 100} className='h-full'>
                           <Card className="overflow-hidden h-full flex flex-col shadow-lg bg-card/80 backdrop-blur-sm">
                               <div className="aspect-video relative w-full">
                                  <Skeleton className="w-full h-full" />
                               </div>
-                            <CardHeader className='p-2 md:p-6'>
-                              <Skeleton className="h-6 w-3/4" />
+                            <CardHeader className='p-2'>
+                              <Skeleton className="h-5 w-3/4" />
                             </CardHeader>
-                            <CardContent className="flex-grow p-2 md:p-6">
-                               <Skeleton className="h-4 w-full" />
-                               <Skeleton className="h-4 w-2/3 mt-2" />
+                            <CardContent className="flex-grow p-2">
+                               <Skeleton className="h-3 w-full" />
+                               <Skeleton className="h-3 w-2/3 mt-2" />
                             </CardContent>
-                            <CardFooter className='p-2 md:p-6'>
-                              <Skeleton className="h-10 w-28" />
+                            <CardFooter className='p-2'>
+                              <Skeleton className="h-8 w-24" />
                             </CardFooter>
                           </Card>
                         </AnimateOnScroll>
@@ -115,7 +115,7 @@ const Projects = () => {
                     </CarouselItem>
                   ))}
                   {!isLoading && filteredProjects.map((project, index) => (
-                    <CarouselItem key={project.id} className="basis-1/2 lg:basis-1/4">
+                    <CarouselItem key={project.id} className="basis-1/2 lg:basis-1/4 p-1">
                        <div className='h-full'>
                         <AnimateOnScroll delay={index * 100} className='h-full'>
                           <Card className="overflow-hidden h-full flex flex-col shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 bg-card/80 backdrop-blur-sm">
@@ -130,14 +130,14 @@ const Projects = () => {
                                 />
                               </div>
                             )}
-                            <CardHeader className='p-2 md:p-6'>
-                              <CardTitle className="font-headline text-sm">{project.title}</CardTitle>
+                            <CardHeader className='p-2'>
+                              <CardTitle className="font-headline text-xs">{project.title}</CardTitle>
                             </CardHeader>
-                            <CardContent className="flex-grow p-2 md:p-6">
-                              <p className="text-muted-foreground text-sm">{project.description}</p>
+                            <CardContent className="flex-grow p-2">
+                              <p className="text-muted-foreground text-[10px] leading-tight">{project.description}</p>
                             </CardContent>
-                            <CardFooter className='p-2 md:p-6'>
-                              <Button variant="outline">View Demo</Button>
+                            <CardFooter className='p-2'>
+                              <Button variant="outline" size="sm" className="h-8 text-xs">View Demo</Button>
                             </CardFooter>
                           </Card>
                         </AnimateOnScroll>
