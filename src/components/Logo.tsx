@@ -22,11 +22,11 @@ const Logo = ({ className }: LogoProps) => {
   const companyName = companyInfo?.name || 'JH Smart Solutions';
 
   if (isLoading && !companyInfo) {
-    return <Skeleton className={cn("h-6 w-40", className)} />;
+    return <Skeleton className={cn("h-8 w-48", className)} />;
   }
 
   return (
-    <Link href="/" className={cn('font-headline font-bold text-lg tracking-tight', className)}>
+    <Link href="/" className={cn('font-brand text-3xl', className)}>
       {companyName}
     </Link>
   );
