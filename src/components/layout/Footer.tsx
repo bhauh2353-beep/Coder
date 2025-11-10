@@ -26,14 +26,14 @@ const Footer = () => {
     <footer className="bg-background/80 backdrop-blur-sm border-t">
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-8 text-center md:text-left">
-          <div className="space-y-4 md:w-1/3 flex flex-col items-center md:items-start">
+          <div className="space-y-4 flex-1 flex flex-col items-center md:items-start">
             <Logo className="text-3xl" />
             <p className="text-muted-foreground text-sm max-w-xs">
               {companyInfo?.slogan || 'Smart, Fast, and Affordable Digital Solutions.'}
             </p>
           </div>
 
-          <div className="space-y-4 md:w-1/3 flex flex-col items-center">
+          <div className="space-y-4 flex-1 flex flex-col items-center">
             <h3 className="font-headline text-lg font-medium">Contact Us</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li className="flex items-center gap-2">
@@ -55,7 +55,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="space-y-4 md:w-1/3 flex flex-col items-center md:items-end">
+          <div className="space-y-4 flex-1 flex flex-col items-center md:items-end">
             <h3 className="font-headline text-lg font-medium">Follow Us</h3>
             <div className="flex space-x-4">
               {socialLinks.map((social) => {
