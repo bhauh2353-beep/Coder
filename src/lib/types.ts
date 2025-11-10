@@ -20,6 +20,7 @@ export type Lead = {
   message?: string;
   submissionDate: string;
   serviceRequestNumber: string;
+  status: 'Pending' | 'Resolved';
 };
 
 export type Service = {

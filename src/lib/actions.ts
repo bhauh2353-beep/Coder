@@ -33,10 +33,10 @@ const leadSchema = z.object({
 });
 
 const contactSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  email: z.string().email({ message: "Please enter a valid email." }),
-  phone: z.string().min(10, { message: "Please enter a valid phone number."}),
-  message: z.string().min(10, { message: "Message must be at least 10 characters." }),
+  name: z.string().min(2, "Name must be at least 2 characters."),
+  email: z.string().email("Please enter a valid email."),
+  phone: z.string().min(10, "Please enter a valid phone number."),
+  message: z.string().min(10, "Message must be at least 10 characters."),
 });
 
 export async function saveLead(prevState: any, formData: FormData) {
@@ -81,6 +81,7 @@ export async function saveLead(prevState: any, formData: FormData) {
         id: newDocRef.id,
         submissionDate: new Date().toISOString(),
         serviceRequestNumber: serviceRequestNumber,
+        status: 'Pending',
     });
     return { message: "Quote request received! We will get back to you shortly." };
   } catch (e) {

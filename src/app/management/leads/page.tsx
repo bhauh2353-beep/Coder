@@ -3,7 +3,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useUser, useFirestore, useCollection, deleteDocumentNonBlocking } from '@/firebase';
+import { useUser, useFirestore, useCollection, deleteDocumentNonBlocking, setDocumentNonBlocking } from '@/firebase';
 import { Users, MoreVertical, Trash2 } from 'lucide-react';
 import { collection, query, doc, orderBy } from 'firebase/firestore';
 import {
@@ -21,6 +21,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -35,6 +36,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
+import { Badge } from '@/components/ui/badge';
 
 export default function ManageLeadsPage() {
   const { user, isUserLoading } = useUser();
@@ -57,6 +59,12 @@ export default function ManageLeadsPage() {
       router.push('/login');
     }
   }, [user, isUserLoading, router]);
+  
+  const handleStatusChange = (leadId: string, newStatus: 'Pending' | 'Resolved') => {
+    if (!firestore) return;
+    const docRef = doc(firestore, 'leads', leadId);
+    setDocumentNonBlocking(docRef, { status: newStatus }, { merge: true });
+  };
 
   const openDeleteDialog = (id: string) => {
     setDeletingLeadId(id);
@@ -120,6 +128,7 @@ export default function ManageLeadsPage() {
                     <TableHead>Phone</TableHead>
                     <TableHead>Service</TableHead>
                     <TableHead>Message</TableHead>
+                    <TableHead>Status</TableHead>
                     <TableHead className='text-right'>Actions</TableHead>
                     </TableRow>
                 </TableHeader>
@@ -133,6 +142,7 @@ export default function ManageLeadsPage() {
                             <TableCell><Skeleton className="h-4 w-32" /></TableCell>
                             <TableCell><Skeleton className="h-4 w-32" /></TableCell>
                             <TableCell><Skeleton className="h-4 w-64" /></TableCell>
+                            <TableCell><Skeleton className="h-6 w-20" /></TableCell>
                             <TableCell><Skeleton className="h-8 w-8 ml-auto" /></TableCell>
                         </TableRow>
                     ))}
@@ -145,6 +155,11 @@ export default function ManageLeadsPage() {
                         <TableCell>{lead.phone}</TableCell>
                         <TableCell>{lead.service}</TableCell>
                         <TableCell>{lead.message}</TableCell>
+                        <TableCell>
+                            <Badge variant={lead.status === 'Resolved' ? 'secondary' : 'default'}>
+                                {lead.status}
+                            </Badge>
+                        </TableCell>
                         <TableCell className="text-right">
                            <DropdownMenu>
                               <DropdownMenuTrigger asChild>
@@ -153,6 +168,13 @@ export default function ManageLeadsPage() {
                                 </Button>
                               </DropdownMenuTrigger>
                               <DropdownMenuContent>
+                                <DropdownMenuItem onClick={() => handleStatusChange(lead.id, 'Pending')} disabled={lead.status === 'Pending'}>
+                                  Mark as Pending
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => handleStatusChange(lead.id, 'Resolved')} disabled={lead.status === 'Resolved'}>
+                                  Mark as Resolved
+                                </DropdownMenuItem>
+                                <DropdownMenuSeparator />
                                 <DropdownMenuItem className="text-destructive" onClick={() => openDeleteDialog(lead.id)}>
                                     <Trash2 className="mr-2 h-4 w-4" />
                                     Delete
@@ -164,7 +186,7 @@ export default function ManageLeadsPage() {
                     ))}
                     {!isLoading && (!leads || leads.length === 0) && (
                         <TableRow>
-                            <TableCell colSpan={8} className="text-center text-muted-foreground">
+                            <TableCell colSpan={9} className="text-center text-muted-foreground">
                                 No leads found.
                             </TableCell>
                         </TableRow>
