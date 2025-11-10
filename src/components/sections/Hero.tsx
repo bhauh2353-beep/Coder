@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useMemo, useState, useEffect } from 'react';
@@ -62,7 +63,7 @@ const Hero = () => {
             <Typewriter
               text={heroText}
               speed={50}
-              className="text-4xl md:text-6xl font-headline font-bold text-foreground leading-tight"
+              className="text-3xl md:text-5xl font-headline font-bold text-foreground leading-tight"
             />
           )}
         </div>
