@@ -50,7 +50,7 @@ const projectSchema = z.object({
   title: z.string().min(2, "Title is required."),
   description: z.string().min(10, "Description is required."),
   category: z.string().min(1, "Category is required."),
-  imageUrl: z.string().url("A valid image URL is required."),
+  imageUrl: z.string().optional(),
   imageHint: z.string().optional(),
 });
 
@@ -93,10 +93,14 @@ const ManageProjectsPage = () => {
     handleSubmit,
     control,
     reset,
+    watch,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<ProjectFormValues>({
     resolver: zodResolver(projectSchema),
   });
+
+  const currentImageUrl = watch('imageUrl');
 
   useEffect(() => {
     if (!isUserLoading && !user) {
@@ -105,12 +109,14 @@ const ManageProjectsPage = () => {
   }, [user, isUserLoading, router]);
 
   useEffect(() => {
-    if (editingProject) {
-      reset(editingProject);
-    } else {
-      reset({ title: '', description: '', category: '', imageUrl: '' });
+    if (isFormDialogOpen) {
+      if (editingProject) {
+        reset(editingProject);
+      } else {
+        reset({ title: '', description: '', category: '', imageUrl: '', imageHint: '' });
+      }
     }
-  }, [editingProject, reset]);
+  }, [editingProject, reset, isFormDialogOpen]);
 
   if (isUserLoading || !user) {
     return (
@@ -119,6 +125,43 @@ const ManageProjectsPage = () => {
       </div>
     );
   }
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = document.createElement('img');
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const MAX_WIDTH = 600;
+          const MAX_HEIGHT = 400;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+          }
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx?.drawImage(img, 0, 0, width, height);
+          const dataUrl = canvas.toDataURL('image/jpeg');
+          setValue('imageUrl', dataUrl, { shouldValidate: true });
+        };
+        img.src = event.target?.result as string;
+      };
+      reader.readAsDataURL(file);
+    }
+  };
   
   const handleEdit = (project: Project) => {
     setEditingProject(project);
@@ -127,7 +170,6 @@ const ManageProjectsPage = () => {
 
   const handleAddNew = () => {
     setEditingProject(null);
-    reset({ title: '', description: '', category: '', imageUrl: '' });
     setIsFormDialogOpen(true);
   };
 
@@ -147,6 +189,16 @@ const ManageProjectsPage = () => {
 
   const onSubmit = (data: ProjectFormValues) => {
     if(!projectsCollection || !firestore) return;
+    
+    if (!data.imageUrl) {
+        toast({
+            variant: "destructive",
+            title: "Image Required",
+            description: "Please upload an image for the project.",
+        });
+        return;
+    }
+
     const id = editingProject ? editingProject.id : doc(projectsCollection).id;
     const docRef = doc(firestore, 'projects', id);
     setDocumentNonBlocking(docRef, { ...data, id }, { merge: true });
@@ -216,9 +268,14 @@ const ManageProjectsPage = () => {
                     {errors.description && <p className="text-sm text-destructive">{errors.description.message}</p>}
                 </div>
                 <div className="space-y-2">
-                    <Label htmlFor="imageUrl">Image URL</Label>
-                    <Input id="imageUrl" {...register('imageUrl')} placeholder="https://picsum.photos/seed/1/600/400" />
-                     {errors.imageUrl && <p className="text-sm text-destructive">{errors.imageUrl.message}</p>}
+                    <Label htmlFor="imageUrl">Project Image</Label>
+                    <div className="flex items-center gap-4">
+                      {currentImageUrl && (
+                        <Image src={currentImageUrl} alt="Project Image" width={100} height={60} className="rounded-md object-cover border p-1" />
+                      )}
+                      <Input id="imageUrlInput" type="file" accept="image/*" onChange={handleImageUpload} className="max-w-sm" />
+                    </div>
+                    {errors.imageUrl && <p className="text-sm text-destructive">{errors.imageUrl.message}</p>}
                 </div>
                  <div className="space-y-2">
                     <Label htmlFor="imageHint">Image Hint (for AI)</Label>
@@ -280,7 +337,7 @@ const ManageProjectsPage = () => {
                     {!isLoading && projects?.map((project) => (
                         <TableRow key={project.id}>
                             <TableCell>
-                                <Image src={project.imageUrl} alt={project.title} width={100} height={60} className="rounded-md object-cover" />
+                                <Image src={project.imageUrl || 'https://placehold.co/100x60'} alt={project.title} width={100} height={60} className="rounded-md object-cover" />
                             </TableCell>
                             <TableCell>{project.title}</TableCell>
                             <TableCell>{project.category}</TableCell>
