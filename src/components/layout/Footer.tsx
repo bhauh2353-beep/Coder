@@ -36,10 +36,12 @@ const iconMap: { [key: string]: React.ElementType } = {
 const Footer = () => {
   const [isMounted, setIsMounted] = useState(false);
   const firestore = useFirestore();
+  
   const companyInfoRef = useMemo(() => {
     if (!firestore) return null;
     return doc(firestore, 'companyInfo', 'main');
   }, [firestore]);
+  
   const { data: companyInfo, isLoading } = useDoc(companyInfoRef);
   
   useEffect(() => {
@@ -59,7 +61,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row items-center justify-around gap-8 text-center">
           <div className="space-y-4 flex flex-col items-center">
             <Logo className="text-3xl" />
-             {(isLoading || !isMounted) ? <Skeleton className='h-5 w-72' /> : <p className="text-muted-foreground text-sm max-w-xs">{slogan}</p>}
+             {isLoading || !isMounted ? <Skeleton className='h-5 w-72' /> : <p className="text-muted-foreground text-sm max-w-xs">{slogan}</p>}
           </div>
 
           <div className="space-y-4 flex flex-col items-center">
@@ -98,7 +100,7 @@ const Footer = () => {
               {socialLinks.map((social) => {
                 const Icon = iconMap[social.name];
                 const href = social.name === 'WhatsApp' && phone
-                  ? `https://wa.me/${phone.replace(/\+/g, '')}`
+                  ? `https://wa.me/${phone.replace(/\s/g, '').replace('+', '')}`
                   : social.href;
                 return (
                   <Link key={social.name} href={href} target="_blank" rel="noopener noreferrer"

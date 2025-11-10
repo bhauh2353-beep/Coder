@@ -33,6 +33,7 @@ const Contact = () => {
   const [isMounted, setIsMounted] = useState(false);
   const { toast } = useToast();
   const [state, formAction] = useActionState(saveContact, { message: "" });
+  
   const {
     register,
     handleSubmit,
@@ -41,6 +42,7 @@ const Contact = () => {
   } = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
   });
+  
   const backgroundImage = PlaceHolderImages.find(p => p.id === 'contact-background');
 
   const firestore = useFirestore();

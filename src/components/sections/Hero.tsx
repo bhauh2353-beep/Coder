@@ -13,6 +13,14 @@ import { Skeleton } from '../ui/skeleton';
 
 const Hero = () => {
   const [isMounted, setIsMounted] = useState(false);
+  const firestore = useFirestore();
+  
+  const companyInfoRef = useMemo(() => {
+    if (!firestore) return null;
+    return doc(firestore, 'companyInfo', 'main');
+  }, [firestore]);
+  
+  const { data: companyInfo, isLoading: isCompanyInfoLoading } = useDoc(companyInfoRef);
 
   useEffect(() => {
     setIsMounted(true);
@@ -25,13 +33,6 @@ const Hero = () => {
 
   const heroImage = PlaceHolderImages.find(p => p.id === 'hero-background');
   
-  const firestore = useFirestore();
-  const companyInfoRef = useMemo(() => {
-    if (!firestore) return null;
-    return doc(firestore, 'companyInfo', 'main');
-  }, [firestore]);
-  const { data: companyInfo, isLoading: isCompanyInfoLoading } = useDoc(companyInfoRef);
-
   const heroText = companyInfo?.heroText || 'We Build Websites & Apps That Grow Your Business.';
   const slogan = companyInfo?.slogan || 'Smart, Fast, and Affordable Digital Solutions.';
 
@@ -51,7 +52,7 @@ const Hero = () => {
       
       <div className="container mx-auto px-4 relative z-10 text-center">
         <div className="min-h-[140px] md:min-h-[150px] flex items-center justify-center">
-          {(isCompanyInfoLoading || !isMounted) ? (
+          {isCompanyInfoLoading || !isMounted ? (
             <div className='w-full'>
               <Skeleton className="h-12 w-3/4 mx-auto" />
               <Skeleton className="h-12 w-2/3 mx-auto mt-4" />
@@ -63,7 +64,7 @@ const Hero = () => {
           )}
         </div>
         <div className="mt-4 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-          {(isCompanyInfoLoading || !isMounted) ? <Skeleton className="h-6 w-1/2 mx-auto" /> : slogan}
+          {isCompanyInfoLoading || !isMounted ? <Skeleton className="h-6 w-1/2 mx-auto" /> : slogan}
         </div>
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button asChild size="lg">
