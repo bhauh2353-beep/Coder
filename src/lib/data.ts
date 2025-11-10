@@ -152,4 +152,5 @@ export const socialLinks = [
     { name: 'Facebook', href: '#' },
     { name: 'Instagram', href: '#' },
     { name: 'LinkedIn', href: '#' },
+    { name: 'WhatsApp', href: 'https://wa.me/919000000000' },
 ];
