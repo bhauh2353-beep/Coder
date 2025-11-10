@@ -31,7 +31,7 @@ const Hero = () => {
   const slogan = companyInfo?.slogan || 'Smart, Fast, and Affordable Digital Solutions.';
 
   return (
-    <section id="home" className="relative w-full pt-20 pb-16 md:pt-32 md:pb-24 overflow-hidden">
+    <section id="home" className="relative w-full pt-20 pb-16 md:pt-24 md:pb-20 overflow-hidden">
       {heroImage && (
         <Image
           src={heroImage.imageUrl}
