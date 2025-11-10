@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import AnimateOnScroll from '../AnimateOnScroll';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { useCollection, useFirestore } from '@/firebase';
@@ -60,11 +60,13 @@ const Projects = () => {
         </div>
 
         <Tabs defaultValue="All" className="w-full" onValueChange={setFilter}>
-          <TabsList className="max-w-lg mx-auto mb-8 bg-background/50 backdrop-blur-sm">
-            {categories.map(category => (
-                <TabsTrigger key={category} value={category}>{category}</TabsTrigger>
-            ))}
-          </TabsList>
+          <div className="flex justify-center mb-8">
+            <TabsList className="bg-background/50 backdrop-blur-sm">
+              {categories.map(category => (
+                  <TabsTrigger key={category} value={category}>{category}</TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
           
             <div className="grid md:grid-cols-3 gap-8">
               {isLoading && Array.from({ length: 3 }).map((_, index) => (
