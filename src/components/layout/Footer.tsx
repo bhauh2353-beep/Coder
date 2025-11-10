@@ -64,8 +64,8 @@ const Footer = () => {
              {isLoading || !isMounted ? <Skeleton className='h-5 w-72' /> : <p className="text-muted-foreground text-sm max-w-xs">{slogan}</p>}
           </div>
 
-          <div className="flex flex-row md:flex-col gap-8 md:gap-4">
-              <div className="space-y-4 flex flex-col items-center">
+          <div className="flex flex-row md:flex-col gap-8 md:gap-4 justify-center items-start">
+              <div className="space-y-4 flex flex-col items-center md:items-start">
                 <h3 className="font-headline text-lg font-medium">Contact Us</h3>
                 {(isLoading || !isMounted) ? (
                     <div className="space-y-2">
@@ -74,7 +74,7 @@ const Footer = () => {
                         <Skeleton className='h-5 w-56' />
                     </div>
                 ) : (
-                    <ul className="space-y-2 text-sm text-muted-foreground">
+                    <ul className="space-y-2 text-sm text-muted-foreground text-left">
                     <li className="flex items-center gap-2">
                         <MapPin className="w-4 h-4 text-primary" />
                         <span>{address}</span>
