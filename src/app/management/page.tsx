@@ -110,19 +110,19 @@ export default function ManagementPage() {
         {managementSections.map((section) => (
           <Link href={section.href} key={section.title} className="group">
             <Card className="h-full hover:border-primary hover:shadow-lg transition-all">
-              <CardHeader className="flex flex-row items-center gap-2 p-2">
-                <section.icon className="w-5 h-5 text-primary" />
+              <CardHeader className="flex flex-col items-center justify-center text-center gap-2 p-4 h-full">
+                <section.icon className="w-8 h-8 text-primary" />
                 <div className='flex-grow'>
                   <CardTitle className="font-semibold text-sm">{section.title}</CardTitle>
                   <CardDescription className='text-[10px] leading-tight'>{section.description}</CardDescription>
                 </div>
                 {section.id === 'customer-query' && pendingCount > 0 && (
-                  <Badge className="h-4 w-4 flex items-center justify-center rounded-full p-0 text-[10px]">
+                  <Badge className="absolute top-2 right-2 h-4 w-4 flex items-center justify-center rounded-full p-0 text-[10px]">
                     {pendingCount}
                   </Badge>
                 )}
                  {section.id === 'leads' && leadCount > 0 && (
-                  <Badge className="h-4 w-4 flex items-center justify-center rounded-full p-0 text-[10px]" variant="secondary">
+                  <Badge className="absolute top-2 right-2 h-4 w-4 flex items-center justify-center rounded-full p-0 text-[10px]" variant="secondary">
                     {leadCount}
                   </Badge>
                 )}
