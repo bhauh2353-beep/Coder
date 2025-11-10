@@ -24,9 +24,11 @@ const WhatsAppIcon = () => (
 
 
 const FloatingWhatsApp = () => {
+    const [isMounted, setIsMounted] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
+        setIsMounted(true);
         const toggleVisibility = () => {
             if (window.scrollY > 300) {
                 setIsVisible(true);
@@ -36,11 +38,16 @@ const FloatingWhatsApp = () => {
         };
 
         window.addEventListener("scroll", toggleVisibility);
+        toggleVisibility(); // Check on mount
 
         return () => window.removeEventListener("scroll", toggleVisibility);
     }, []);
 
     const phoneNumber = "919000000000"; // Replace with your actual number
+
+    if (!isMounted) {
+        return null;
+    }
 
     return (
         <div className={cn(
