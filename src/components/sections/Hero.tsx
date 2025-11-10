@@ -55,25 +55,27 @@ const Hero = () => {
       
       <div className="px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         <div className="flex flex-col items-center">
-          <div className="min-h-[140px] md:min-h-[100px] flex items-center justify-center">
+          <div className="min-h-[100px] md:min-h-[80px] flex items-center justify-center">
             {(isCompanyInfoLoading || !isMounted) ? (
               <div className='w-full'>
                 <Skeleton className="h-10 w-3/4 mx-auto" />
                 <Skeleton className="h-10 w-2/3 mx-auto mt-4" />
               </div>
             ) : (
-              <Typewriter
-                text={heroText}
-                speed={50}
-                className="text-2xl md:text-4xl font-headline font-bold text-foreground leading-tight"
-              />
+                <div className='flex flex-col items-center'>
+                    <Typewriter
+                        text={heroText}
+                        speed={50}
+                        className="text-2xl md:text-4xl font-headline font-bold text-foreground leading-tight"
+                    />
+                    <AnimateOnScroll>
+                        <div className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+                        {isCompanyInfoLoading || !isMounted ? <Skeleton className="h-6 w-1/2 mx-auto" /> : slogan}
+                        </div>
+                    </AnimateOnScroll>
+                </div>
             )}
           </div>
-          <AnimateOnScroll delay={200}>
-              <div className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-              {isCompanyInfoLoading || !isMounted ? <Skeleton className="h-6 w-1/2 mx-auto" /> : slogan}
-              </div>
-          </AnimateOnScroll>
         </div>
         <div className="mt-8 flex flex-row items-center justify-center gap-4">
           <Button asChild size="lg">
