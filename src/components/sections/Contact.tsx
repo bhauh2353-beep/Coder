@@ -133,26 +133,26 @@ const Contact = () => {
             </div>
 
             <div className="grid grid-cols-1 gap-1">
-                <div className="bg-card/80 backdrop-blur-sm p-6 rounded-lg shadow-md flex flex-col items-start gap-4">
+                <div className="bg-card/80 backdrop-blur-sm p-6 rounded-lg shadow-md flex flex-col items-center justify-center gap-4 text-center h-full">
                     <h3 className="text-xl font-headline font-semibold">Contact Details</h3>
                     {(isLoading || !isMounted) ? (
                         <div className="space-y-4 w-full">
-                            <Skeleton className="h-6 w-3/4" />
-                            <Skeleton className="h-6 w-1/2" />
-                            <Skeleton className="h-6 w-2/3" />
+                            <Skeleton className="h-6 w-3/4 mx-auto" />
+                            <Skeleton className="h-6 w-1/2 mx-auto" />
+                            <Skeleton className="h-6 w-2/3 mx-auto" />
                         </div>
                     ) : (
                         <div className="flex flex-col space-y-4 text-xs">
-                        <a href={`mailto:${email}`} className="flex items-center gap-3 group">
+                        <a href={`mailto:${email}`} className="flex flex-col md:flex-row items-center gap-2 group">
                             <Mail className="w-5 h-5 text-primary"/>
                             <span className="text-muted-foreground group-hover:text-primary transition-colors">{email}</span>
                         </a>
-                        <a href={`tel:${phone}`} className="flex items-center gap-3 group">
+                        <a href={`tel:${phone}`} className="flex flex-col md:flex-row items-center gap-2 group">
                             <Phone className="w-5 h-5 text-primary"/>
                             <span className="text-muted-foreground group-hover:text-primary transition-colors">{phone}</span>
                         </a>
-                        <div className="flex items-start gap-3">
-                            <MapPin className="w-5 h-5 text-primary mt-1"/>
+                        <div className="flex flex-col md:flex-row items-center gap-2">
+                            <MapPin className="w-5 h-5 text-primary"/>
                             <span className="text-muted-foreground">{address}</span>
                         </div>
                         </div>
