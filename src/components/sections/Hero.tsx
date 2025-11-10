@@ -7,7 +7,6 @@ import { highlights } from '@/lib/data';
 import { Card } from '../ui/card';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import Typewriter from '../Typewriter';
 import { useFirestore, useDoc } from '@/firebase';
 import { doc } from 'firebase/firestore';
 import { Skeleton } from '../ui/skeleton';
@@ -51,17 +50,16 @@ const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"></div>
       
       <div className="container mx-auto px-4 relative z-10 text-center">
-        <div className="min-h-[140px] md:min-h-[150px]">
+        <div className="min-h-[140px] md:min-h-[150px] flex items-center justify-center">
           {(isCompanyInfoLoading || !isMounted) ? (
-            <>
+            <div className='w-full'>
               <Skeleton className="h-12 w-3/4 mx-auto" />
               <Skeleton className="h-12 w-2/3 mx-auto mt-4" />
-            </>
+            </div>
           ) : (
-             <Typewriter
-              text={heroText}
-              className="text-4xl md:text-6xl font-headline font-bold text-foreground leading-tight"
-            />
+            <h1 className="text-4xl md:text-6xl font-headline font-bold text-foreground leading-tight">
+              {heroText}
+            </h1>
           )}
         </div>
         <div className="mt-4 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
