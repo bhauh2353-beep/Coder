@@ -106,14 +106,14 @@ export default function ManageCustomerQueryPage() {
       </AlertDialog>
 
       <div className="flex items-center gap-4 mb-8">
-        <Mail className="w-8 h-8" />
-        <h1 className="text-3xl font-bold font-headline">Customer Queries</h1>
+        <Mail className="w-5 h-5" />
+        <h1 className="text-lg font-bold font-headline">Customer Queries</h1>
       </div>
 
       <Card>
         <CardHeader>
-            <CardTitle>Contact Submissions</CardTitle>
-            <CardDescription>
+            <CardTitle className='text-xl'>Contact Submissions</CardTitle>
+            <CardDescription className='text-sm'>
             Browse and manage all customer queries from the contact form.
             </CardDescription>
         </CardHeader>

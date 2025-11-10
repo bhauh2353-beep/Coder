@@ -228,8 +228,8 @@ const ManageProjectsPage = () => {
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center justify-between gap-4 mb-8">
         <div className='flex items-center gap-4'>
-            <Briefcase className="w-8 h-8" />
-            <h1 className="text-3xl font-bold font-headline">Manage Projects</h1>
+            <Briefcase className="w-5 h-5" />
+            <h1 className="text-lg font-bold font-headline">Manage Projects</h1>
         </div>
         <Button onClick={handleAddNew}>
             <PlusCircle className="mr-2 h-4 w-4" /> Add New Project
@@ -318,8 +318,8 @@ const ManageProjectsPage = () => {
 
       <Card>
         <CardHeader>
-            <CardTitle>Your Projects</CardTitle>
-            <CardDescription>
+            <CardTitle className='text-xl'>Your Projects</CardTitle>
+            <CardDescription className='text-sm'>
                 A list of all your portfolio projects.
             </CardDescription>
         </CardHeader>

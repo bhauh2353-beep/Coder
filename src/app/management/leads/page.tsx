@@ -106,14 +106,14 @@ export default function ManageLeadsPage() {
       </AlertDialog>
 
       <div className="flex items-center gap-4 mb-8">
-        <Users className="w-8 h-8" />
-        <h1 className="text-3xl font-bold font-headline">Manage Leads</h1>
+        <Users className="w-5 h-5" />
+        <h1 className="text-lg font-bold font-headline">Manage Leads</h1>
       </div>
       
       <Card>
         <CardHeader>
-            <CardTitle>Lead Submissions</CardTitle>
-            <CardDescription>
+            <CardTitle className='text-xl'>Lead Submissions</CardTitle>
+            <CardDescription className='text-sm'>
             Browse and manage all service quote requests.
             </CardDescription>
         </CardHeader>

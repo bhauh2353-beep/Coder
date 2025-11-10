@@ -169,8 +169,8 @@ const ManageTestimonialsPage = () => {
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center justify-between gap-4 mb-8">
         <div className='flex items-center gap-4'>
-            <MessageSquare className="w-8 h-8" />
-            <h1 className="text-3xl font-bold font-headline">Manage Testimonials</h1>
+            <MessageSquare className="w-5 h-5" />
+            <h1 className="text-lg font-bold font-headline">Manage Testimonials</h1>
         </div>
         <Button onClick={handleAddNew}>
             <PlusCircle className="mr-2 h-4 w-4" /> Add New Testimonial
@@ -250,8 +250,8 @@ const ManageTestimonialsPage = () => {
 
       <Card>
         <CardHeader>
-            <CardTitle>Your Testimonials</CardTitle>
-            <CardDescription>
+            <CardTitle className='text-xl'>Your Testimonials</CardTitle>
+            <CardDescription className='text-sm'>
                 A list of all client testimonials.
             </CardDescription>
         </CardHeader>

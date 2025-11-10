@@ -128,14 +128,14 @@ const ManageCompanyInfoPage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center gap-4 mb-8">
-        <Info className="w-8 h-8" />
-        <h1 className="text-3xl font-bold font-headline">Manage Company Info</h1>
+        <Info className="w-5 h-5" />
+        <h1 className="text-lg font-bold font-headline">Manage Company Info</h1>
       </div>
       
       <Card>
         <CardHeader>
-            <CardTitle>Your Business Details</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-xl">Your Business Details</CardTitle>
+            <CardDescription className="text-sm">
                 Update your company's name, contact information and slogan. This will be displayed on your website.
             </CardDescription>
         </CardHeader>
