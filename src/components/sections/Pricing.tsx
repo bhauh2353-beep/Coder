@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useMemo, useRef, useEffect } from 'react';
@@ -91,18 +92,18 @@ const Pricing = () => {
                         </CarouselItem>
                     ))}
                     {!isLoading && pricingPlans?.map((plan, index) => (
-                        <CarouselItem key={index} className="basis-1/2 lg:basis-1/4">
+                        <CarouselItem key={index} className="sm:basis-1/2 md:basis-1/4">
                             <div className='p-1 h-full'>
                                 <Card className="flex flex-col shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 bg-card/80 backdrop-blur-sm h-full">
-                                <CardHeader className="p-4">
-                                    <CardTitle className='font-headline text-lg'>{plan.name}</CardTitle>
+                                <CardHeader className="p-2 md:p-4">
+                                    <CardTitle className='font-headline text-base md:text-lg'>{plan.name}</CardTitle>
                                     <CardDescription className="text-xs">{plan.description}</CardDescription>
-                                    <div className="text-3xl font-bold font-headline pt-2">
+                                    <div className="text-xl md:text-3xl font-bold font-headline pt-1 md:pt-2">
                                         {plan.price}
                                     </div>
                                 </CardHeader>
-                                <CardContent className="flex-grow p-4">
-                                    <ul className="space-y-2">
+                                <CardContent className="flex-grow p-2 md:p-4">
+                                    <ul className="space-y-1 md:space-y-2">
                                     {plan.features.map((feature, i) => (
                                         <li key={i} className="flex items-center gap-2">
                                         <Check className="w-4 h-4 text-green-500" />
@@ -111,7 +112,7 @@ const Pricing = () => {
                                     ))}
                                     </ul>
                                 </CardContent>
-                                <CardFooter className="p-4">
+                                <CardFooter className="p-2 md:p-4">
                                     <DialogTrigger asChild>
                                         <Button className="w-full" size="sm" onClick={() => handleBookNow(plan.name)}>Book Now</Button>
                                     </DialogTrigger>
