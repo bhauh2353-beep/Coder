@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Image from 'next/image';
 import { useCollection, useFirestore } from '@/firebase';
 import { collection } from 'firebase/firestore';
@@ -19,7 +19,11 @@ const Services = () => {
     const backgroundImage = PlaceHolderImages.find(p => p.id === 'services-background');
 
     const firestore = useFirestore();
-    const servicesCollection = collection(firestore, 'services');
+    const servicesCollection = useMemo(() => {
+        if (!firestore) return null;
+        return collection(firestore, 'services');
+    }, [firestore]);
+    
     const { data: services, isLoading } = useCollection<Service>(servicesCollection);
 
     const handleGetQuote = (serviceTitle: string) => {
