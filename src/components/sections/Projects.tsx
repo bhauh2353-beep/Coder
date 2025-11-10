@@ -25,8 +25,11 @@ const Projects = () => {
   const { data: projects, isLoading } = useCollection<Project>(projectsCollection);
 
   const categories = useMemo(() => {
-    if (!projects) return ['All'];
-    return ['All', ...Array.from(new Set(projects.map(p => p.category)))];
+    if (!projects) return ['All', 'Websites', 'Apps', 'Automation'];
+    const uniqueCategories = ['All', ...Array.from(new Set(projects.map(p => p.category)))];
+    // Ensure default categories are present if there are no projects yet
+    if (uniqueCategories.length === 1) return ['All', 'Websites', 'Apps', 'Automation'];
+    return uniqueCategories;
   }, [projects]);
   
   const filteredProjects = useMemo(() => {
@@ -37,7 +40,7 @@ const Projects = () => {
 
 
   return (
-    <section id="projects" className="relative w-full py-8 md:py-12 overflow-hidden">
+    <section id="projects" className="relative w-full py-2 md:py-4 overflow-hidden">
        {backgroundImage && (
             <Image
                 src={backgroundImage.imageUrl}
@@ -57,7 +60,7 @@ const Projects = () => {
         </div>
 
         <Tabs defaultValue="All" className="w-full" onValueChange={setFilter}>
-          <TabsList className="grid w-full max-w-md mx-auto grid-cols-3 mb-8 bg-background/50 backdrop-blur-sm">
+          <TabsList className={`grid w-full max-w-lg mx-auto grid-cols-${categories.length} mb-8 bg-background/50 backdrop-blur-sm`}>
             {categories.map(category => (
                 <TabsTrigger key={category} value={category}>{category}</TabsTrigger>
             ))}
