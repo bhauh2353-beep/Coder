@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUser, useFirestore, useCollection, setDocumentNonBlocking, deleteDocumentNonBlocking } from '@/firebase';
 import { collection, doc } from 'firebase/firestore';
@@ -48,9 +48,15 @@ const ManageServicesPage = () => {
   const { user, isUserLoading } = useUser();
   const router = useRouter();
   const firestore = useFirestore();
-  const servicesCollection = collection(firestore, 'services');
-  const { data: services, isLoading } = useCollection<Service>(servicesCollection);
   const { toast } = useToast();
+
+  const servicesCollection = useMemo(() => {
+    if (!firestore) return null;
+    return collection(firestore, 'services');
+  }, [firestore]);
+
+  const { data: services, isLoading } = useCollection<Service>(servicesCollection);
+  
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingService, setEditingService] = useState<Service | null>(null);
@@ -107,9 +113,10 @@ const ManageServicesPage = () => {
   }
 
   const onSubmit = (data: ServiceFormValues) => {
+    if(!servicesCollection) return;
     const id = editingService ? editingService.id : doc(servicesCollection).id;
     const docRef = doc(firestore, 'services', id);
-    setDocumentNonBlocking(docRef, data, { merge: true });
+    setDocumentNonBlocking(docRef, { ...data, id }, { merge: true });
     
     toast({
         title: "Success",

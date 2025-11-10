@@ -1,8 +1,8 @@
 "use server";
 
 import { z } from "zod";
-import { getSdks, addDocumentNonBlocking } from "@/firebase";
-import { collection } from "firebase/firestore";
+import { getSdks, addDocumentNonBlocking, setDocumentNonBlocking } from "@/firebase";
+import { collection, doc } from "firebase/firestore";
 
 const leadSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -38,10 +38,12 @@ export async function saveLead(prevState: any, formData: FormData) {
   try {
     const { firestore } = getSdks();
     const leadsCollection = collection(firestore, 'leads');
-    await addDocumentNonBlocking(leadsCollection, {
+    const newDocRef = doc(leadsCollection);
+    await setDocumentNonBlocking(newDocRef, {
         ...validatedFields.data,
+        id: newDocRef.id,
         submissionDate: new Date().toISOString(),
-    });
+    }, {});
     return { message: "Quote request received! We will get back to you shortly." };
   } catch (e) {
     return { message: "An error occurred while saving the lead." };
@@ -66,10 +68,12 @@ export async function saveContact(prevState: any, formData: FormData) {
   try {
     const { firestore } = getSdks();
     const contactsCollection = collection(firestore, 'contacts');
-    await addDocumentNonBlocking(contactsCollection, {
+    const newDocRef = doc(contactsCollection);
+    await setDocumentNonBlocking(newDocRef, {
         ...validatedFields.data,
+        id: newDocRef.id,
         submissionDate: new Date().toISOString(),
-    });
+    }, {});
     return { message: "Thank you! We'll contact you soon." };
   } catch (e) {
     return { message: "An error occurred while saving your message." };
