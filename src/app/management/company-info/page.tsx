@@ -14,11 +14,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Textarea } from '@/components/ui/textarea';
 
 const companyInfoSchema = z.object({
   address: z.string().min(5, "Address is required."),
   phone: z.string().min(10, "A valid phone number is required."),
   email: z.string().email("A valid email is required."),
+  slogan: z.string().min(10, "Slogan must be at least 10 characters long."),
 });
 
 type CompanyInfoFormValues = z.infer<typeof companyInfoSchema>;
@@ -62,7 +64,8 @@ const ManageCompanyInfoPage = () => {
       const defaultData = {
           address: 'Shop Location, City, India',
           phone: '+91 9000000000',
-          email: 'info@jhsmartsolutions.in'
+          email: 'info@jhsmartsolutions.in',
+          slogan: 'Smart, Fast, and Affordable Digital Solutions.'
       };
       reset(defaultData);
       // Optionally, save these defaults to Firestore
@@ -101,7 +104,7 @@ const ManageCompanyInfoPage = () => {
         <CardHeader>
             <CardTitle>Your Business Details</CardTitle>
             <CardDescription>
-                Update your company's contact information. This will be displayed on your website.
+                Update your company's contact information and slogan. This will be displayed on your website.
             </CardDescription>
         </CardHeader>
         <CardContent>
@@ -118,6 +121,10 @@ const ManageCompanyInfoPage = () => {
                      <div className="space-y-2">
                         <Skeleton className="h-4 w-20" />
                         <Skeleton className="h-10 w-full" />
+                    </div>
+                    <div className="space-y-2">
+                        <Skeleton className="h-4 w-20" />
+                        <Skeleton className="h-20 w-full" />
                     </div>
                     <Skeleton className="h-10 w-32" />
                 </div>
@@ -137,6 +144,11 @@ const ManageCompanyInfoPage = () => {
                         <Label htmlFor="email">Email Address</Label>
                         <Input id="email" type="email" {...register('email')} />
                         {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
+                    </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="slogan">Slogan</Label>
+                        <Textarea id="slogan" {...register('slogan')} />
+                        {errors.slogan && <p className="text-sm text-destructive">{errors.slogan.message}</p>}
                     </div>
                     <Button type="submit" disabled={isSubmitting}>
                         {isSubmitting ? 'Saving...' : 'Save Changes'}

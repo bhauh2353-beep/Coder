@@ -29,7 +29,7 @@ const Footer = () => {
           <div className="space-y-4">
             <Logo />
             <p className="text-muted-foreground text-sm">
-              Smart, Fast, and Affordable Digital Solutions.
+              {companyInfo?.slogan || 'Smart, Fast, and Affordable Digital Solutions.'}
             </p>
           </div>
 

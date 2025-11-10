@@ -58,6 +58,7 @@ export type CompanyInfo = {
     address: string;
     phone: string;
     email: string;
+    slogan: string;
 };
 
 

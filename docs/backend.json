@@ -254,9 +254,10 @@
         "id": { "type": "string", "description": "Unique identifier for the company info document."},
         "address": { "type": "string", "description": "The company's physical address." },
         "phone": { "type": "string", "description": "The company's contact phone number." },
-        "email": { "type": "string", "description": "The company's contact email address.", "format": "email" }
+        "email": { "type": "string", "description": "The company's contact email address.", "format": "email" },
+        "slogan": { "type": "string", "description": "The company's slogan or tagline." }
       },
-      "required": ["id", "address", "phone", "email"]
+      "required": ["id", "address", "phone", "email", "slogan"]
     }
   },
   "auth": {
