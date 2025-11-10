@@ -13,7 +13,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { PlaceHolderImages } from './placeholder-images';
-import type { IconMap, Service, Project } from './types';
+import type { IconMap, Service, Project, PricingPlan } from './types';
 
 export const navLinks = [
   { href: '#home', label: 'Home' },
@@ -99,7 +99,7 @@ export const defaultProjects: Omit<Project, 'id'>[] = [
   },
 ];
 
-export const pricingPlans = [
+export const defaultPricingPlans: Omit<PricingPlan, 'id'>[] = [
   {
     name: 'Starter Website',
     price: '₹4,999',
@@ -146,5 +146,3 @@ export const socialLinks = [
     { name: 'Instagram', href: '#' },
     { name: 'LinkedIn', href: '#' },
 ];
-
-    

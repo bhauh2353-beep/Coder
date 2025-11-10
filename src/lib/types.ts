@@ -27,12 +27,20 @@ export type Service = {
 }
 
 export type Project = {
-    id: string;
+    id:string;
     title: string;
     description: string;
     category: string;
     imageUrl: string;
     imageHint: string;
+}
+
+export type PricingPlan = {
+    id: string;
+    name: string;
+    price: string;
+    description: string;
+    features: string[];
 }
 
 export type IconMap = { [key: string]: LucideIcon };

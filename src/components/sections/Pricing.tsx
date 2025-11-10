@@ -1,19 +1,31 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Check } from 'lucide-react';
-import { pricingPlans } from '@/lib/data';
 import { Dialog, DialogTrigger } from '../ui/dialog';
 import { ServiceQuoteModal } from '../ServiceQuoteModal';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { useCollection, useFirestore } from '@/firebase';
+import { collection } from 'firebase/firestore';
+import type { PricingPlan } from '@/lib/types';
+import { Skeleton } from '../ui/skeleton';
+
 
 const Pricing = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedPlan, setSelectedPlan] = useState('');
     const backgroundImage = PlaceHolderImages.find(p => p.id === 'pricing-background');
+    
+    const firestore = useFirestore();
+    const plansCollection = useMemo(() => {
+        if (!firestore) return null;
+        return collection(firestore, 'pricingPlans');
+    }, [firestore]);
+
+    const { data: pricingPlans, isLoading } = useCollection<PricingPlan>(plansCollection);
 
     const handleBookNow = (planName: string) => {
         setSelectedPlan(planName);
@@ -41,7 +53,20 @@ const Pricing = () => {
         
         <Dialog open={modalOpen} onOpenChange={setModalOpen}>
             <div className="grid md:grid-cols-3 gap-8">
-            {pricingPlans.map((plan, index) => (
+            {isLoading && Array.from({ length: 3 }).map((_, i) => (
+                <Card key={i} className="flex flex-col shadow-lg bg-card/80 backdrop-blur-sm p-6">
+                    <Skeleton className="h-6 w-32" />
+                    <Skeleton className="h-4 w-48 mt-2" />
+                    <Skeleton className="h-8 w-24 mt-4" />
+                    <div className="flex-grow mt-6 space-y-3">
+                        <Skeleton className="h-4 w-full" />
+                        <Skeleton className="h-4 w-full" />
+                        <Skeleton className="h-4 w-2/3" />
+                    </div>
+                    <Skeleton className="h-10 w-full mt-6" />
+                </Card>
+            ))}
+            {!isLoading && pricingPlans?.map((plan, index) => (
                 <Card key={index} className="flex flex-col shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle className='font-headline'>{plan.name}</CardTitle>

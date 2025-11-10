@@ -124,6 +124,18 @@ service cloud.firestore {
       allow write: if isSignedIn();
     }
 
+    /**
+     * @description Allows public read access for pricing plans, but write access is restricted to authenticated users.
+     * @path /pricingPlans/{planId}
+     * @allow (get) - Anyone can read a pricing plan.
+     * @allow (list) - Anyone can list all pricing plans.
+     * @allow (create, update, delete) - Only authenticated users (admins) can modify pricing plans.
+     */
+    match /pricingPlans/{planId} {
+      allow read: if true;
+      allow write: if isSignedIn();
+    }
+
     function isSignedIn() {
       return request.auth != null;
     }
@@ -137,5 +149,3 @@ service cloud.firestore {
     }
   }
 }
-
-    
