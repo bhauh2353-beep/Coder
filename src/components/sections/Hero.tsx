@@ -69,7 +69,7 @@ const Hero = () => {
           )}
         </div>
         <AnimateOnScroll delay={200}>
-            <div className="mt-4 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+            <div className="mt-2 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
             {isCompanyInfoLoading || !isMounted ? <Skeleton className="h-6 w-1/2 mx-auto" /> : slogan}
             </div>
         </AnimateOnScroll>
