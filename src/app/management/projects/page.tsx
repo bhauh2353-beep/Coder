@@ -23,6 +23,16 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -72,8 +82,11 @@ const ManageProjectsPage = () => {
     }
   }, [firestore, projects, isLoading, projectsCollection]);
 
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isFormDialogOpen, setIsFormDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
+  const [deletingProjectId, setDeletingProjectId] = useState<string | null>(null);
+
 
   const {
     register,
@@ -109,23 +122,28 @@ const ManageProjectsPage = () => {
   
   const handleEdit = (project: Project) => {
     setEditingProject(project);
-    setIsDialogOpen(true);
+    setIsFormDialogOpen(true);
   };
 
   const handleAddNew = () => {
     setEditingProject(null);
     reset({ title: '', description: '', category: '', imageUrl: '' });
-    setIsDialogOpen(true);
+    setIsFormDialogOpen(true);
   };
 
-  const handleDelete = (id: string) => {
-      if(confirm('Are you sure you want to delete this project?')) {
-        if (!firestore) return;
-        const docRef = doc(firestore, 'projects', id);
-        deleteDocumentNonBlocking(docRef);
-        toast({ title: 'Success', description: 'Project deleted successfully.' });
-      }
-  }
+  const openDeleteDialog = (id: string) => {
+    setDeletingProjectId(id);
+    setIsDeleteDialogOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (!firestore || !deletingProjectId) return;
+    const docRef = doc(firestore, 'projects', deletingProjectId);
+    deleteDocumentNonBlocking(docRef);
+    toast({ title: 'Success', description: 'Project deleted successfully.' });
+    setIsDeleteDialogOpen(false);
+    setDeletingProjectId(null);
+  };
 
   const onSubmit = (data: ProjectFormValues) => {
     if(!projectsCollection || !firestore) return;
@@ -138,7 +156,7 @@ const ManageProjectsPage = () => {
         description: editingProject ? "Project updated successfully." : "Project added successfully."
     });
 
-    setIsDialogOpen(false);
+    setIsFormDialogOpen(false);
     setEditingProject(null);
   };
   
@@ -156,7 +174,7 @@ const ManageProjectsPage = () => {
         </Button>
       </div>
       
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+      <Dialog open={isFormDialogOpen} onOpenChange={setIsFormDialogOpen}>
         <DialogContent>
             <DialogHeader>
                 <DialogTitle>{editingProject ? 'Edit Project' : 'Add New Project'}</DialogTitle>
@@ -214,6 +232,22 @@ const ManageProjectsPage = () => {
             </form>
         </DialogContent>
       </Dialog>
+      
+      <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete the project.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDelete}>Delete</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
 
       <Card>
         <CardHeader>
@@ -255,7 +289,7 @@ const ManageProjectsPage = () => {
                                 <Button variant="ghost" size="icon" onClick={() => handleEdit(project)}>
                                     <Edit className="h-4 w-4" />
                                 </Button>
-                                <Button variant="ghost" size="icon" onClick={() => handleDelete(project.id)}>
+                                <Button variant="ghost" size="icon" onClick={() => openDeleteDialog(project.id)}>
                                     <Trash2 className="h-4 w-4 text-destructive" />
                                 </Button>
                             </TableCell>
@@ -270,5 +304,3 @@ const ManageProjectsPage = () => {
 }
 
 export default ManageProjectsPage;
-
-    

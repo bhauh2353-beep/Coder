@@ -23,6 +23,16 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -70,8 +80,10 @@ const ManageServicesPage = () => {
   }, [firestore, services, isLoading, servicesCollection]);
   
 
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isFormDialogOpen, setIsFormDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [editingService, setEditingService] = useState<Service | null>(null);
+  const [deletingServiceId, setDeletingServiceId] = useState<string | null>(null);
 
   const {
     register,
@@ -107,23 +119,28 @@ const ManageServicesPage = () => {
   
   const handleEdit = (service: Service) => {
     setEditingService(service);
-    setIsDialogOpen(true);
+    setIsFormDialogOpen(true);
   };
 
   const handleAddNew = () => {
     setEditingService(null);
     reset({ icon: '', title: '', description: '' });
-    setIsDialogOpen(true);
+    setIsFormDialogOpen(true);
   };
 
-  const handleDelete = (id: string) => {
-      if(confirm('Are you sure you want to delete this service?')) {
-        if (!firestore) return;
-        const docRef = doc(firestore, 'services', id);
-        deleteDocumentNonBlocking(docRef);
-        toast({ title: 'Success', description: 'Service deleted successfully.' });
-      }
-  }
+  const openDeleteDialog = (id: string) => {
+    setDeletingServiceId(id);
+    setIsDeleteDialogOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (!firestore || !deletingServiceId) return;
+    const docRef = doc(firestore, 'services', deletingServiceId);
+    deleteDocumentNonBlocking(docRef);
+    toast({ title: 'Success', description: 'Service deleted successfully.' });
+    setIsDeleteDialogOpen(false);
+    setDeletingServiceId(null);
+  };
 
   const onSubmit = (data: ServiceFormValues) => {
     if(!servicesCollection || !firestore) return;
@@ -136,7 +153,7 @@ const ManageServicesPage = () => {
         description: editingService ? "Service updated successfully." : "Service added successfully."
     });
 
-    setIsDialogOpen(false);
+    setIsFormDialogOpen(false);
     setEditingService(null);
   };
 
@@ -157,7 +174,7 @@ const ManageServicesPage = () => {
         </Button>
       </div>
       
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+      <Dialog open={isFormDialogOpen} onOpenChange={setIsFormDialogOpen}>
         <DialogContent>
             <DialogHeader>
                 <DialogTitle>{editingService ? 'Edit Service' : 'Add New Service'}</DialogTitle>
@@ -209,6 +226,21 @@ const ManageServicesPage = () => {
             </form>
         </DialogContent>
       </Dialog>
+      
+      <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete the service.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDelete}>Delete</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       <Card>
         <CardHeader>
@@ -245,7 +277,7 @@ const ManageServicesPage = () => {
                                 <Button variant="ghost" size="icon" onClick={() => handleEdit(service)}>
                                     <Edit className="h-4 w-4" />
                                 </Button>
-                                <Button variant="ghost" size="icon" onClick={() => handleDelete(service.id)}>
+                                <Button variant="ghost" size="icon" onClick={() => openDeleteDialog(service.id)}>
                                     <Trash2 className="h-4 w-4 text-destructive" />
                                 </Button>
                             </TableCell>
