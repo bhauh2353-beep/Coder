@@ -172,7 +172,7 @@ const Header: FC = () => {
                         <div className="px-6">
                             <Logo className='text-base' />
                         </div>
-                        <nav className="flex flex-col space-y-6 text-sm mt-10 px-6">
+                        <nav className="flex flex-col space-y-4 text-sm mt-10 px-6">
                             {navLinks.map((link) => (
                                 <Link
                                     key={link.href}
