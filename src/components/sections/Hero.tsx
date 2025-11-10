@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { highlights } from '@/lib/data';
@@ -13,6 +13,12 @@ import { doc } from 'firebase/firestore';
 import { Skeleton } from '../ui/skeleton';
 
 const Hero = () => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const handleScrollLink = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
@@ -46,7 +52,7 @@ const Hero = () => {
       
       <div className="container mx-auto px-4 relative z-10 text-center">
         <div className="min-h-[140px] md:min-h-[150px]">
-          {isCompanyInfoLoading ? (
+          {(isCompanyInfoLoading || !isMounted) ? (
             <>
               <Skeleton className="h-12 w-3/4 mx-auto" />
               <Skeleton className="h-12 w-2/3 mx-auto mt-4" />
@@ -59,7 +65,7 @@ const Hero = () => {
           )}
         </div>
         <div className="mt-4 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-          {isCompanyInfoLoading ? <Skeleton className="h-6 w-1/2 mx-auto" /> : slogan}
+          {(isCompanyInfoLoading || !isMounted) ? <Skeleton className="h-6 w-1/2 mx-auto" /> : slogan}
         </div>
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button asChild size="lg">

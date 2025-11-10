@@ -2,7 +2,7 @@
 
 "use client";
 
-import { useActionState, useEffect, useMemo } from "react";
+import { useActionState, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -17,6 +17,7 @@ import { saveContact } from "@/lib/actions";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { useFirestore, useDoc } from '@/firebase';
 import { doc } from 'firebase/firestore';
+import { Skeleton } from "../ui/skeleton";
 
 
 const contactSchema = z.object({
@@ -29,6 +30,7 @@ const contactSchema = z.object({
 type ContactFormValues = z.infer<typeof contactSchema>;
 
 const Contact = () => {
+  const [isMounted, setIsMounted] = useState(false);
   const { toast } = useToast();
   const [state, formAction] = useActionState(saveContact, { message: "" });
   const {
@@ -46,8 +48,11 @@ const Contact = () => {
     if (!firestore) return null;
     return doc(firestore, 'companyInfo', 'main');
   }, [firestore]);
-  const { data: companyInfo } = useDoc(companyInfoRef);
+  const { data: companyInfo, isLoading } = useDoc(companyInfoRef);
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     if (state?.message) {
@@ -70,6 +75,11 @@ const Contact = () => {
   const handleFormAction = (formData: FormData) => {
     formAction(formData);
   }
+
+  const email = companyInfo?.email || 'info@jhsmartsolutions.in';
+  const phone = companyInfo?.phone || '+91 7972688626';
+  const address = companyInfo?.address || 'Shop Location, City, India';
+
 
   return (
     <section id="contact" className="relative w-full py-2 md:py-4 overflow-hidden">
@@ -124,20 +134,28 @@ const Contact = () => {
             <div className="space-y-8">
                 <div className="bg-card/80 backdrop-blur-sm p-6 rounded-lg shadow-md flex flex-col items-start gap-4 text-base">
                     <h3 className="text-2xl font-headline font-semibold">Contact Details</h3>
-                    <div className="flex flex-col space-y-4">
-                      <a href={`mailto:${companyInfo?.email}`} className="flex items-center gap-3 group">
-                          <Mail className="w-6 h-6 text-primary"/>
-                          <span className="text-muted-foreground group-hover:text-primary transition-colors">{companyInfo?.email || 'info@jhsmartsolutions.in'}</span>
-                      </a>
-                      <a href={`tel:${companyInfo?.phone}`} className="flex items-center gap-3 group">
-                          <Phone className="w-6 h-6 text-primary"/>
-                          <span className="text-muted-foreground group-hover:text-primary transition-colors">{companyInfo?.phone || '+91 7972688626'}</span>
-                      </a>
-                      <div className="flex items-start gap-3">
-                          <MapPin className="w-6 h-6 text-primary mt-1"/>
-                          <span className="text-muted-foreground">{companyInfo?.address || 'Shop Location, City, India'}</span>
-                      </div>
-                    </div>
+                    {(isLoading || !isMounted) ? (
+                        <div className="space-y-4 w-full">
+                            <Skeleton className="h-6 w-3/4" />
+                            <Skeleton className="h-6 w-1/2" />
+                            <Skeleton className="h-6 w-2/3" />
+                        </div>
+                    ) : (
+                        <div className="flex flex-col space-y-4">
+                        <a href={`mailto:${email}`} className="flex items-center gap-3 group">
+                            <Mail className="w-6 h-6 text-primary"/>
+                            <span className="text-muted-foreground group-hover:text-primary transition-colors">{email}</span>
+                        </a>
+                        <a href={`tel:${phone}`} className="flex items-center gap-3 group">
+                            <Phone className="w-6 h-6 text-primary"/>
+                            <span className="text-muted-foreground group-hover:text-primary transition-colors">{phone}</span>
+                        </a>
+                        <div className="flex items-start gap-3">
+                            <MapPin className="w-6 h-6 text-primary mt-1"/>
+                            <span className="text-muted-foreground">{address}</span>
+                        </div>
+                        </div>
+                    )}
                 </div>
                 <div className="aspect-video w-full rounded-lg overflow-hidden shadow-md">
                 <iframe
