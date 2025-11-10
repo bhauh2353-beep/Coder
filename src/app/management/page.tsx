@@ -32,7 +32,7 @@ const managementSections = [
     href: '/management/testimonials',
     icon: MessageSquare,
   },
-    {
+  {
     title: 'Contacts',
     description: 'View and manage contact form submissions.',
     href: '/management/contacts',
