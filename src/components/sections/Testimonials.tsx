@@ -65,7 +65,7 @@ const Testimonials = () => {
                     <CarouselItem key={index} className="basis-1/2 md:basis-1/4">
                         <div className="p-1 h-full">
                             <Card className="h-full shadow-lg bg-card/80 backdrop-blur-sm">
-                                <CardContent className="flex flex-col items-center text-center p-6 gap-4">
+                                <CardContent className="flex flex-col items-center text-center p-4 md:p-6 gap-2 md:gap-4">
                                     <Skeleton className="w-20 h-20 rounded-full" />
                                     <div className='flex flex-col items-center gap-2 w-full'>
                                         <Skeleton className="h-4 w-full" />
@@ -84,7 +84,7 @@ const Testimonials = () => {
                     <CarouselItem key={testimonial.id} className="basis-1/2 md:basis-1/4">
                         <div className='p-1 h-full'>
                             <Card className="h-full shadow-lg bg-card/80 backdrop-blur-sm">
-                                <CardContent className="flex flex-col items-center text-center p-6 gap-4 h-full">
+                                <CardContent className="flex flex-col items-center text-center p-4 md:p-6 gap-2 md:gap-4 h-full">
                                 {testimonial.clientPhotoUrl && (
                                     <Image
                                     src={testimonial.clientPhotoUrl}
@@ -95,7 +95,7 @@ const Testimonials = () => {
                                     data-ai-hint={testimonial.imageHint}
                                     />
                                 )}
-                                <p className="text-muted-foreground flex-grow">"{testimonial.message}"</p>
+                                <p className="text-muted-foreground flex-grow text-sm">"{testimonial.message}"</p>
                                 <div className="flex flex-col items-center">
                                     <div className="flex items-center gap-0.5">
                                         {Array.from({ length: 5 }).map((_, i) => (
@@ -105,7 +105,7 @@ const Testimonials = () => {
                                         />
                                         ))}
                                     </div>
-                                    <span className="font-bold font-headline mt-2">{testimonial.clientName}</span>
+                                    <span className="font-bold font-headline mt-2 text-base">{testimonial.clientName}</span>
                                 </div>
                                 </CardContent>
                             </Card>
