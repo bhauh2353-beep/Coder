@@ -60,20 +60,20 @@ const Testimonials = () => {
             plugins={[plugin.current]}
             className="w-full max-w-7xl mx-auto"
         >
-            <CarouselContent>
+            <CarouselContent className="-ml-2">
                 {isLoading && Array.from({ length: 4 }).map((_, index) => (
-                    <CarouselItem key={index} className="basis-1/2 md:basis-1/4 p-0">
+                    <CarouselItem key={index} className="basis-1/2 md:basis-1/4 p-1">
                         <div className="h-full">
                             <Card className="h-full shadow-lg bg-card/80 backdrop-blur-sm">
                                 <CardContent className="flex flex-col items-center text-center p-1 md:p-2 gap-1 md:gap-2 h-full">
-                                    <Skeleton className="w-10 h-10 md:w-16 md:h-16 rounded-full" />
-                                    <div className='flex flex-col items-center gap-2 w-full'>
-                                        <Skeleton className="h-4 w-full" />
-                                        <Skeleton className="h-4 w-4/5" />
+                                    <Skeleton className="w-10 h-10 md:w-12 md:h-12 rounded-full mt-2" />
+                                    <div className='flex flex-col items-center gap-2 w-full p-2'>
+                                        <Skeleton className="h-3 w-full" />
+                                        <Skeleton className="h-3 w-4/5" />
                                     </div>
-                                    <div className="flex flex-col items-center w-full">
-                                        <Skeleton className="h-5 w-24" />
-                                        <Skeleton className="h-4 w-32 mt-2" />
+                                    <div className="flex flex-col items-center w-full mt-auto pb-2">
+                                        <Skeleton className="h-4 w-16" />
+                                        <Skeleton className="h-4 w-24 mt-2" />
                                     </div>
                                 </CardContent>
                             </Card>
@@ -81,7 +81,7 @@ const Testimonials = () => {
                     </CarouselItem>
                 ))}
                 {!isLoading && testimonials?.map((testimonial) => (
-                    <CarouselItem key={testimonial.id} className="basis-1/2 md:basis-1/4 p-0">
+                    <CarouselItem key={testimonial.id} className="basis-1/2 md:basis-1/4 p-1">
                         <div className='h-full'>
                             <Card className="h-full shadow-lg bg-card/80 backdrop-blur-sm">
                                 <CardContent className="flex flex-col items-center text-center p-1 h-full gap-1">
@@ -96,8 +96,8 @@ const Testimonials = () => {
                                         />
                                     </div>
                                 )}
-                                <p className="text-muted-foreground flex-grow text-[10px] md:text-xs">"{testimonial.message}"</p>
-                                <div className="flex flex-col items-center">
+                                <p className="text-muted-foreground flex-grow text-[10px] md:text-xs px-1">"{testimonial.message}"</p>
+                                <div className="flex flex-col items-center mt-auto pb-1 md:pb-2">
                                     <div className="flex items-center gap-0.5">
                                         {Array.from({ length: 5 }).map((_, i) => (
                                         <Star
