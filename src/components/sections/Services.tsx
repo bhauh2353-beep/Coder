@@ -50,8 +50,8 @@ const Services = () => {
         <div className="absolute inset-0 bg-background/90"></div>
         <div className="container mx-auto px-4 relative z-10">
             <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-headline font-bold">Our Services</h2>
-            <p className="text-muted-foreground mt-2 max-w-xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-headline font-bold">Our Services</h2>
+            <p className="text-muted-foreground mt-2 max-w-xl mx-auto text-sm md:text-base">
                 We offer a wide range of digital services to help your business succeed online.
             </p>
             </div>
@@ -75,10 +75,10 @@ const Services = () => {
                                 <div className="bg-primary/10 p-3 md:p-4 rounded-full">
                                     {renderIcon(service.icon)}
                                 </div>
-                                <CardTitle className="pt-2 md:pt-4 font-headline text-base md:text-xl">{service.title}</CardTitle>
+                                <CardTitle className="pt-2 md:pt-4 font-headline text-sm md:text-base">{service.title}</CardTitle>
                             </CardHeader>
                             <CardContent className="flex-grow p-2 md:p-4">
-                                <CardDescription className="text-xs md:text-sm">{service.description}</CardDescription>
+                                <CardDescription className="text-xs">{service.description}</CardDescription>
                             </CardContent>
                             <CardFooter className="p-2 md:p-4">
                                 <DialogTrigger asChild>
