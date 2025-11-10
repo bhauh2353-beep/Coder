@@ -7,7 +7,7 @@ import { navLinks } from '@/lib/data';
 import Logo from '@/components/Logo';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu } from 'lucide-react';
+import { Menu, LogIn } from 'lucide-react';
 
 const Header: FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -18,10 +18,14 @@ const Header: FC = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
 
-      const sections = navLinks.map(link => document.querySelector(link.href));
+      const sections = navLinks.map(link => {
+        const element = document.querySelector(link.href);
+        return element;
+      }).filter(Boolean);
+
       let currentSection = '#home';
       for (const section of sections) {
-        if (section && window.scrollY >= section.offsetTop - 100) {
+        if (section && window.scrollY >= (section as HTMLElement).offsetTop - 100) {
           currentSection = `#${section.id}`;
         }
       }
@@ -33,10 +37,12 @@ const Header: FC = () => {
   }, []);
   
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    document.querySelector(href)?.scrollIntoView({
-        behavior: 'smooth'
-    });
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      document.querySelector(href)?.scrollIntoView({
+          behavior: 'smooth'
+      });
+    }
     // Close mobile menu on link click
     if (isMobileMenuOpen) {
         setIsMobileMenuOpen(false);
@@ -71,10 +77,15 @@ const Header: FC = () => {
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Logo />
 
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-4">
           <NavMenu />
           <Button asChild>
             <Link href="#contact" onClick={(e) => handleLinkClick(e, '#contact')}>Get a Free Quote</Link>
+          </Button>
+          <Button asChild variant="outline">
+            <Link href="/login">
+              <LogIn className="mr-2 h-4 w-4" /> Login
+            </Link>
           </Button>
         </div>
 
@@ -103,6 +114,16 @@ const Header: FC = () => {
                                     {link.label}
                                 </Link>
                             ))}
+                             <Link
+                                href="/login"
+                                onClick={(e) => handleLinkClick(e, '/login')}
+                                className={cn(
+                                    'transition-colors hover:text-primary',
+                                    'text-foreground/80 flex items-center'
+                                )}
+                            >
+                               <LogIn className="mr-2 h-5 w-5" /> Login
+                            </Link>
                         </nav>
                          <Button asChild className="mt-auto">
                             <Link href="#contact" onClick={(e) => handleLinkClick(e, '#contact')}>Get a Free Quote</Link>
