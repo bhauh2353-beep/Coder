@@ -22,7 +22,7 @@ import { doc } from 'firebase/firestore';
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
   email: z.string().email("Please enter a valid email."),
-  phone: z.string().optional(),
+  phone: z.string().min(10, "Please enter a valid phone number."),
   message: z.string().min(10, "Message must be at least 10 characters."),
 });
 
@@ -106,7 +106,7 @@ const Contact = () => {
                 {errors.email && <p className="text-sm text-destructive mt-1">{errors.email.message}</p>}
             </div>
             <div>
-                <Label htmlFor="phone">Phone (Optional)</Label>
+                <Label htmlFor="phone">Phone</Label>
                 <Input id="phone" type="tel" {...register("phone")} />
                 {errors.phone && <p className="text-sm text-destructive mt-1">{errors.phone.message}</p>}
             </div>
