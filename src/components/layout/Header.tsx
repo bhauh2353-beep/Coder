@@ -164,13 +164,15 @@ const Header: FC = () => {
                         <span className="sr-only">Open menu</span>
                     </Button>
                 </SheetTrigger>
-                <SheetContent side="right" className="w-full max-w-[200px]">
+                <SheetContent side="right" className="w-full max-w-[200px] p-0">
                     <SheetHeader>
                         <SheetTitle className="sr-only">Menu</SheetTitle>
                     </SheetHeader>
-                    <div className="p-4 h-full flex flex-col">
-                        <Logo className='text-base' />
-                        <nav className="flex flex-col space-y-6 text-sm mt-10">
+                    <div className="py-4 h-full flex flex-col">
+                        <div className="px-6">
+                            <Logo className='text-base' />
+                        </div>
+                        <nav className="flex flex-col space-y-6 text-sm mt-10 px-6">
                             {navLinks.map((link) => (
                                 <Link
                                     key={link.href}
