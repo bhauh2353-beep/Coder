@@ -27,7 +27,7 @@ const Footer = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="grid gap-8 md:grid-cols-3">
           <div className="space-y-4">
-            <Logo />
+            <Logo className="text-3xl" />
             <p className="text-muted-foreground text-sm">
               {companyInfo?.slogan || 'Smart, Fast, and Affordable Digital Solutions.'}
             </p>
