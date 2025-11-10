@@ -90,8 +90,11 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-8 border-t pt-6 text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} JH Smart Solutions. All rights reserved.</p>
+        <div className="mt-8 border-t pt-6 text-center text-sm text-muted-foreground space-y-2">
+          <p>&copy; {new Date().getFullYear()} {companyInfo?.name || 'JH Smart Solutions'}. All rights reserved.</p>
+          <p>
+            Designed & Developed by <a href="#" className="font-semibold text-primary hover:underline">{companyInfo?.name || 'JH Smart Solutions'}</a>
+          </p>
         </div>
       </div>
     </footer>
