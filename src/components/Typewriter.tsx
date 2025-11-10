@@ -61,10 +61,16 @@ const Typewriter = ({
   }, [text, speed, delayAfterComplete]);
 
   return (
-    <h1 className={cn(className)}>
-      {displayedText}
-      <span className={cn('ml-1 inline-block h-8 w-1 bg-foreground blinking-cursor', cursorClassName)}></span>
-    </h1>
+    <div className={cn('relative', className)}>
+      {/* Invisible placeholder to reserve space and prevent layout shift */}
+      <span className="invisible whitespace-pre-wrap">{text}</span>
+      
+      {/* Visible typewriter text */}
+      <h1 className="absolute top-0 left-0 w-full h-full">
+        {displayedText}
+        <span className={cn('ml-1 inline-block h-8 w-1 bg-foreground blinking-cursor', cursorClassName)}></span>
+      </h1>
+    </div>
   );
 };
 
