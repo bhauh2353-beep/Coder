@@ -97,13 +97,13 @@ const Contact = () => {
         <div className="absolute inset-0 bg-background/90"></div>
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-headline font-bold">Get In Touch</h2>
-          <p className="text-muted-foreground mt-2 max-w-xl mx-auto">
+          <h2 className="text-xl md:text-2xl font-headline font-bold">Get In Touch</h2>
+          <p className="text-muted-foreground mt-2 max-w-xl mx-auto text-sm">
             Have a project in mind? We'd love to hear from you. Fill out the form or contact us directly.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-1 items-start">
             <div className="bg-card/80 backdrop-blur-sm p-8 rounded-lg shadow-md h-full">
             <h3 className="text-2xl font-headline font-semibold mb-6">Send us a Message</h3>
             <form action={handleFormAction} className="space-y-4">
@@ -133,7 +133,7 @@ const Contact = () => {
             </form>
             </div>
 
-            <div className="flex flex-col gap-1">
+            <div className="grid grid-cols-1 gap-1">
                 <div className="bg-card/80 backdrop-blur-sm p-6 rounded-lg shadow-md flex flex-col items-start gap-4">
                     <h3 className="text-xl font-headline font-semibold">Contact Details</h3>
                     {(isLoading || !isMounted) ? (
@@ -159,7 +159,7 @@ const Contact = () => {
                         </div>
                     )}
                 </div>
-                <div className="w-full h-96 rounded-lg overflow-hidden shadow-md">
+                <div className="w-full h-[450px] rounded-lg overflow-hidden shadow-md">
                 <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d121059.04360432833!2d73.79292693952477!3d18.5246035602058!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf2e67461101%3A0x828d43bf9d9ee343!2sPune%2C%20Maharashtra%2C%20India!5e0!3m2!1sen!2sus!4v1689578112345!5m2!1sen!2sus"
                     width="100%"
