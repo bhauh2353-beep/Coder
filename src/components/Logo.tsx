@@ -32,29 +32,29 @@ const Logo = ({ className }: LogoProps) => {
 
   if (!isMounted || isLoading) {
     return (
-      <div className={cn('flex items-center', className)}>
-        <Skeleton className="h-10 w-48" />
+      <div className={cn('flex items-center gap-2', className)}>
+        <Skeleton className="h-10 w-10 rounded-full" />
+        <Skeleton className="h-6 w-32" />
       </div>
     );
   }
 
   return (
-    <Link href="/" className={cn('flex items-center', className)}>
+    <Link href="/" className={cn('flex items-center gap-2', className)}>
       {logoUrl ? (
-        <div className="relative h-12 w-48">
+        <div className="relative h-10 w-10">
           <Image
             src={logoUrl}
             alt={`${companyName} Logo`}
             fill
-            className="object-contain object-left"
+            className="object-contain rounded-md"
             priority
           />
         </div>
-      ) : (
-        <span className="font-body font-bold text-xl md:text-2xl tracking-tight">
-          {companyName}
-        </span>
-      )}
+      ) : null}
+      <span className="font-body font-bold text-lg md:text-xl tracking-tight">
+        {companyName}
+      </span>
     </Link>
   );
 };
