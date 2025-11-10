@@ -170,7 +170,7 @@ const Header: FC = () => {
                     </SheetHeader>
                     <div className="p-4 h-full flex flex-col">
                         <Logo />
-                        <nav className="flex flex-col space-y-6 text-lg mt-10">
+                        <nav className="flex flex-col space-y-6 text-base mt-10">
                             {navLinks.map((link) => (
                                 <Link
                                     key={link.href}
@@ -206,7 +206,7 @@ const Header: FC = () => {
                                       handleSignOut();
                                       setIsMobileMenuOpen(false);
                                     }}
-                                    className='transition-colors hover:text-primary text-foreground/80 flex items-center text-lg'
+                                    className='transition-colors hover:text-primary text-foreground/80 flex items-center text-base'
                                 >
                                   <LogOut className="mr-2 h-5 w-5" /> Logout
                                 </button>
