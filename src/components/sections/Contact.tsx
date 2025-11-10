@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { useActionState, useEffect, useMemo } from "react";
@@ -122,17 +123,17 @@ const Contact = () => {
           </div>
 
           <div className="space-y-8">
-            <div className="bg-card/80 backdrop-blur-sm p-8 rounded-lg shadow-md space-y-4 text-lg">
-                <a href={`mailto:${companyInfo?.email}`} className="flex items-center gap-4 group">
-                    <Mail className="w-8 h-8 text-primary"/>
+            <div className="bg-card/80 backdrop-blur-sm p-6 rounded-lg shadow-md flex flex-col md:flex-row justify-around items-center gap-6 text-base">
+                <a href={`mailto:${companyInfo?.email}`} className="flex items-center gap-3 group">
+                    <Mail className="w-6 h-6 text-primary"/>
                     <span className="text-muted-foreground group-hover:text-primary transition-colors">{companyInfo?.email || 'info@jhsmartsolutions.in'}</span>
                 </a>
-                 <a href={`tel:${companyInfo?.phone}`} className="flex items-center gap-4 group">
-                    <Phone className="w-8 h-8 text-primary"/>
+                 <a href={`tel:${companyInfo?.phone}`} className="flex items-center gap-3 group">
+                    <Phone className="w-6 h-6 text-primary"/>
                     <span className="text-muted-foreground group-hover:text-primary transition-colors">{companyInfo?.phone || '+91 9xxxxxxxxx'}</span>
                 </a>
-                 <div className="flex items-center gap-4">
-                    <MapPin className="w-8 h-8 text-primary"/>
+                 <div className="flex items-center gap-3">
+                    <MapPin className="w-6 h-6 text-primary"/>
                     <span className="text-muted-foreground">{companyInfo?.address || 'Shop Location, City, India'}</span>
                 </div>
             </div>
