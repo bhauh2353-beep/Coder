@@ -31,7 +31,8 @@ const Typewriter = ({ text, speed = 50, className, cursorClassName }: Typewriter
     }, speed);
 
     return () => clearInterval(intervalId);
-  }, [text, speed]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <h1 className={cn(className)}>
