@@ -84,7 +84,7 @@ const Hero = () => {
         <div className="grid grid-cols-4 gap-2 md:gap-6">
           {highlights.map((highlight, index) => (
             <div key={index}>
-                <Card className="p-4 bg-card/70 backdrop-blur-lg border border-border/20 shadow-lg h-full">
+                <Card className="p-4 py-6 bg-card/70 backdrop-blur-lg border border-border/20 shadow-lg h-full">
                 <div className="flex flex-col items-center justify-center text-center gap-1">
                     <highlight.icon className="w-6 h-6 text-primary" />
                     <span className="font-semibold text-[10px] leading-tight md:text-base">{highlight.text}</span>
