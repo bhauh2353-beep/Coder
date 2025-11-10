@@ -14,7 +14,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { saveContact } from "@/lib/actions";
-import SeoTool from "@/components/SeoTool";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { useFirestore, useDoc } from '@/firebase';
 import { doc } from 'firebase/firestore';
@@ -120,23 +119,24 @@ const Contact = () => {
                 {isSubmitting ? "Sending..." : "Send Message"}
             </Button>
             </form>
-            <div className="my-8 border-t border-border/50"></div>
-            <SeoTool />
             </div>
 
             <div className="space-y-8">
                 <div className="bg-card/80 backdrop-blur-sm p-6 rounded-lg shadow-md flex flex-col items-start gap-4 text-base">
-                    <a href={`mailto:${companyInfo?.email}`} className="flex items-center gap-3 group">
-                        <Mail className="w-6 h-6 text-primary"/>
-                        <span className="text-muted-foreground group-hover:text-primary transition-colors">{companyInfo?.email || 'info@jhsmartsolutions.in'}</span>
-                    </a>
-                    <a href={`tel:${companyInfo?.phone}`} className="flex items-center gap-3 group">
-                        <Phone className="w-6 h-6 text-primary"/>
-                        <span className="text-muted-foreground group-hover:text-primary transition-colors">{companyInfo?.phone || '+91 9xxxxxxxxx'}</span>
-                    </a>
-                    <div className="flex items-start gap-3">
-                        <MapPin className="w-6 h-6 text-primary mt-1"/>
-                        <span className="text-muted-foreground">{companyInfo?.address || 'Shop Location, City, India'}</span>
+                    <h3 className="text-2xl font-headline font-semibold">Contact Details</h3>
+                    <div className="flex flex-col space-y-4">
+                      <a href={`mailto:${companyInfo?.email}`} className="flex items-center gap-3 group">
+                          <Mail className="w-6 h-6 text-primary"/>
+                          <span className="text-muted-foreground group-hover:text-primary transition-colors">{companyInfo?.email || 'info@jhsmartsolutions.in'}</span>
+                      </a>
+                      <a href={`tel:${companyInfo?.phone}`} className="flex items-center gap-3 group">
+                          <Phone className="w-6 h-6 text-primary"/>
+                          <span className="text-muted-foreground group-hover:text-primary transition-colors">{companyInfo?.phone || '+91 9xxxxxxxxx'}</span>
+                      </a>
+                      <div className="flex items-start gap-3">
+                          <MapPin className="w-6 h-6 text-primary mt-1"/>
+                          <span className="text-muted-foreground">{companyInfo?.address || 'Shop Location, City, India'}</span>
+                      </div>
                     </div>
                 </div>
                 <div className="aspect-video w-full rounded-lg overflow-hidden shadow-md">
