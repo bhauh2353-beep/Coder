@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useUser, useFirestore, useCollection, setDocumentNonBlocking } from '@/firebase';
-import { Mail, MoreVertical } from 'lucide-react';
+import { useUser, useFirestore, useCollection, setDocumentNonBlocking, deleteDocumentNonBlocking } from '@/firebase';
+import { Mail, MoreVertical, Trash2 } from 'lucide-react';
 import { collection, query, doc, orderBy } from 'firebase/firestore';
 import {
   Table,
@@ -21,14 +21,30 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 
 export default function ManageCustomerQueryPage() {
   const { user, isUserLoading } = useUser();
   const router = useRouter();
   const firestore = useFirestore();
+  const { toast } = useToast();
+
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [deletingContactId, setDeletingContactId] = useState<string | null>(null);
 
   const contactsQuery = useMemo(() => {
     if (!firestore) return null;
@@ -48,6 +64,21 @@ export default function ManageCustomerQueryPage() {
     const docRef = doc(firestore, 'contacts', contactId);
     setDocumentNonBlocking(docRef, { status: newStatus }, { merge: true });
   };
+  
+  const openDeleteDialog = (id: string) => {
+    setDeletingContactId(id);
+    setIsDeleteDialogOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (!firestore || !deletingContactId) return;
+    const docRef = doc(firestore, 'contacts', deletingContactId);
+    deleteDocumentNonBlocking(docRef);
+    toast({ title: 'Success', description: 'Query deleted successfully.' });
+    setIsDeleteDialogOpen(false);
+    setDeletingContactId(null);
+  };
+
 
   if (isUserLoading || !user) {
     return (
@@ -59,6 +90,21 @@ export default function ManageCustomerQueryPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
+       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete this customer query.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDelete} className='bg-destructive hover:bg-destructive/90'>Delete</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
       <div className="flex items-center gap-4 mb-8">
         <Mail className="w-8 h-8" />
         <h1 className="text-3xl font-bold font-headline">Customer Queries</h1>
@@ -125,6 +171,11 @@ export default function ManageCustomerQueryPage() {
                                 <DropdownMenuItem onClick={() => handleStatusChange(contact.id, 'Resolved')} disabled={contact.status === 'Resolved'}>
                                   Mark as Resolved
                                 </DropdownMenuItem>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem className="text-destructive" onClick={() => openDeleteDialog(contact.id)}>
+                                    <Trash2 className="mr-2 h-4 w-4" />
+                                    Delete
+                                </DropdownMenuItem>
                               </DropdownMenuContent>
                             </DropdownMenu>
                         </TableCell>
@@ -144,5 +195,3 @@ export default function ManageCustomerQueryPage() {
     </div>
   );
 }
-
-    
