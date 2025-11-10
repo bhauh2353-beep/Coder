@@ -134,8 +134,8 @@ const Contact = () => {
             </div>
 
             <div className="flex flex-col gap-1">
-                <div className="bg-card/80 backdrop-blur-sm p-6 rounded-lg shadow-md flex flex-col items-start gap-4 text-base">
-                    <h3 className="text-2xl font-headline font-semibold">Contact Details</h3>
+                <div className="bg-card/80 backdrop-blur-sm p-6 rounded-lg shadow-md flex flex-col items-start gap-4">
+                    <h3 className="text-xl font-headline font-semibold">Contact Details</h3>
                     {(isLoading || !isMounted) ? (
                         <div className="space-y-4 w-full">
                             <Skeleton className="h-6 w-3/4" />
@@ -143,17 +143,17 @@ const Contact = () => {
                             <Skeleton className="h-6 w-2/3" />
                         </div>
                     ) : (
-                        <div className="flex flex-col space-y-4">
+                        <div className="flex flex-col space-y-4 text-sm">
                         <a href={`mailto:${email}`} className="flex items-center gap-3 group">
-                            <Mail className="w-6 h-6 text-primary"/>
+                            <Mail className="w-5 h-5 text-primary"/>
                             <span className="text-muted-foreground group-hover:text-primary transition-colors">{email}</span>
                         </a>
                         <a href={`tel:${phone}`} className="flex items-center gap-3 group">
-                            <Phone className="w-6 h-6 text-primary"/>
+                            <Phone className="w-5 h-5 text-primary"/>
                             <span className="text-muted-foreground group-hover:text-primary transition-colors">{phone}</span>
                         </a>
                         <div className="flex items-start gap-3">
-                            <MapPin className="w-6 h-6 text-primary mt-1"/>
+                            <MapPin className="w-5 h-5 text-primary mt-1"/>
                             <span className="text-muted-foreground">{address}</span>
                         </div>
                         </div>
