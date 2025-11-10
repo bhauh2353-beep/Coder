@@ -45,7 +45,7 @@ const Services = () => {
 
     const renderIcon = (iconName: string) => {
         const IconComponent = iconMap[iconName];
-        return IconComponent ? <IconComponent className="w-8 h-8 text-primary" /> : null;
+        return IconComponent ? <IconComponent className="w-6 h-6 md:w-8 md:h-8 text-primary" /> : null;
     }
 
   return (
@@ -75,37 +75,37 @@ const Services = () => {
                         loop: true,
                     }}
                     plugins={[plugin.current]}
-                    className="w-full max-w-6xl mx-auto"
+                    className="w-full max-w-sm md:max-w-6xl mx-auto"
                 >
                     <CarouselContent>
                         {isLoading && Array.from({ length: 6 }).map((_, i) => (
-                            <CarouselItem key={i} className="sm:basis-1/2 md:basis-1/3">
+                            <CarouselItem key={i} className="basis-1/3">
                                 <div className="p-1 h-full">
-                                    <Card className="text-center flex flex-col items-center shadow-lg bg-card/80 backdrop-blur-sm p-6 h-full">
-                                        <Skeleton className="w-16 h-16 rounded-full" />
-                                        <Skeleton className="h-6 w-32 mt-4" />
-                                        <Skeleton className="h-4 w-48 mt-2" />
-                                        <Skeleton className="h-10 w-24 mt-6" />
+                                    <Card className="text-center flex flex-col items-center shadow-lg bg-card/80 backdrop-blur-sm p-2 md:p-6 h-full">
+                                        <Skeleton className="w-10 h-10 md:w-16 md:h-16 rounded-full" />
+                                        <Skeleton className="h-5 md:h-6 w-20 md:w-32 mt-3 md:mt-4" />
+                                        <Skeleton className="h-3 md:h-4 w-24 md:w-48 mt-2" />
+                                        <Skeleton className="h-8 md:h-10 w-20 md:w-24 mt-4 md:mt-6" />
                                     </Card>
                                 </div>
                             </CarouselItem>
                         ))}
                         {!isLoading && services?.map((service) => (
-                            <CarouselItem key={service.id} className="sm:basis-1/2 md:basis-1/3">
+                            <CarouselItem key={service.id} className="basis-1/3">
                                 <div className='p-1 h-full'>
-                                    <Card className="text-center flex flex-col items-center shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 bg-card/80 backdrop-blur-sm h-full">
-                                    <CardHeader className="items-center">
-                                        <div className="bg-primary/10 p-4 rounded-full">
+                                    <Card className="text-center flex flex-col items-center shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 bg-card/80 backdrop-blur-sm h-full p-2 md:p-4">
+                                    <CardHeader className="items-center p-2 md:p-4">
+                                        <div className="bg-primary/10 p-3 md:p-4 rounded-full">
                                             {renderIcon(service.icon)}
                                         </div>
-                                        <CardTitle className="pt-4 font-headline">{service.title}</CardTitle>
+                                        <CardTitle className="pt-2 md:pt-4 font-headline text-sm md:text-xl">{service.title}</CardTitle>
                                     </CardHeader>
-                                    <CardContent className="flex-grow">
-                                        <CardDescription>{service.description}</CardDescription>
+                                    <CardContent className="flex-grow p-2 md:p-4">
+                                        <CardDescription className="text-xs md:text-sm">{service.description}</CardDescription>
                                     </CardContent>
-                                    <CardFooter>
+                                    <CardFooter className="p-2 md:p-4">
                                         <DialogTrigger asChild>
-                                            <Button variant="outline" onClick={() => handleGetQuote(service.title)}>
+                                            <Button variant="outline" size="sm" onClick={() => handleGetQuote(service.title)}>
                                                 Get Quote
                                             </Button>
                                         </DialogTrigger>
@@ -115,8 +115,8 @@ const Services = () => {
                             </CarouselItem>
                         ))}
                     </CarouselContent>
-                    <CarouselPrevious />
-                    <CarouselNext />
+                    <CarouselPrevious className="hidden sm:flex"/>
+                    <CarouselNext className="hidden sm:flex"/>
                 </Carousel>
                 {selectedService && <ServiceQuoteModal serviceName={selectedService} setOpen={setModalOpen}/>}
             </Dialog>
