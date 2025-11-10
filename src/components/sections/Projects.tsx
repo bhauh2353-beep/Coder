@@ -99,14 +99,14 @@ const Projects = () => {
                               <div className="aspect-video relative w-full">
                                  <Skeleton className="w-full h-full" />
                               </div>
-                            <CardHeader>
+                            <CardHeader className='p-2 md:p-6'>
                               <Skeleton className="h-6 w-3/4" />
                             </CardHeader>
-                            <CardContent className="flex-grow">
+                            <CardContent className="flex-grow p-2 md:p-6">
                                <Skeleton className="h-4 w-full" />
                                <Skeleton className="h-4 w-2/3 mt-2" />
                             </CardContent>
-                            <CardFooter>
+                            <CardFooter className='p-2 md:p-6'>
                               <Skeleton className="h-10 w-28" />
                             </CardFooter>
                           </Card>
@@ -130,13 +130,13 @@ const Projects = () => {
                                 />
                               </div>
                             )}
-                            <CardHeader>
-                              <CardTitle className="font-headline text-lg">{project.title}</CardTitle>
+                            <CardHeader className='p-2 md:p-6'>
+                              <CardTitle className="font-headline text-base">{project.title}</CardTitle>
                             </CardHeader>
-                            <CardContent className="flex-grow">
+                            <CardContent className="flex-grow p-2 md:p-6">
                               <p className="text-muted-foreground text-sm">{project.description}</p>
                             </CardContent>
-                            <CardFooter>
+                            <CardFooter className='p-2 md:p-6'>
                               <Button variant="outline">View Demo</Button>
                             </CardFooter>
                           </Card>
