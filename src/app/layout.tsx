@@ -6,6 +6,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import FloatingWhatsApp from '@/components/layout/FloatingWhatsApp';
 import ScrollToTop from '@/components/layout/ScrollToTop';
+import { FirebaseClientProvider } from '@/firebase';
 
 export const metadata: Metadata = {
   title: 'JH Smart Solutions Hub',
@@ -28,12 +29,14 @@ export default function RootLayout({
         />
       </head>
       <body className={cn('font-body antialiased min-h-screen flex flex-col')}>
-        <Header />
-        <main className="flex-grow">{children}</main>
-        <Footer />
-        <FloatingWhatsApp />
-        <ScrollToTop />
-        <Toaster />
+        <FirebaseClientProvider>
+          <Header />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+          <FloatingWhatsApp />
+          <ScrollToTop />
+          <Toaster />
+        </FirebaseClientProvider>
       </body>
     </html>
   );
